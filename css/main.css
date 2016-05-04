@@ -149,14 +149,16 @@ h1 {
 }
 
 .header-container {
-    padding: 45px 0;
+    padding: 45px;
+    display: block;
+    text-align: right;
 }
 
 .main-hero  {
     font-size: 96px;
     line-height: 96px;
     background: #F5F5F5;
-    padding: 125px 0;
+    padding: 125px 0px;
     width: 100%;
 }
 
