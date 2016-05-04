@@ -333,7 +333,7 @@ a.linkedin:hover {
         line-height: 64px;
         width: 100%;
     }
-    
+
     .footer-cta em {
         display: none;
     }
@@ -348,6 +348,8 @@ a.linkedin:hover {
         font-size: 36px;
         line-height: 36px;
         padding: 36px 0;
+        height: 160px;
+        overflow: hidden;
     }
 
     h1 {
