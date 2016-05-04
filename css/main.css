@@ -298,55 +298,62 @@ a.linkedin:hover {
    ========================================================================== */
 
 
-
 @media only screen and (max-width: 768px) {
 
-body {
-     border: 10px solid #19e7db;
-}
+    body 
+    {
+         border: 10px solid #19e7db;
+    }
 
 
-.photos img {
-    width:50%;
-    float: left;
-}
+    .photos img {
+        width:50%;
+        float: left;
+    }
 
 
-.main-text {
-    width:100%;
-   
-}
+    .main-text {
+        width:100%;
+       
+    }
 
-.main {
-    padding: 40px 0;
-}
+    .main {
+        padding: 40px 0;
+    }
 
-.main-hero  {
-    font-size: 66px;
-    line-height: 66px;
-    padding: 65px 0;
- 
-}
+    .main-hero  {
+        font-size: 66px;
+        line-height: 66px;
+        padding: 65px 0;
+     
+    }
 
-.footer-cta a {
-    line-height: 50px;
-}
+    .footer-cta a {
+        line-height: 50px;
+    }
 
-.footer-cta em {
-    display: none;
-}
-
-
-
+    .footer-cta em {
+        display: none;
+    }
 
 }
+
+@media only screen and (max-width: 500px) {
+
+    .main-hero 
+    {
+        font-size: 36px;
+        line-height: 36px;
+        padding: 36px 0;
+    }
+}
+
 
 @media only screen and (min-width: 1140px) {
 
 /* ===============
     Maximal Width
    =============== */
-
     .wrapper {
         width: 1026px; /* 1140px - 10% for margins */
         margin: 0 auto;
