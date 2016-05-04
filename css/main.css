@@ -330,9 +330,10 @@ a.linkedin:hover {
     }
 
     .footer-cta a {
-        line-height: 50px;
+        line-height: 64px;
+        width: 100%;
     }
-
+    
     .footer-cta em {
         display: none;
     }
