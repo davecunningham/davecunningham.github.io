@@ -325,6 +325,7 @@ a.linkedin:hover {
         font-size: 66px;
         line-height: 66px;
         padding: 65px 0;
+        overflow: hidden;
      
     }
 
@@ -335,6 +336,7 @@ a.linkedin:hover {
     .footer-cta em {
         display: none;
     }
+
 
 }
 
@@ -350,6 +352,11 @@ a.linkedin:hover {
     h1 {
         font-size: 28px;
         line-height: 28px;
+    }
+
+    .header-container {
+        padding:20px;
+        text-align: center;
     }
 
 }
