@@ -346,6 +346,12 @@ a.linkedin:hover {
         line-height: 36px;
         padding: 36px 0;
     }
+
+    h1 {
+        font-size: 28px;
+        line-height: 28px;
+    }
+
 }
 
 
