@@ -196,7 +196,8 @@ h1,h2 {
 
     .main-text-right h2 {
         font-size: 32px;
-        border-bottom: 1px solid #ddd;
+        margin-bottom: 0px;
+        padding: 0px;
     }
 
 .cv-item {
