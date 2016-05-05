@@ -259,6 +259,15 @@ p.dates {
 }
 
 
+/* Footer */
+
+h4.connect {
+    font-size: 42px;
+    text-align: center;
+    margin-top: 0px;
+}
+
+
 .footer-cta a {
     text-align: center;
     width: 25%;
