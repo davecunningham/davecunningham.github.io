@@ -120,6 +120,8 @@ nav a:hover {
     font-size: 2em;
 }
 
+
+
 .main aside {
     color: white;
     padding: 0px 5% 10px;
@@ -147,6 +149,13 @@ h1,h2 {
     line-height: 52px;
     color:#4a4a4a;
 }
+
+h1 span, h2 span, h3 span  {
+    background: #19e7db;
+    color:#ffffff;
+}
+
+
 
 .header-container {
     padding: 45px;
@@ -211,6 +220,10 @@ h1,h2 {
 
 .cv-item p {
 color:#808080;
+}
+
+.cv-item em {
+    font-style: normal;
 }
 
 h3.company {
