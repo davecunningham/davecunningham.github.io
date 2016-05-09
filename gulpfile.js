@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
+var concatCss = require('gulp-concat-css');
 
 gulp.task('styles', function() {
     gulp.src('sass/**/*.scss')
