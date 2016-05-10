@@ -14,12 +14,14 @@ a {
     color:$colour-alpha;
 }
 
+a:hover {
+    color:$colour-bravo;
+}
+
 
 body {
      border: $padding-medium solid $colour-alpha;
 }
-
-
 
 .wrapper {
     width:90%;
@@ -233,7 +235,7 @@ a.linkedin:hover {
     }
 
     .main {
-        padding: $padding-medium 0;
+        padding: $padding-small 0;
     }
 
     .main-hero  {
@@ -253,6 +255,17 @@ a.linkedin:hover {
         display: none;
     }
 
+    h1, h2, h3, h4, h5, h6, h4.connect {
+        font-size: 28px;
+        line-height: 28px;
+        margin-top: 0;
+        padding: $padding-small 0 0 0;
+    }
+
+    .photo-wrapper em {
+        width: 90%;
+        padding: 0 5% 20px 5%;
+    }
 
 }
 
@@ -267,10 +280,6 @@ a.linkedin:hover {
         overflow: hidden;
     }
 
-    h1 {
-        font-size: 28px;
-        line-height: 28px;
-    }
 
     .header-container {
         padding:20px;
@@ -308,6 +317,5 @@ a.linkedin:hover {
 
 .cf {
     *zoom: 1;
-    width: 100%;
 }
 
