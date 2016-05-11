@@ -115,7 +115,7 @@ body {
     line-height: 32px;
 }
 
-/* Footer */
+/* Footer */ 
 
 .footer-container footer {
     padding: $padding-small 0;
@@ -299,6 +299,16 @@ a.linkedin:hover {
         margin: 0 auto;
     }
 }
+
+
+@media only screen and (min-width: 1500px) {
+    .main-hero 
+    {
+        font-size: 140px;
+        line-height: 140px;
+    }
+}
+
 
 /* ==========================================================================
    Helper classes
