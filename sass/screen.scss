@@ -36,7 +36,15 @@ body {
     padding: $padding-medium-large;
     display: block;
     text-align: right;
+    font-size: 14px;
 }
+
+.header-container em {
+    text-align: left;
+    float: left;
+    color: $colour-delta;
+}
+
 
 .main-hero  {
     font-size: $padding-medium-large;
@@ -265,6 +273,10 @@ a.linkedin:hover {
     .photo-wrapper em {
         width: 90%;
         padding: 0 5% 20px 5%;
+    }
+
+    .header-container em {
+        display: none;
     }
 
 }
