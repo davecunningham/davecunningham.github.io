@@ -122,17 +122,19 @@ body {
 }
 
 .footer-cta a {
+    color:$colour-delta;
     text-align: center;
-    width: 50%;
+    width: 25%;
     float: left;
     display: block;
     line-height: $padding-large;
-    background: red;
     position: relative;
+    text-decoration: none;
 }
 
 .footer-cta a em {
-    text-transform: uppercase;
+    color:$colour-bravo;
+    font-weight: bold;
     width:100%;
     width: 100%;
     height: 32px;
@@ -141,44 +143,44 @@ body {
     font-style: normal;
 }
 
-a.behance {
+.footer-cta a:hover em {
     color:$colour-white;
-    background: #010103;
+}
+
+a.behance {
+    border-bottom:2px solid #010103;
 }
 
 a.behance:hover {
     color:$colour-white;
     transition: background-color 0.5s ease;
-    background: $colour-alpha;    
+    background: #010103;    
 }
 
 
 a.twitter {
-    color:$colour-white;
-    background: #6cadde;
+     border-bottom:2px solid #6cadde;
 }
 
 a.twitter:hover {
     color:$colour-white;
     transition: background-color 0.5s ease;
-    background: $colour-alpha;   
+    background: #6cadde;   
 }
 
 
 a.flickr {
-    color:$colour-white;
-    background: #ff0084;
+    border-bottom:2px solid #ff0084;
 }
 
 a.flickr:hover {
     color:$colour-white;
     transition: background-color 0.5s ease;
-    background: $colour-alpha;
+    background: #ff0084;
 }
 
 a.linkedin {
-    color:$colour-white;
-    background: #0077b5;
+    border-bottom:2px solid #0077b5;
 }
 
 a.linkedin:hover {
@@ -251,11 +253,9 @@ a.linkedin:hover {
         width: 100%;
     }
 
-    .footer-cta em {
-        display: none;
-    }
+ 
 
-    h1, h2, h3, h4, h5, h6, h4.connect {
+    h1, h2, h3, h4, h5, h6, h4.connect, .main-text-right h2 {
         font-size: 28px;
         line-height: 28px;
         margin-top: 0;
