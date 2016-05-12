@@ -279,6 +279,20 @@ a.linkedin:hover {
         display: none;
     }
 
+a.behance, a.twitter, a.flickr, a.linkedin {
+    border-bottom:0px;
+}
+
+h1, h2, h3, h4, h5, h6, h4.connect, .main-text-right h2 {
+    line-height: 40px;
+}
+
+p {
+    line-height: 32px;
+}
+
+
+
 }
 
 @media only screen and (max-width: 500px) {
@@ -286,11 +300,12 @@ a.linkedin:hover {
     .main-hero 
     {
         font-size: 36px;
-        line-height: 36px;
+        line-height: 52px;
         padding: 36px 0;
         height: 160px;
         overflow: hidden;
     }
+
 
 
     .header-container {
