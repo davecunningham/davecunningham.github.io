@@ -43,6 +43,7 @@ body {
     text-align: left;
     float: left;
     color: $colour-delta;
+    width:60%;
 }
 
 
@@ -65,20 +66,56 @@ body {
     width:60%;
     color:$colour-charlie;
     line-height: 32px;
+    float: left;
 }
+
+.main-text p:first-of-type {
+   font-size: $padding-small;
+}
+
+
+blockquote {
+    width:25%;
+    float:right;
+    color:$colour-white;  
+}
+
+blockquote span {
+    background: $colour-alpha;
+    font-size: $padding-medium;
+    line-height: 50px;
+
+}
+
+
+.main-text img {
+    float:left;
+    width: 120px;
+    height:120px;
+    margin-right: 20px;
+    border-radius: 100%;
+}
+
 
 .element {
     display: inline-block;
-
 }
 
+ 
 .typed-cursor {
    color:$colour-alpha; 
 }
 
+/* photos */
+
+
 .photos img {
-    width:50%;
+    width:100%;
     float: left;
+}
+
+.photo-wrapper {
+    padding-top: $padding-medium;
 }
 
 .photo-wrapper em {
@@ -89,6 +126,7 @@ body {
     float: left;
     width: 100%;
 }
+
 
 
 /* Experience */
@@ -122,6 +160,31 @@ body {
     margin-bottom: $padding-medium;
     line-height: 32px;
 }
+
+/* Portfolio */
+
+.portfolio {
+    padding: 0 0 $padding-medium 0;
+}
+
+.portfolio-item {
+    text-align: center;
+}
+
+.portfolio-item img {
+
+    width:100%;
+    max-width: 2400px;
+}
+
+.portfolio-r1 {
+    width:100%;
+    float:left;
+    display: block;
+    background: $colour-bg-alpha;
+    padding: 0;
+}
+
 
 /* Footer */ 
 
@@ -241,8 +304,19 @@ a.linkedin:hover {
 
     .main-text, .main-text-right, .main-text-left {
         width:100%;
-       
     }
+
+
+     blockquote {
+            width:100%;
+            float:left;
+        }
+    
+    blockquote span {
+        font-size: 20px;
+        line-height: 25px;
+    }
+
 
     .main {
         padding: $padding-small 0;
@@ -275,21 +349,25 @@ a.linkedin:hover {
         padding: 0 5% 20px 5%;
     }
 
+    .header-container {
+        text-align: center;
+    }
+
     .header-container em {
         display: none;
     }
 
-a.behance, a.twitter, a.flickr, a.linkedin {
-    border-bottom:0px;
-}
+    a.behance, a.twitter, a.flickr, a.linkedin {
+        border-bottom:0px;
+    }
 
-h1, h2, h3, h4, h5, h6, h4.connect, .main-text-right h2 {
-    line-height: 40px;
-}
+    h1, h2, h3, h4, h5, h6, h4.connect, .main-text-right h2 {
+        line-height: 40px;
+    }
 
-p {
-    line-height: 32px;
-}
+    p {
+        line-height: 32px;
+    }
 
 
 
