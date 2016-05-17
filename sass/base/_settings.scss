@@ -1,0 +1,53 @@
+/* ==========================================================================
+   Fonts
+   ========================================================================== */
+
+/* Font sizes */
+$base-font-size   : 15px;
+$base-line-height : 20px;
+
+
+
+/* Font families */
+$font-body       : 'Quando', serif;
+
+
+/* ==========================================================================
+   Colours
+   ========================================================================== */
+
+$colour-white           : #ffffff; /* White */
+$colour-bg-alpha        : #F5F5F5; /* Very light Grey */
+$colour-alpha           : #19E7DB; /* Green */
+$colour-bravo           : #4a4a4a; /* Dark grey */
+$colour-charlie         : #808080; /* Grey */
+$colour-delta           : #bbbbbb; /* Grey light */
+
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+$padding-large          : 160px;
+$padding-medium-large   : 80px;  
+$padding-medium         : 40px;  
+$padding-small          : 20px;
+
+
+/* Border Radius */
+$border-radius: 1px;
+
+/* Transitions */
+$transition: all 0.2s ease-in-out;
+
+
+::-moz-selection {
+    background: $colour-alpha;
+    text-shadow: none;
+}
+
+::selection {
+    background: $colour-alpha;
+    color:$colour-white;
+    text-shadow: none;
+}
