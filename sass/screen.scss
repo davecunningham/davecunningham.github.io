@@ -77,11 +77,11 @@ body {
 blockquote {
     width:25%;
     float:right;
-    color:$colour-white;  
+  
 }
 
 blockquote span {
-    background: $colour-alpha;
+
     font-size: $padding-medium;
     line-height: 50px;
 
@@ -107,6 +107,18 @@ blockquote span {
 }
 
 /* photos */
+
+.photos {
+    position: relative;
+    float: left;
+}
+
+.photos .meta-constructor {
+    position: absolute;
+    bottom:5%;
+    left:5%;
+    color:$colour-white;
+}
 
 
 .photos img {
@@ -167,9 +179,6 @@ blockquote span {
     padding: 0 0 $padding-medium 0;
 }
 
-.portfolio-item {
-    text-align: center;
-}
 
 .portfolio-item img {
 
