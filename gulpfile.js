@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 var concatCss = require('gulp-concat-css');
 var minify = require('gulp-minify');
+var htmlmin = require('gulp-htmlmin');
 
 
 gulp.task('styles', function() {
@@ -34,4 +35,10 @@ gulp.task('compress', function() {
 //Watch task
 gulp.task('default',function() {
     gulp.watch('sass/**/*.scss',['styles']);
+});
+
+
+gulp.task('minify-html', function() {
+  return gulp.src('*.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
 });
