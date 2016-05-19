@@ -353,6 +353,10 @@ a.linkedin:hover {
         padding: $padding-small 0 0 0;
     }
 
+    h3.company {
+        line-height: $padding-small;
+    }
+
     .photo-wrapper em {
         width: 90%;
         padding: 0 5% 20px 5%;
