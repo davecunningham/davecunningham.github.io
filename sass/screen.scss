@@ -83,7 +83,7 @@ blockquote {
 blockquote span {
 
     font-size: $padding-medium;
-    line-height: 50px;
+    line-height: $padding-medium;
 
 }
 
@@ -118,7 +118,19 @@ blockquote span {
     bottom:5%;
     left:5%;
     color:$colour-white;
+
+    a {
+        color:$colour-white;
+    }
+    a:hover {
+        color:$colour-bravo;
+    }
 }
+
+.photos .meta-constructor__item, .photos time {
+    background: $colour-alpha;
+} 
+
 
 
 .photos img {
