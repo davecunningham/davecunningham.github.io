@@ -1,11 +1,108 @@
 body {
 	font-family: avenir, arial;
 	font-size: 16px;
+	border-top: 16px solid #FC43D3;
+	margin: 0px;
+}
+
+h1 {
+	font-size: 82px;
+    padding: 0px;
+    line-height: 46px;
+    color:#282828;
+}
+
+h1 span {
+	width: 100%;
+	float: left;
+	font-size: 12px;
+	padding-left: 4px;
 }
 
 h2 {
 	font-size: 16px;
 }
+
+fieldset {
+	border:0px;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+form {
+	margin:-8px 0 0 0;
+}
+
+ol li a {
+	color:#282828;
+	font-size: 16px;
+	font-weight: bold;
+}
+ol li span, .score p {
+	color:#C4C4C4;
+	font-size: 14px;
+	font-weight: lighter;
+	font-style: italic;
+	width: 100%;
+	float: left;
+	margin: 0px;
+}
+
+
+ul li, ul, ol
+{
+	list-style: none;
+	margin:0px;
+	padding: 0px;
+}
+
+ol {
+
+	margin:0px 0 16px 0;
+	padding: 0px;
+	width: 100%;
+	float: left;
+}
+
+ol li {
+	margin-bottom: 16px;
+	float: left;
+}
+
+
+
+form ul li
+{
+
+	padding: 10px 0;
+}
+
+form ul li label{
+	padding-left: 8px;
+
+}
+
+form ul {
+	margin:0 0 32px 0;
+	padding: 0px;
+}
+
+legend {
+	text-transform: uppercase;
+	font-size: 12px;
+	color: #C4C4C4;
+	margin-top: -10px;
+
+}
+
+.btn-submit {
+	font-size: 16px;
+	background: #4F820D;
+	color:#fff;
+	padding: 16px;
+}
+
 
 .score {
 	margin-left:10%;
@@ -13,14 +110,36 @@ h2 {
 	float: left;
 	position: fixed;
 	top: 20px;
+	color: #6E6E6E;
 }
+
+.score a {
+	color:#6E6E6E;
+}
+
+.score a:hover, .score .selected {
+	color:#FC43D3;
+	text-decoration: none;
+}
+
+
 
 .score-form {
 	width:70%;
-	padding: 5%;
-	margin-left:30%;
+	padding: 164px 2%;
+	margin-left:36%;
 	float: left;
-	
+}
+
+.score-form h1 {
+	margin: 0px;
+	font-size: 32px;
+	color: #FC43D3;
+}
+
+.score-form p {
+	padding-top: 0px;
+	margin: 0px 0 24px 0;
 }
 
 .results {

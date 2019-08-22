@@ -18,7 +18,7 @@
 
      <h2>DIET has 3 stages</h2>
       <ol>
-        <li><a href="strategy.html">1. Strategy<span>When you first hear about the project</span></a></li>
+        <li><a class="selected" href="strategy.html">1. Strategy<span>When you first hear about the project</span></a></li>
         <li><a href="problem.html">2. Problem<span>Once you have completed your research</span></a></li>
         <li><a href="solution.html">3. Solution<span>When you have designed and tested</span></a></li>
       </ol>
@@ -142,7 +142,7 @@
         $( ".score" ).hide();
         $( ".score-form" ).hide();
 
-         $('.results').html("<div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span><p>Diet score</p></div><p>  " + message + "</p>");
+         $('.results').html("<div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span><p>DIET score</p></div><p>  " + message + "</p>");
 
         });
     });
