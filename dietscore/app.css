@@ -3,7 +3,10 @@ body {
 	font-size: 16px;
 	border-top: 16px solid #FC43D3;
 	margin: 0px;
+	line-height: 32px;
 }
+
+
 
 h1 {
 	font-size: 82px;
@@ -47,10 +50,11 @@ ol li span, .score p {
 	width: 100%;
 	float: left;
 	margin: 0px;
+	line-height: 18px;
 }
 
 
-ul li, ul, ol
+form ul li, form ul, ol
 {
 	list-style: none;
 	margin:0px;
@@ -68,6 +72,8 @@ ol {
 ol li {
 	margin-bottom: 16px;
 	float: left;
+    width: 100%;
+    line-height: 18px;
 }
 
 
@@ -104,13 +110,27 @@ legend {
 }
 
 
+.full {
+	margin-left:10%;
+	width:40%;
+	max-width: 760px;
+	min-width: 320px;
+	float: left;
+	top: 20px;
+}
+
+.full img {
+	max-width: 575px;
+
+}
+
+
 .score {
 	margin-left:10%;
 	width:20%;
 	float: left;
 	position: fixed;
 	top: 20px;
-	
 }
 
 
@@ -138,6 +158,7 @@ legend {
 .score-form p {
 	padding-top: 0px;
 	margin: 0px 0 24px 0;
+	width: 70%;
 }
 
 .results {
@@ -151,6 +172,54 @@ legend {
 	height:100%;
 	text-align: center;
 	display: grid;
+}
+
+.diet-score-copy {
+	top:10px
+	left:10px;
+	font-size: 16px;
+	font-family: arial;
+	color: #fff;
+	position: absolute;
+	width:60px;
+	height: 32px;
+}
+
+.diet-score-next a {
+	color: #fff;
+}
+
+.diet-score-next {
+
+    font-size: 16px;
+    font-family: arial;
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    left: 60px;
+    height: 32px;
+    width: 100%;
+}
+
+.diet-score-google {
+    font-size: 16px;
+    font-family: arial;
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    right: 12px;
+    height: 32px;
+    z-index: 100;
+}
+
+.diet-score-next li {
+	float: left;
+	width: 100px;
+	line-height: 32px;
+}
+
+.diet-score-next a.selected {
+	text-decoration: line-through;
 }
 
 .diet-score {
@@ -175,7 +244,7 @@ legend {
 .diet-score span {
     font-size: 162px;
     position: absolute;
-    top: 52px;
+    top: 142px;
     left: 0px;
     width: 100%;
   
