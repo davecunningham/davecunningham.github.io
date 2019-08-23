@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="app.css" />
   </head>
   <body>
-  <header class="main-head">
-      <div class="row">
-        <div class="large-12 columns">
-        </div>
-      </div>
-</header>
 <div class="score">
     <h1>DIET<span>Design Impact Evaluation Tactic</span></h1>
 
@@ -25,8 +19,8 @@
 
      <h2>What is DIET?</h2>
     <p>
-        DIET helps teams predicting the chance of success of a project
-        or retrospectively see why it went well, or didn't
+         DIET helps teams in predicting the chance of success of a project
+        or retrospectively see why it went well, or didn't.
      </p>
 
 </div>
@@ -37,8 +31,8 @@
       Fill in this form when you have completed your research.
     </p>
       <fieldset>
-              <legend>Find out your strategy DIET score:</legend>
-              <h2>1. Do we understand the business need?</h2>
+              <legend>Find out your DIET problem score:</legend>
+              <h2>1. Do we know how people currently solve the problem?</h2>
               <ul>
                 <li><input type="radio" name="q1" id="q1-1" value="20" checked><label for="q1-1">Yes</label></li>
                 <li><input type="radio" name="q1" id="q1-2" value="10"><label for="q1-2">Fairly sure</label></li>
@@ -46,21 +40,21 @@
                 <li><input type="radio" name="q1" id="q1-4" value="0"><label for="q1-4">No</label></li>
               </ul>
 
-              <h2>2. Do we understand the user needs?</h2>
+              <h2>2. Does the problem resonate with our users?</h2>
               <ul>
                 <li><input type="radio" name="q2" id="q2-1" value="20" checked><label for="q2-1">Yes</label></li>
                 <li><input type="radio" name="q2" id="q2-2" value="10"><label for="q2-2">Fairly sure</label></li>
                 <li><input type="radio" name="q2" id="q2-3" value="5"><label for="q2-3">We're unsure</label></li>
                 <li><input type="radio" name="q2" id="q2-4" value="0"><label for="q2-4">No</label></li>
               </ul>
-              <h2>3. Are subject matter experts involved?</h2>
+              <h2>3. Are we confident we are solving the right problem?</h2>
               <ul>
                 <li><input type="radio" name="q3" id="q3-1" value="20" checked><label for="q3-1">Yes</label></li>
                 <li><input type="radio" name="q3" id="q3-2" value="10"><label for="q3-2">Fairly sure</label></li>
                 <li><input type="radio" name="q3" id="q3-3" value="5"><label for="q3-3">We're unsure</label></li>
                 <li><input type="radio" name="q3" id="q3-4" value="0"><label for="q3-4">No</label></li>
               </ul>
-              <h2>4. Are the constraints of the project clear? Financial / time / tech</h2>
+              <h2>4. Are the subject matter experts involved?</h2>
               <ul>
                 <li><input type="radio" name="q4" id="q4-1" value="20" checked><label for="q4-1">Yes</label></li>
                 <li><input type="radio" name="q4" id="q4-2" value="10"><label for="q4-2">Fairly sure</label></li>
@@ -73,7 +67,7 @@
                 <li><input type="radio" name="q5" id="q5-2" value="1.3"><label for="q5-2">We'll get by</label></li>
                 <li><input type="radio" name="q5" id="q5-3" value="3"><label for="q5-3">No</label></li>
               </ul>
-              <input type="button" class="btn-submit" value="Get my DIET score"></input> 
+              <input type="button" class="btn-submit" value="Get my DIET problem score"></input> 
           </fieldset>
       </div>
       </form>
@@ -109,13 +103,14 @@
 
         var colour = "";
         var message = "";
+        var img = "";
 
         
 
         if (dietscore < "36")
         {
             colour = "#9F2A00"; 
-            message = "Stop, raise with principal";
+            message = "Stop, raise with your principal";
         }
 
         if (dietscore > "35" && dietscore < "51")
@@ -132,8 +127,10 @@
 
          if (dietscore > "70" && dietscore < "101")
         {
-             colour = "#4F820D"; 
+            colour = "#4F820D"; 
             message = "You're good to go";
+            img = "background-image:url(https://media.giphy.com/media/x6P6mUdWqA2ek/source.gif); opacity: 0.5";
+
         }
 
 
@@ -142,12 +139,15 @@
         $( ".score" ).hide();
         $( ".score-form" ).hide();
 
-         $('.results').html("<div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span><p>Diet score</p></div><p>  " + message + "</p>");
+
+         $('.results').html("<div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span><p>Diet problem score</p></div><p>  " + message + "<em>Don't forget to record your score. <a href='https://docs.google.com/spreadsheets/d/1GZEr-xJGxJMbcoUZNg-Q6KUMUNFnOZuFLOVEcj6-AuY/edit?usp=sharing' target='_blank'>I haven't got anywhere to record it</a></em></p>");
 
         });
     });
 </script>
                     
+
+
 
 
   </body>
