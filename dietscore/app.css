@@ -1,12 +1,17 @@
 body {
 	font-family: avenir, arial;
 	font-size: 16px;
+	background: #F3F3F3;
 	border-top: 16px solid #FC43D3;
 	margin: 0px;
 	line-height: 32px;
 }
 
-
+p, h2, figure, .cta, h3 {
+	width: 100%;
+	float: left;
+	clear: both;
+}
 
 h1 {
 	font-size: 82px;
@@ -26,6 +31,16 @@ h2 {
 	font-size: 24px;
 }
 
+h2, h3 {
+	margin: 42px 0 12px 0
+}
+
+h2.title-intro {
+	font-size: 48px;
+	line-height: 62px;
+	margin-bottom: 0px;
+}
+
 fieldset {
 	border:0px;
 	width: 100%;
@@ -36,6 +51,8 @@ fieldset {
 form {
 	margin:-8px 0 0 0;
 }
+
+
 
 ol li a {
 	color:#282828;
@@ -111,8 +128,9 @@ legend {
 
 
 .full {
-	margin-left:10%;
-	width:40%;
+	background: #fff;
+	padding:0 10%;
+	width:50%;
 	max-width: 760px;
 	min-width: 320px;
 	float: left;
@@ -123,6 +141,38 @@ legend {
 	max-width: 575px;
 
 }
+
+.cta {
+	background: #FFFF00;
+	font-size: 18px;
+	padding: 12px;
+}
+
+.cta p {
+	margin: 0px;
+}
+
+figure {
+	background: #F3F3F3;
+	float: left;
+	margin: 0px 0 32px 0;
+	padding: 12px;
+}
+
+figcaption {
+	border-top:1px solid  #fff;
+	margin: 0px;
+	padding: 4px;
+	font-size: 14px;
+	font-style: italic;
+	line-height: 24px;
+}
+
+.scoring-stages li {
+	width:33.3%;
+	float: left;
+}
+
 
 
 .score {
@@ -143,6 +193,7 @@ legend {
 
 
 .score-form {
+	background: #fff;
 	width:70%;
 	padding: 164px 2%;
 	margin-left:36%;
@@ -256,3 +307,22 @@ em, em a {
     width: 100%;
     float: left;
 }
+
+@media only screen and (max-width: 920px) {
+
+
+  img {
+  	width:100%;
+  }
+
+  .full {
+  	width:80%;
+  }
+  h2.title-intro
+  {
+  	font-size: 42px;
+  	line-height: 44px;
+  }
+
+}
+
