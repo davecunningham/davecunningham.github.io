@@ -329,8 +329,13 @@ em, em a {
   	margin: 0px;
   	width: 90%;
   	padding:5%;
-
   }
+
+p.diet-message {
+	font-size: 46px;	
+}
+
+
   .score h2, .score ol {
   	margin: 0px;
   }
