@@ -216,7 +216,7 @@ figcaption {
 	background:#282828;
 	color:#fff;
 	font-size: 62px;
-	position: absolute;
+	position: fixed;
 	top:0px;
 	right: 0px;
 	width:100%;
