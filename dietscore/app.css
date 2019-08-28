@@ -283,10 +283,6 @@ figcaption {
 	display: grid;
 }
 
-.intro-bullets {
-
-}
-
 .diet-score-copy {
 	top:10px
 	left:10px;
@@ -329,6 +325,7 @@ figcaption {
 	float: left;
 	width: 100px;
 	line-height: 32px;
+	list-style: none;
 }
 
 .diet-score-next a.selected {
@@ -373,19 +370,32 @@ em, em a {
 @media only screen and (max-width: 920px) {
 
 
-  img {
-  	width:100%;
-  }
+	  img {
+	  	width:100%;
+	  }
+
+	.score-form h1 {
+		margin:0px;
+	}
+
+	.score-form p {
+		margin-bottom: 8px;
+	}
 
 
-.full-inner, .full, header {
-	border-right: 16px solid #fff;
-}
+	.full-inner, .full, header {
+		border-right: 16px solid #fff;
+	}
 
-nav ul li {
-	margin: 0px;
-	float:none;
-}
+	nav ul li {
+		margin: 0px;
+		float:none;
+	}
+
+	nav ul {
+		right:0px;
+	}
+
 
   .full {
   	width:80%;
@@ -395,27 +405,40 @@ nav ul li {
   	width:90%;
   }
 
+  .full-wrap ul,  .full-wrap ol {
+  	padding-left: 12px;
+  }
+
 
   h2.title-intro
   {
-  	font-size: 42px;
-  	line-height: 44px;
+  	font-size: 32px;
+  	line-height: 36px;
+  }
+
+  h2 {
+  	margin:16px 0 8px 0;
+  	font-size: 24px;
   }
 
   .score {
   	position: relative;
   	margin: 0px;
   	width: 90%;
-  	padding:5%;
+  	padding:0 5%;
   }
 
-p.diet-message {
-	font-size: 46px;	
-}
+	p.diet-message {
+		font-size: 46px;	
+	}
 
 
-  .score h2, .score ol {
+  .score h2, {
   	margin: 0px;
+  }
+
+  .score ol {
+  	padding-left:16px;
   }
 
   .score h1 {
@@ -448,7 +471,7 @@ p.diet-message {
   .score-form {
   	margin-left:0px;
    	width: 90%;
-  	padding:5%;
+  	padding:0 5%;
   }
 
 }
