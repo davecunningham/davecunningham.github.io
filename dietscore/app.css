@@ -378,6 +378,9 @@ em, em a {
   }
 
 
+.full-inner, .full, header {
+	border-right: 16px solid #fff;
+}
 
 nav ul li {
 	margin: 0px;
