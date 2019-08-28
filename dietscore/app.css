@@ -244,7 +244,7 @@ figcaption {
 
 
 
-.score a:hover, .score .selected {
+.score a:hover, .score .selected, a.selected {
 	color:#FC43D3;
 	text-decoration: none;
 }
