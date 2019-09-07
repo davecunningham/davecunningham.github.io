@@ -35,7 +35,7 @@
       </p>
         <fieldset>
                 <legend>Find out your DIET strategy score:</legend>
-                <h2>1. Do we understand the business need?</h2>
+                <h2>1. Do we understand the business need / outcome?</h2>
                 <ul>
                   <li><input type="radio" name="q1" id="q1-1" value="20" checked><label for="q1-1">Yes</label></li>
                   <li><input type="radio" name="q1" id="q1-2" value="10"><label for="q1-2">Fairly sure</label></li>
@@ -50,14 +50,14 @@
                   <li><input type="radio" name="q2" id="q2-3" value="5"><label for="q2-3">We're unsure</label></li>
                   <li><input type="radio" name="q2" id="q2-4" value="0"><label for="q2-4">No</label></li>
                 </ul>
-                <h2>3. Are subject matter experts involved?</h2>
+                <h2>4. Are the subject matter experts (stakeholders) involved?</h2>
                 <ul>
                   <li><input type="radio" name="q3" id="q3-1" value="20" checked><label for="q3-1">Yes</label></li>
                   <li><input type="radio" name="q3" id="q3-2" value="10"><label for="q3-2">Fairly sure</label></li>
                   <li><input type="radio" name="q3" id="q3-3" value="5"><label for="q3-3">We're unsure</label></li>
                   <li><input type="radio" name="q3" id="q3-4" value="0"><label for="q3-4">No</label></li>
                 </ul>
-                <h2>4. Are the constraints of the project clear? Financial / time / tech</h2>
+                <h2>4. Are the constraints (financial,time & tech) of the project clear?</h2>
                 <ul>
                   <li><input type="radio" name="q4" id="q4-1" value="20" checked><label for="q4-1">Yes</label></li>
                   <li><input type="radio" name="q4" id="q4-2" value="10"><label for="q4-2">Fairly sure</label></li>
@@ -118,7 +118,7 @@
         if (dietscore > "35" && dietscore < "51")
         {
              colour = "#D63118"; 
-            message = "Seek extra time to get info";
+            message = "Seek extra time to get more information";
         }
 
         if (dietscore > "50" && dietscore < "71")
@@ -141,7 +141,7 @@
         $( ".score" ).hide();
         $( ".score-form" ).hide();
 
-         $('.results').html("<div class='diet-score-copy' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span></div><div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span><p>DIET strategy score</p></div><p class='diet-message'>  " + message + "<a class='diet-score-google' href='https://docs.google.com/spreadsheets/d/1GZEr-xJGxJMbcoUZNg-Q6KUMUNFnOZuFLOVEcj6-AuY/edit?usp=sharing' target='_blank'>Google sheets DIET score template</a></em></p><ol class='diet-score-next'><li><a class='selected' href='strategy.html'>1. Strategy</li><li><a href='problem.html'>2. Problem</a></li><li><a href='solution.html'>3. Solution</a></li></ol>");
+         $('.results').html("<div class='diet-score-copy' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span></div><div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + " <em>/ 10</em></span><p>DIET strategy score</p></div><p class='diet-message'>  " + message + "<a class='diet-score-google' href='https://docs.google.com/spreadsheets/d/1GZEr-xJGxJMbcoUZNg-Q6KUMUNFnOZuFLOVEcj6-AuY/edit?usp=sharing' target='_blank'>Google sheets DIET score template</a></em></p><ol class='diet-score-next'><li><a class='selected' href='strategy.html'>1. Strategy</li><li><a href='problem.html'>2. Problem</a></li><li><a href='solution.html'>3. Solution</a></li></ol>");
 
         });
     });

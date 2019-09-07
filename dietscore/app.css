@@ -360,6 +360,12 @@ figcaption {
   
 }
 
+.diet-score em {
+	position: absolute;
+    width: 52px;
+    font-size: 18px;
+}
+
 em, em a {
 	color: #fff;
     font-size: 16px;
