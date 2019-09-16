@@ -128,7 +128,7 @@ ol {
 	min-width: 320px;
 	float: left;
 	top: 20px;
-	border-right:16px solid #C4C4C4;
+	border-right:16px solid #fff;
 	padding-bottom:42px;
 }
 
@@ -193,7 +193,7 @@ legend {
 	min-width: 320px;
 	float: left;
 	position: relative;
-	border-right:16px solid #C4C4C4;
+	border-right:16px solid #fff;
 }
 
 .full img {
