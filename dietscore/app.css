@@ -242,6 +242,10 @@ figcaption {
 	position: relative;
 }
 
+.score h2 {
+	font-size: 18px;
+}
+
 
 
 .score a:hover, .score .selected, a.selected {
@@ -274,6 +278,7 @@ figcaption {
 	background:#282828;
 	color:#fff;
 	font-size: 62px;
+	line-height: 62px;
 	position: fixed;
 	top:0px;
 	right: 0px;
@@ -287,6 +292,7 @@ figcaption {
 	top:10px
 	left:10px;
 	font-size: 16px;
+	line-height: 32px;
 	font-family: arial;
 	color: #fff;
 	position: absolute;
@@ -297,6 +303,16 @@ figcaption {
 .diet-score-next a {
 	color: #fff;
 }
+
+
+.results p {
+	margin:0px; padding: 0px;
+}
+
+.results .diet-scoredesc {
+	font-size: 16px;
+}
+
 
 .diet-score-next {
 
@@ -319,6 +335,7 @@ figcaption {
     right: 12px;
     height: 32px;
     z-index: 100;
+    padding:12px 0;
 }
 
 .diet-score-next li {
@@ -339,13 +356,14 @@ figcaption {
     border-radius: 100%;
     left: 50%;
     top: 20%;
+    margin-bottom: 62px;
     margin-left: -160px;
     position: relative;
 }
 
 .diet-score p {
     margin: 0px;
-    bottom: 50px;
+    bottom: 30px;
     width: 100%;
     position: absolute;
     font-size: 24px;

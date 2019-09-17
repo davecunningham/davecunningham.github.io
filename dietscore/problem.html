@@ -111,33 +111,39 @@
 
         var colour = "";
         var message = "";
-        var img = "";
+        var scoredesc = "";
+
 
         
 
         if (dietscore < "36")
         {
             colour = "#9F2A00"; 
-            message = "Stop, raise with your principal";
+            message = "Stop, raise with your manager";
+            scoredesc = "You're going to need a lot of time, research skills and strong stakeholder engagement to define what this project is."
+
         }
 
         if (dietscore > "35" && dietscore < "51")
         {
-             colour = "#D63118"; 
-            message = "Seek extra time to get info";
+            colour = "#D63118"; 
+            message = "Seek extra time to get more information";
+            scoredesc = "Things don't seem to be as clear as they could be. Try and get more clarity from the team, before spending too much time."
         }
 
         if (dietscore > "50" && dietscore < "71")
         {
-             colour = "#F8642C"; 
-            message = "Raise risks to the team";
+            colour = "#F8642C"; 
+            message = "Raise the risks to your team";
+            scoredesc = "There is a slight risk that this project may go over time, check the time constraints";
+
         }
 
          if (dietscore > "70" && dietscore < "101")
         {
             colour = "#4F820D"; 
             message = "You're good to go";
-            img = "background-image:url(https://media.giphy.com/media/x6P6mUdWqA2ek/source.gif); opacity: 0.5";
+            scoredesc = "Things seem to be in place for the team to do a good job";
 
         }
 
@@ -149,7 +155,7 @@
 
         dietscore = dietscore / 10 ;
 
-         $('.results').html("<div class='diet-score-copy' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span></div><div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "<em>/ 10</em></span><p>DIET problem score</p></div><p class='diet-message'>  " + message + "<a class='diet-score-google' href='https://docs.google.com/spreadsheets/d/1GZEr-xJGxJMbcoUZNg-Q6KUMUNFnOZuFLOVEcj6-AuY/edit?usp=sharing' target='_blank'>Google sheets DIET score template</a></em></p><ol class='diet-score-next'><li><a  href='strategy.html'>1. Strategy</li><li><a class='selected' href='problem.html'>2. Problem</a></li><li><a href='solution.html'>3. Solution</a></li></ol>");
+         $('.results').html("<div class='diet-score-copy' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "</span></div><div class='diet-score' style='background:" + colour + "'><span>" + dietscore.toFixed(0) + "<em>/ 10</em></span><p>DIET problem score</p></div><p class='diet-message'>  " + message + " </p><p class='diet-scoredesc'> " + scoredesc + "</p><a class='diet-score-google' href='https://docs.google.com/spreadsheets/d/1GZEr-xJGxJMbcoUZNg-Q6KUMUNFnOZuFLOVEcj6-AuY/edit?usp=sharing' target='_blank'>Google sheets DIET score template</a></em></p><ol class='diet-score-next'><li><a  href='strategy.html'>1. Strategy</li><li><a class='selected' href='problem.html'>2. Problem</a></li><li><a href='solution.html'>3. Solution</a></li></ol>");
 
         });
     });
