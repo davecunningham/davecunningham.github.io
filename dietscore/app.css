@@ -456,6 +456,10 @@ em, em a {
 		font-size: 46px;	
 	}
 
+.results .diet-scoredesc {
+	line-height: 24px;
+}
+
 
   .score h2, {
   	margin: 0px;
