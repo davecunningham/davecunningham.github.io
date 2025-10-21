@@ -1,0 +1,272 @@
+<!doctype html><html><head><meta charset='utf-8'><title>Magic Notes Diary Study</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f7f7fb;margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding:26px}
+.ctrl{background:#fff;border:1px solid #e6e8f2;border-radius:12px;padding:12px;position:sticky;top:0;z-index:5}
+.btn{background:#0b5fff;color:#fff;border:0;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:10px 0 16px}
+.hcard{background:#fff;border:1px solid #e6e8f2;border-radius:12px;padding:20px;margin-bottom:10px}
+.v{font-size:34px;font-weight:800}
+.s{font-size:12px;color:#555}
+.hr{border-top:2px solid #e8ebf8;margin:18px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(260px,1fr));gap:14px;align-items:stretch}
+.title{font-size:18px;font-weight:700;margin:0 0 4px 0}
+.kpi{background:#f0f4ff;border:1px solid #e3e9ff;border-radius:10px;padding:8px 10px;display:inline-block;margin-right:8px}
+.k{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.quotes3{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+.quote{position:relative;border-radius:12px;padding:10px 12px;line-height:1.3;overflow-wrap:break-word}
+.q-pos{background:#e9f8ee;border:1px solid #c9efda;color:#0a6b2b}
+.q-neg{background:#fdeaea;border:1px solid #f4cccc;color:#8a1f1f}
+.q-idea{background:#eaf2ff;border:1px solid #d0e2ff;color:#0b4aa1}
+h1{font-size:42px;margin:0 0 8px 0}
+.note{display:inline-block;background:#fff6bf;border:1px solid #f3d96c;color:#6b5600;padding:6px 10px;border-radius:999px;font-size:13px;margin-left:10px;vertical-align:4px}
+h2{font-size:26px;margin:18px 0 6px 0}
+.small{font-size:12px;color:#666}
+.foot{margin-top:12px;color:#666;font-size:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;align-items:center}
+.inputs label{display:grid;grid-template-columns:1fr auto;gap:10px;background:#fafbff;border:1px solid #e6e8f2;padding:8px 10px;border-radius:10px;align-items:center}
+.inputs .pounds{white-space:nowrap;font-variant-numeric:tabular-nums}
+.inputs input{width:90px;padding:6px 8px;border:1px solid #ccd2ea;border-radius:8px}
+.taskcol{display:block}
+.highlights .hcard{display:flex;flex-direction:column}
+.highlights .title{margin-bottom:6px}
+.proj-card{background:#fff;border:1px solid #e6e8f2;border-radius:12px;padding:16px;margin:12px 0}
+.proj-ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:8px}
+.proj-ctrls .left{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.proj-ctrls select,.proj-ctrls button{border:1px solid #ccd2ea;border-radius:8px;padding:6px 10px;background:#fff;cursor:pointer}
+.togglebar button{background:#f3f6ff}
+.togglebar button.active{background:#0b5fff;color:#fff;border-color:#0b5fff}
+.proj-wrap{background:#fff;border:1px dashed #e6e8f2;border-radius:12px;padding:10px}
+.proj-kpi{background:linear-gradient(135deg,#1db954,#118a3c);color:#fff;border-radius:12px;padding:16px;margin-top:10px;display:flex;flex-wrap:wrap;gap:12px;align-items:baseline}
+.proj-kpi .label{font-size:14px;opacity:.9}
+.proj-kpi .big{font-size:24px;font-weight:800}
+.proj-kpi .sep{opacity:.8}
+@media (max-width: 900px){ .grid3{grid-template-columns:1fr 1fr} }
+@media (max-width: 600px){ .grid3{grid-template-columns:1fr} }
+
+.togglebar button{background:#f3f6ff}
+.togglebar button.active{background:#0b5fff;color:#fff;border-color:#0b5fff}
+
+
+.proj-kpi{background:linear-gradient(135deg,#1db954,#118a3c);color:#fff;border-radius:14px;padding:22px;margin-top:10px;display:flex;flex-wrap:wrap;gap:16px;align-items:baseline;justify-content:space-between}
+.proj-kpi .label{font-size:16px;opacity:.95;font-weight:700}
+.proj-kpi .big{font-size:36px;font-weight:900}
+.proj-kpi .sep{opacity:.9;font-size:28px;margin:0 6px}
+.proj-ctrls label{font-size:14px}
+.proj-ctrls select{font-size:14px;padding:8px 12px}
+#downloadPNG{display:none}
+
+
+.kpi-extra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-right:auto}
+.kpi-extra .icons{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.person{width:18px;height:18px;display:inline-block}
+.person svg{width:18px;height:18px}
+.kpi-extra .label{font-size:14px;opacity:.95}
+
+
+.person{width:36px;height:36px;display:inline-block}
+.person svg{width:36px;height:36px}
+.kpi-extra .label{font-size:18px;font-weight:700}
+
+
+.proj-kpi .subline{width:100%; display:flex; gap:16px; flex-wrap:wrap; margin-top:6px; align-items:center}
+.proj-kpi .subline .item{font-size:14px; color:rgba(255,255,255,.9)}
+.proj-kpi .subline .label{opacity:.9; margin-right:6px}
+
+
+.proj-kpi{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.proj-kpi .totals{order:1;min-width:280px}
+.proj-kpi #projKPIextra{order:2;margin-left:auto;text-align:right}
+.proj-kpi .subline{order:3}
+.kpi-extra .meta{font-size:14px;opacity:.9;margin-left:8px;display:block}
+.kpi-extra .meta strong{opacity:1}
+
+
+/* keep KPI totals on one line with good spacing */
+.proj-kpi .totals { display:flex; gap:8px; align-items:baseline; flex-wrap:wrap }
+
+
+#projKPIcost_dup, #projKPIhrs_dup { display: none !important; visibility: hidden !important; }
+
+.proj-kpi .kpi-sub { 
+  font-size: 14px; 
+  opacity: .95; 
+  margin-top: 6px; 
+  display: flex; 
+  gap: 16px; 
+  justify-content: center; 
+  align-items: baseline; 
+}
+.proj-kpi .kpi-sub span { margin-left: 4px; }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head><body><div class='wrap'>
+<h1>Magic Notes Diary Study <span class='note'>This data was updated on Monday 20 October</span></h1>
+<div class='ctrl'><div style='margin:8px 0'><p class='small' style='margin:6px 0 10px 0'>Enter each clinician’s actual annual salary to make the totals accurate (defaults are placeholders).</p><div class='inputs'><label><span>Charlotte</span><span class='pounds'>£ <input id='sal_charlotte' name='sal_charlotte' class='salary' data-clinician='Charlotte' type='number' step='500' value='50000' /></span></label><label><span>Kathryn</span><span class='pounds'>£ <input id='sal_kathryn' name='sal_kathryn' class='salary' data-clinician='Kathryn' type='number' step='500' value='50000' /></span></label><label><span>Michaela</span><span class='pounds'>£ <input id='sal_michaela' name='sal_michaela' class='salary' data-clinician='Michaela' type='number' step='500' value='50000' /></span></label><label><span>Penny</span><span class='pounds'>£ <input id='sal_penny' name='sal_penny' class='salary' data-clinician='Penny' type='number' step='500' value='50000' /></span></label><label><span>Sinead</span><span class='pounds'>£ <input id='sal_sinead' name='sal_sinead' class='salary' data-clinician='Sinead' type='number' step='500' value='50000' /></span></label></div></div><button id='recalcBtn' type='button' class='btn'>Update totals</button> <span class='small'>Hourly = annual / 1650. Net saving subtracts a fixed £260 licence cost.</span></div>
+
+<h2>Overall Summary (all tasks)</h2>
+<div class='hero'>
+  <div class='hcard'><div id='overall_gbp' class='v'>£1,645</div><div class='s'>Total cost saved so far (all tasks)</div></div>
+  <div class='hcard'><div class='v'>54.3 hrs</div><div class='s'>Total time saved (all tasks)</div></div>
+  <div class='hcard'><div id='overall_gbp_net' class='v'>£1,385</div><div class='s'>Net saving after licence</div></div>
+</div>
+
+<div class='hcard'>
+  <div class='title'>Cumulative summary</div>
+  <div class='k'>
+    <span class='kpi'><b>60</b> tests</span>
+    <span class='kpi'><b>58</b> calculable</span>
+    <span class='kpi'><b>4.8/5</b> ease</span>
+    <span class='kpi'><b>91.1%</b> quality</span>
+    <span class='kpi'><b>39.6%</b> efficiency</span>
+  </div>
+</div>
+
+<div class='hr'></div>
+<h2>Projected Savings Over 12 Months</h2>
+<div class='proj-card'>
+  <div class='proj-ctrls'>
+    <div class='left'>
+      <label class='small'>Select number of clinicians:
+        <select id='projClin'>
+          <option value='6' selected>6 (current)</option>
+          <option value='10'>10</option>
+          <option value='20'>20</option>
+          <option value='30'>30</option>
+          <option value='40'>40</option>
+          <option value='50'>50</option>
+        </select>
+      </label>
+      <label class='small'>Time period:
+        <select id='projPeriod'>
+          <option value='1'>1 month</option>
+          <option value='3'>3 months</option>
+          <option value='6'>6 months</option>
+          <option value='12' selected>12 months</option>
+          <option value='24'>24 months</option>
+          <option value='60'>60 months</option>
+        </select>
+      </label>
+      
+    </div>
+    <button id='downloadPNG'>Download chart as PNG</button>
+  </div>
+  <div class='proj-kpi' id='projKPI'><div class='totals'>  <span class='big' id='projKPIcost'>£0</span> <span class='sep'>|</span> <span class='big' id='projKPIhrs'>0 hrs</span></div><div id='projKPIextra' class='kpi-extra' aria-live='polite'></div><div class='subline'>  <span class='item'><span class='label'>Software cost</span><span id='projKPIsoft'>£0</span></span>  <span class='item'><span class='label'><b>Net cost</b></span><span id='projKPInet'>£0</span></span></div>
+  <div id='projKPIextra' class='kpi-extra' aria-live='polite'></div>
+    
+    <span class='big' id="projKPIcost_dup">£0</span>
+    <span class='sep'>|</span>
+    <span class='big' id="projKPIhrs_dup">0 hrs</span>
+  </div>
+  </div>
+
+<div class='hr'></div>
+<h2>Highlights at a glance</h2>
+<div class='highlights grid3'><div class='hcard'><div class='title'>Most mentioned benefits</div><div class='quotes3'><div class='quote q-pos'>“It allowed me to capture the information in assment far quicker than usual, where i usually run over on my time limit - i was finished early”</div><div class='quote q-pos'>“Again - it allowed me to complete the assessment far quicker than it would normally take - a lot of this was me putting faith into that it w”</div><div class='quote q-pos'>“I was able to have a much more natural conversation with the patient and their mother, i put faith into the system capturing much of the ASD”</div><div class='quote q-pos'>“I was able to finish this assessment in 45 minutes!! I always go over! I had time at the end of this appointment to catch up on admin time i”</div></div></div><div class='hcard'><div class='title'>Most mentioned challenges</div><div class='quotes3'><div class='quote q-neg'>“Doesnt always capture the names correctly.”</div><div class='quote q-neg'>“nothing yet - im yet to view the report and will update if any issues found.”</div><div class='quote q-neg'>“Just a thought of something that maybe helpful - i wonder if the system would be able to pick up on and take note of a topic of conversation”</div><div class='quote q-neg'>“The system struggled again with picking up the correct names but his is easily changeable.”</div></div></div><div class='hcard'><div class='title'>Most mentioned ideas</div><div class='quotes3'><div class='quote q-idea'>“It wonderful.”</div><div class='quote q-idea'>“parent reported that a child suffered with sweaty hands and is under derm- magic notes picked this up and changed it to the medical term hyp”</div><div class='quote q-idea'>“The family I saw were sat in the clinic room at 1:35 - my session was completed and written up on magic notes by 2:32. I&#x27;d usually still be ”</div><div class='quote q-idea'>“Used the record feature to record my observations and add in to magic notes - worked really well, I just needed to add prompts to get it to ”</div></div></div></div>
+
+<div class='hr'></div>
+<h2>1) Tasks completed (ordered by most time saved)</h2>
+<div class='hcard taskcol'><div class='title'>1. New Patient Assessment</div><div class='v task_gbp' data-task='New Patient Assessment'>£951</div><div class='s'>31.4 hrs saved</div></div><div class='hcard taskcol'><div class='title'>2. Patient Summary Document Based</div><div class='v task_gbp' data-task='Patient Summary Document Based'>£449</div><div class='s'>14.8 hrs saved</div></div><div class='hcard taskcol'><div class='title'>3. Other Uses</div><div class='v task_gbp' data-task='Other Uses'>£221</div><div class='s'>7.3 hrs saved</div></div><div class='hcard taskcol'><div class='title'>4. ADHD Medication Review</div><div class='v task_gbp' data-task='ADHD Medication Review'>£24</div><div class='s'>0.8 hrs saved</div></div>
+
+<div class='hr'></div>
+<h2>2) Other Uses — combined</h2>
+<div class='grid'><div class='hcard'><div class='title'>Dictation of school observation</div><div class='v other_gbp' data-label='Dictation of school observation'>£0</div><div class='s'>1.4 hrs saved</div></div><div class='hcard'><div class='title'>Recorded a PDR (annual development review)</div><div class='v other_gbp' data-label='Recorded a PDR (annual development review)'>£0</div><div class='s'>0.8 hrs saved</div></div><div class='hcard'><div class='title'>Use the &#x27;create report&#x27; function to write up notes from a previous client. Although the template for this is not there, I was able to synthesis the referal information and my own notes, then give specific prompts to edit it into a report format</div><div class='v other_gbp' data-label='Use the &#x27;create report&#x27; function to write up notes from a previous client. Although the template for this is not there, I was able to synthesis the referal information and my own notes, then give specific prompts to edit it into a report format'>£0</div><div class='s'>0.6 hrs saved</div></div><div class='hcard'><div class='title'>Dictating a conversation with YOS worker</div><div class='v other_gbp' data-label='Dictating a conversation with YOS worker'>£0</div><div class='s'>0.5 hrs saved</div></div><div class='hcard'><div class='title'>Recording a discussion with Paediatric Consultant to discuss patient referral</div><div class='v other_gbp' data-label='Recording a discussion with Paediatric Consultant to discuss patient referral'>£0</div><div class='s'>0.5 hrs saved</div></div><div class='hcard'><div class='title'>Recording a discussion with CAMHS about a patient</div><div class='v other_gbp' data-label='Recording a discussion with CAMHS about a patient'>£0</div><div class='s'>0.5 hrs saved</div></div><div class='hcard'><div class='title'>Recording a teams meeting with childrens services</div><div class='v other_gbp' data-label='Recording a teams meeting with childrens services'>£0</div><div class='s'>0.5 hrs saved</div></div><div class='hcard'><div class='title'>summarising serval documents on patient before they arrived</div><div class='v other_gbp' data-label='summarising serval documents on patient before they arrived'>£0</div><div class='s'>0.4 hrs saved</div></div><div class='hcard'><div class='title'>used for appointment where ADHD diagnosis was confirmed and ADHD medication was discussed but ECG required</div><div class='v other_gbp' data-label='used for appointment where ADHD diagnosis was confirmed and ADHD medication was discussed but ECG required'>£0</div><div class='s'>0.4 hrs saved</div></div><div class='hcard'><div class='title'>Recorded a supervision session</div><div class='v other_gbp' data-label='Recorded a supervision session'>£0</div><div class='s'>0.3 hrs saved</div></div><div class='hcard'><div class='title'>Dictation of new patient assessment (on laptop)</div><div class='v other_gbp' data-label='Dictation of new patient assessment (on laptop)'>£0</div><div class='s'>0.2 hrs saved</div></div><div class='hcard'><div class='title'>School observation x3</div><div class='v other_gbp' data-label='School observation x3'>£0</div><div class='s'>0.2 hrs saved</div></div><div class='hcard'><div class='title'>used dictation function to record the outcome of a call with 2 parents</div><div class='v other_gbp' data-label='used dictation function to record the outcome of a call with 2 parents'>£0</div><div class='s'>0.2 hrs saved</div></div><div class='hcard'><div class='title'>used for an appointment for ?ADHD where a decision couldn&#x27;t be made</div><div class='v other_gbp' data-label='used for an appointment for ?ADHD where a decision couldn&#x27;t be made'>£0</div><div class='s'>0.2 hrs saved</div></div><div class='hcard'><div class='title'>used the dictation function to record a telephone consultation with a parent</div><div class='v other_gbp' data-label='used the dictation function to record a telephone consultation with a parent'>£0</div><div class='s'>0.2 hrs saved</div></div><div class='hcard'><div class='title'>used for an appointment where ADHD was diagnosed and medication started</div><div class='v other_gbp' data-label='used for an appointment where ADHD was diagnosed and medication started'>£0</div><div class='s'>0.1 hrs saved</div></div><div class='hcard'><div class='title'>Recording and documenting case discussion</div><div class='v other_gbp' data-label='Recording and documenting case discussion'>£0</div><div class='s'>0.1 hrs saved</div></div><div class='hcard'><div class='title'>Recording/ completing notes for CAMHS/ND appointment.</div><div class='v other_gbp' data-label='Recording/ completing notes for CAMHS/ND appointment.'>£0</div><div class='s'>0.0 hrs saved</div></div></div>
+
+<div class='hr'></div>
+<h2>3) Clinician contribution</h2>
+<div class='grid'><div class='hcard'><div class='title'>Charlotte</div><div class='v clin_gbp' data-clin='Charlotte'>£0</div><div class='s'>2.0 hrs saved</div></div><div class='hcard'><div class='title'>Kathryn</div><div class='v clin_gbp' data-clin='Kathryn'>£0</div><div class='s'>3.4 hrs saved</div></div><div class='hcard'><div class='title'>Michaela</div><div class='v clin_gbp' data-clin='Michaela'>£0</div><div class='s'>3.5 hrs saved</div></div><div class='hcard'><div class='title'>Penny</div><div class='v clin_gbp' data-clin='Penny'>£0</div><div class='s'>37.2 hrs saved</div></div><div class='hcard'><div class='title'>Sinead</div><div class='v clin_gbp' data-clin='Sinead'>£0</div><div class='s'>8.2 hrs saved</div></div></div>
+
+<div class='foot'>Notes: Enter actual annual salaries above; hourly is derived as annual / 1650. Net saving subtracts a fixed £260 licence cost.</div>
+
+<script>
+const MINUTES = {"overall": {"Charlotte": 123.0, "Kathryn": 201.0, "Michaela": 212.0, "Penny": 2232.1, "Sinead": 489.0}, "tasks": {"ADHD Medication Review": {"Charlotte": 48.0}, "New Patient Assessment": {"Michaela": 95.0, "Penny": 1357.0, "Sinead": 430.0}, "Other Uses": {"Charlotte": 75.0, "Kathryn": 70.0, "Michaela": 117.0, "Penny": 117.225, "Sinead": 59.0}, "Patient Summary Document Based": {"Kathryn": 131.0, "Penny": 757.875, "Sinead": 0.0}}, "other_uses": [{"label": "Dictation of school observation", "minutes_map": {"Michaela": 87.0}}, {"label": "Recorded a PDR (annual development review)", "minutes_map": {"Kathryn": 50.0}}, {"label": "Use the 'create report' function to write up notes from a previous client. Although the template for this is not there, I was able to synthesis the referal information and my own notes, then give specific prompts to edit it into a report format", "minutes_map": {"Sinead": 35.0}}, {"label": "Dictating a conversation with YOS worker", "minutes_map": {"Penny": 28.5}}, {"label": "Recording a discussion with Paediatric Consultant to discuss patient referral", "minutes_map": {"Penny": 28.5}}, {"label": "Recording a discussion with CAMHS about a patient", "minutes_map": {"Penny": 27.0}}, {"label": "Recording a teams meeting with childrens services", "minutes_map": {"Penny": 27.0}}, {"label": "summarising serval documents on patient before they arrived", "minutes_map": {"Sinead": 24.0}}, {"label": "used for appointment where ADHD diagnosis was confirmed and ADHD medication was discussed but ECG required", "minutes_map": {"Charlotte": 24.0}}, {"label": "Recorded a supervision session", "minutes_map": {"Kathryn": 20.0}}, {"label": "Dictation of new patient assessment (on laptop)", "minutes_map": {"Michaela": 15.0}}, {"label": "School observation x3", "minutes_map": {"Michaela": 15.0}}, {"label": "used dictation function to record the outcome of a call with 2 parents", "minutes_map": {"Charlotte": 15.0}}, {"label": "used for an appointment for ?ADHD where a decision couldn't be made", "minutes_map": {"Charlotte": 15.0}}, {"label": "used the dictation function to record a telephone consultation with a parent", "minutes_map": {"Charlotte": 15.0}}, {"label": "used for an appointment where ADHD was diagnosed and medication started", "minutes_map": {"Charlotte": 6.0}}, {"label": "Recording and documenting case discussion", "minutes_map": {"Penny": 5.25}}, {"label": "Recording/ completing notes for CAMHS/ND appointment.", "minutes_map": {"Penny": 0.9750000000000001}}]};
+const HOURS_PER_YEAR = 1650;
+const LICENSE = 260;
+const DEFAULT_ANNUAL = 50000;
+function parseSalaries(){const m={};document.querySelectorAll('.salary').forEach(i=>{const n=i.getAttribute('data-clinician');const v=parseFloat(i.value);m[n]=isNaN(v)?DEFAULT_ANNUAL:v;});return m;}
+function gbpFromMap(minutesMap,sals){let t=0;for(const n in minutesMap){const mins=minutesMap[n]||0;const a=(n in sals)?sals[n]:DEFAULT_ANNUAL;const h=a/HOURS_PER_YEAR;t+=(mins/60)*h;}return Math.round(t);}
+function fmtGBP(n){return '£'+Number(n).toLocaleString();}
+function hookButton(id,fn){const b=document.getElementById(id);if(b)b.addEventListener('click',e=>{e.preventDefault();fn();});}
+function recalc(){const s=parseSalaries();
+  document.getElementById('overall_gbp').textContent=fmtGBP(gbpFromMap(MINUTES.overall,s));
+  document.getElementById('overall_gbp_net').textContent=fmtGBP(gbpFromMap(MINUTES.overall,s)-LICENSE);
+  document.querySelectorAll('.task_gbp').forEach(el=>{const t=el.getAttribute('data-task');el.textContent=fmtGBP(gbpFromMap(MINUTES.tasks[t]||{},s));});
+  document.querySelectorAll('.other_gbp').forEach(el=>{const label=el.getAttribute('data-label');let m=0;(MINUTES.other_uses||[]).forEach(x=>{if(x.label===label){const map=x.minutes_map||{};m=Math.round(Object.keys(map).reduce((acc,k)=>acc+(map[k]/60*((s[k]||DEFAULT_ANNUAL)/HOURS_PER_YEAR)),0));}});el.textContent=fmtGBP(m);});
+  document.querySelectorAll('.clin_gbp').forEach(el=>{const c=el.getAttribute('data-clin');const map={};map[c]=MINUTES.overall[c]||0;el.textContent=fmtGBP(gbpFromMap(map,s));});
+}
+hookButton('recalcBtn',recalc);
+window.addEventListener('DOMContentLoaded', ()=>{ try { recalc(); } catch(e){} });
+</script>
+
+<script>
+(function(){
+  function parseSalaries(){const m={};document.querySelectorAll('.salary').forEach(i=>{const n=i.getAttribute('data-clinician');const v=parseFloat(i.value);m[n]=isNaN(v)?DEFAULT_ANNUAL:v;});return m;}
+  function gbpFromMap(minutesMap,sals){let t=0;for(const n in minutesMap){const mins=minutesMap[n]||0;const a=(n in sals)?sals[n]:DEFAULT_ANNUAL;const h=a/HOURS_PER_YEAR;t+=(mins/60)*h;}return Math.round(t);}
+  function currentTotals(){
+    const sals=parseSalaries();
+    let totalMins=0;for(const c in MINUTES.overall){ totalMins += MINUTES.overall[c]||0; }
+    const hours2w = totalMins/60.0;
+    const cost2w  = gbpFromMap(MINUTES.overall, sals);
+    const nClin   = Object.keys(MINUTES.overall).length || 6;
+    return {hours2w, cost2w, nClin};
+  }
+  // Compute cumulative totals for N months with 5% MoM growth, 4.345 weeks/month
+  function computeProjection(nClinSel, months){
+    const base=currentTotals();
+    const scaleClin = (nClinSel / (base.nClin || 1));
+    const weeksPerMonth = 4.345;
+    const weeklyHours = base.hours2w / 2.0;
+    const weeklyCost  = base.cost2w  / 2.0;
+    // Gross cumulative savings with 5% MoM growth
+    let cumH=0, cumG=0;
+    for(let i=0;i<months;i++){
+      const growth = Math.pow(1.05, i);
+      const mH = weeklyHours * weeksPerMonth * scaleClin * growth;
+      const mG = weeklyCost  * weeksPerMonth * scaleClin * growth;
+      cumH += mH; cumG += mG;
+    }
+    // Software cost: £130 per week for baseline 6 clinicians, scaled linearly by cohort
+    const perWeekSoftwareBase = 130 * scaleClin; // £/week
+    const softwareCost = perWeekSoftwareBase * weeksPerMonth * months; // no growth, flat subscription
+    const net = cumG - softwareCost;
+    return {hours:cumH, gbp:cumG, software:softwareCost, net:net};
+  }
+  function fmtGBP(n){ return '£'+Number(Math.round(n)).toLocaleString(); }
+  function fmtHRS(n){ return (Math.round(n*10)/10).toLocaleString() + ' hrs'; }
+  function avgSalary(){ const s=parseSalaries(); const vals=Object.values(s); if(!vals.length) return DEFAULT_ANNUAL; const sum=vals.reduce((a,b)=>a+(isNaN(b)?0:b),0); const cnt=vals.filter(v=>!isNaN(v)).length||1; return sum/cnt; }
+  function renderFundedClinicians(gbp){
+    const wrap = document.getElementById('projKPIextra'); if(!wrap) return;
+    const avg = avgSalary();
+    const n = avg>0 ? (gbp/avg) : 0;
+    const whole = Math.floor(n);
+    const maxIcons = 12;
+    let icons = "";
+    const iconSVG = '<span class="person" title="1 clinician funded (net)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4" fill="white" opacity="0.95"></circle><path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="white" opacity="0.95"></path></svg></span>';
+    for(let i=0;i<Math.min(whole, maxIcons); i++){ icons += iconSVG; }
+    let extra = '';
+    if(whole>maxIcons){ extra = '<span class="small">+'+(whole-maxIcons)+'</span>'; }
+    const text = '<div class="meta"><strong>Avg salary</strong> '+fmtGBP(avg)+' — will pay for <strong>≈ '+(Math.round(n*10)/10).toLocaleString()+' clinicians</strong></div>';
+    wrap.innerHTML = '<div class="icons">'+icons+extra+'</div>' + text;
+  }
+  const clinSel = document.getElementById('projClin');
+  const perSel  = document.getElementById('projPeriod');
+  function refresh(){
+    const nClin = parseInt(clinSel.value,10);
+    const months = parseInt(perSel.value,10);
+    const res = computeProjection(nClin, months);
+    document.getElementById('projKPIcost').textContent = fmtGBP(res.gbp);
+    document.getElementById('projKPIhrs').textContent  = fmtHRS(res.hours);
+    document.getElementById('projKPIsoft').textContent = fmtGBP(res.software);
+    document.getElementById('projKPInet').textContent = fmtGBP(res.net);
+    renderFundedClinicians(res.net); // use NET
+  }
+  clinSel.addEventListener('change', refresh);
+  if(perSel) perSel.addEventListener('change', refresh);
+  const oldRecalc = window.recalc;
+  window.recalc = function(){ if (typeof oldRecalc==='function') oldRecalc(); refresh(); };
+  window.addEventListener('DOMContentLoaded', ()=>{ try{ refresh(); } catch(e){} });
+})();
+</script>
+</div></body></html>
