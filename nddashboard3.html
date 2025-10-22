@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html><head><meta charset="utf-8"/><title>Magic Notes Diary Study — Stable</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f8f9fb;margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding:24px}
+h1{font-size:36px;margin:0 0 6px 0}
+.note{display:inline-block;background:#fff6bf;border:1px solid #f3d96c;color:#6b5600;padding:4px 10px;border-radius:999px;font-size:13px;margin-left:10px;vertical-align:4px}
+h2{font-size:22px;margin:18px 0 10px 0}
+.hr{border-top:2px solid #e9ecf5;margin:18px 0}
+.ctrl{background:#fff;border:1px solid #e3e8f3;border-radius:12px;padding:12px;position:sticky;top:0;z-index:5}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;align-items:center}
+.inputs label{display:grid;grid-template-columns:1fr auto;gap:10px;background:#fafbff;border:1px solid #e6e8f2;padding:8px 10px;border-radius:10px;align-items:center}
+.inputs .pounds{white-space:nowrap;font-variant-numeric:tabular-nums}
+.inputs input{width:100px;padding:6px 8px;border:1px solid #ccd2ea;border-radius:8px}
+.btn{background:#0b5fff;color:#fff;border:0;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer;margin-top:8px}
+
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:8px 0 16px}
+.hcard{background:#fff;border:1px solid #e6e8f2;border-radius:12px;padding:16px;margin-bottom:10px}
+.v{font-size:30px;font-weight:800}
+.s{font-size:12px;color:#555}
+
+.proj-card{background:#fff;border:1px solid #e6e8f2;border-radius:12px;padding:14px;margin:12px 0}
+.proj-ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:8px}
+.proj-ctrls .left{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.proj-ctrls select{border:1px solid #ccd2ea;border-radius:8px;padding:6px 10px;background:#fff;cursor:pointer}
+.proj-kpi{background:linear-gradient(135deg,#1db954,#118a3c);color:#fff;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:8px;box-shadow:0 8px 18px rgba(17,138,60,.18)}
+.proj-kpi .row{display:flex;gap:10px;align-items:baseline}
+.big{font-size:34px;font-weight:900}
+#projHours::after{content:" hours saved";margin-left:4px}
+.proj-kpi .equiv{font-size:15px;display:flex;flex-direction:column;gap:4px}
+.proj-kpi .meta{display:flex;gap:16px;flex-wrap:wrap}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.tasks-grid{grid-template-columns:1fr}
+.title{font-size:16px;font-weight:700;margin:0 0 4px 0}
+.comments-row{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:10px;margin-top:8px}
+.comment-col .label{font-weight:700;font-size:13px;margin-bottom:4px}
+.comment-col .quote{border-radius:10px;padding:8px 10px;line-height:1.3}
+.comment-col .q-pos{background:#e9f8ee;border:1px solid #c9efda;color:#0a6b2b}
+.comment-col .q-neg{background:#fdeaea;border:1px solid #f4cccc;color:#8a1f1f}
+.comment-col .q-idea{background:#eaf2ff;border:1px solid #d0e2ff;color:#0b4aa1}
+.small{font-size:12px;color:#666}
+
+/* Styling for Cumulative summary */
+.k {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #444;
+}
+.k .kpi b {
+  font-size: 16px;
+  color: #111;
+  margin-right: 3px;
+}
+.hero + .hcard {
+  border-top: 1px solid #e6e8f2;
+  margin-top: 10px;
+  padding-top: 8px;
+}
+</style></head>
+<body>
+<div class="wrap">
+<h1>Magic Notes Diary Study <span class="note">Updated Monday 20 October 2025</span></h1>
+<h2>Overall summary of the first 2 weeks</h2>
+<div class="hero">
+<div class="hcard"><div class="v" id="overall_hrs">54.3 hours</div><div class="s">Total time saved (all tasks)</div></div>
+<div class="hcard"><div class="v" id="overall_gbp">£2,729</div><div class="s">Total cost of clincians time saved (all tasks)</div></div>
+<div class="hcard"><div class="v" id="overall_gbp_ne">£260</div><div class="s">Software cost (estimated)</div></div>
+</div><div class="hcard"><div class="title">Cumulative summary</div><div class="k"><span class="kpi"><b>60</b> tests</span><span class="kpi"><b>58</b> calculable</span><span class="kpi"><b>4.8/5</b> ease</span><span class="kpi"><b>91.1%</b> quality</span><span class="kpi"><b>39.6%</b> efficiency</span></div></div>
+<div class="hr"></div>
+
+
+
+
+<h2>Projected savings at current usage rate</h2>
+<div class="proj-card">
+<div class="proj-ctrls">
+<div class="left">
+<label class="small">Select number of clinicians:
+        <select id="projClin">
+<option selected="" value="6">6 (current)</option>
+<option value="10">10</option>
+<option value="20">20</option>
+<option value="30">30</option>
+<option value="40">40</option>
+<option value="50">50</option>
+</select>
+</label>
+<label class="small">Time period:
+        <select id="projPeriod">
+<option value="1">1 month</option>
+<option value="3">3 months</option>
+<option value="6">6 months</option>
+<option selected="" value="12">12 months</option>
+<option value="24">24 months</option>
+<option value="60">60 months</option>
+</select>
+</label>
+</div>
+<div><button class="btn" id="recalcBtn">Update totals</button></div>
+</div>
+<div class="proj-kpi">
+<div class="row"><span class="big" id="projHours">0</span></div>
+<div class="equiv">
+<div>Equivalent to: <b><span id="eqClin">0.0</span></b> more clinicians working full time</div>
+<div><b><span id="eqKidsLow">0</span>–<span id="eqKidsHigh">0</span></b> more children fully assessed</div>
+<div>Software cost <b>£<span id="projSoft">0</span></b> | Savings <b>£<span id="projCost">0</span></b></div>
+</div>
+</div>
+</div>
+<div class="hr"></div>
+<h2>1) Tasks completed (ordered by most time saved)</h2>
+<div class="grid tasks-grid"><div class="grid-item"><div class="hcard taskcol"><div class="title">1. New Patient Assessment</div><div class="comments-col-inner"><div class="v">31.4 hours saved</div><div class="small task_gbp_fixed" data-task="New Patient Assessment">£1,577 cost of clincians time saved </div></div></div><div class="comments-row" id="comments-npa"><div class="comment-col"><div class="label">What went well</div><div class="comments-col-inner"><div class="quote q-pos">“certainly allowed for more infomration to be gathered and to get the full use of the 1.5 hour session. Without magic notes, the session would have been significantly longer - which would have been difficult for the patient - due to takeing less notes in the session and allowing magic notes to record, I was able to have a short session without losing valuable information” — <em>Sinead</em></div><div class="quote q-pos">“Mum spoke rapidy and gave alot of information, at the same time the little boy was trying to engage mem in play, so typically I would have missed some of what Mum was saying - MN was able to continue to pick up on the conversation so that no infomration was missed while i was distracted” — <em>Sinead</em></div><div class="quote q-pos">“Allowed me to be more engaged in the session and give my full attention to the family. I felt like I could delve deeper into things they were saying as I was not spending as much time making notes at the same time” — <em>Sinead</em></div><div class="quote q-pos">“Again - it allowed me to complete the assessment far quicker than it would normally take - a lot of this was me putting faith into that it would capture the data whilst taking very basic notes.” — <em>Penny</em></div></div></div><div class="comment-col"><div class="label">Challenges</div><div class="comments-col-inner"><div class="quote q-neg">“When completing the report.. when i asked the system to change something or complete task for example.. sometimes it would do it.. but add a line into the report essentially detailing what its done... for example... i asked it to take a paragraph which i copied from the draft and essentially blend the details into the report. it kind of did it, but it also added a line saying "details have been blended... " Also sometimes it wouldnt actually make the changes i asked it to make” — <em>Penny</em></div><div class="quote q-neg">“Im finding that it changes the context of different aspects of the conversation when fitting it into the report. Not all the time, but just being mindful that it doesnt therefore make the point that i would make if doing it by hand.” — <em>Penny</em></div></div></div><div class="comment-col"><div class="label">Ideas &amp; suggestions</div><div class="comments-col-inner"><div class="quote q-idea">“I noted that sometimes the system confused my clinical observations from details reported by mum... for example, the report noted that the child lined up his toys within the obervation but actually this wasnt the case but was mentioned by mum elsewhere in the context of the conversation.” — <em>Penny</em></div><div class="quote q-idea">“Just a thought of something that maybe helpful - i wonder if the system would be able to pick up on and take note of a topic of conversation that was repeated multiple times... for example - noticing that the patient really enjoyed talking about their dog..” — <em>Penny</em></div><div class="quote q-idea">“Im finding that it changes the context of different aspects of the conversation when fitting it into the report. Not all the time, but just being mindful that it doesnt therefore make the point that i would make if doing it by hand.” — <em>Penny</em></div></div></div></div></div><div class="grid-item"><div class="hcard taskcol"><div class="title">2. Patient Summary Document Based</div>
+
+<div class="comments-col-inner"><div class="v">14.8 hours saved</div><div class="small task_gbp_fixed" data-task="Patient Summary Document Based">£745 cost of clincians time saved </div>
+
+
+
+</div></div><div class="comments-row" id="comments-psdb"><div class="comment-col"><div class="label">What went well</div><div class="comments-col-inner"><div class="quote q-pos">“I used it to quickly summaraise the original referral for someone i assessed a coujple of months ago to refresh my memory of what impression education gave at the time of referral. It was able to help me formulate forward steps much more quickly rather than spending ages trailing through referral info... i had all the detail i needed to make an informed (but speedier) decision. I was also able to ask the system to just focus on ADHD rather than the ASD which we are ruling out.” — <em>Penny</em></div><div class="quote q-pos">“Again, i have been able to upload a patients original referral which would have taken me a considerable time to read, i was able to identify the key difficulties in the referral and link them to the details in the report. It was exceptionally helpful.” — <em>Penny</em></div><div class="quote q-pos">“Massively reduced cognitive load, i was able to upload the original referral which is around 50+ pages and within 2 minutes it gave me a very detailed summary that i could add/ edit into the report.” — <em>Penny</em></div><div class="quote q-pos">“again i summarised the data into ASD criteria with qualitatie examples - specifying just the school infformation, i was able to clarify that my report was supported by the school information.” — <em>Penny</em></div></div></div><div class="comment-col"><div class="label">Challenges</div><div class="comments-col-inner"><div class="quote q-neg">“As i seem to be using this as a regular feature now, i wonder if there was a useable function where you can create 'popular prompts' so rather than typing out the same prompt every time i could just click it - like a favourites option...” — <em>Penny</em></div><div class="quote q-neg">“Time taken - not suitable to do for each referral received (300 per month) but might be worth doing for any referrals we accept (approx 200 per month)” — <em>Kathryn</em></div><div class="quote q-neg">“needed to go through a few different prompt to get the information to be brief” — <em>Sinead</em></div></div></div><div class="comment-col"><div class="label">Ideas &amp; suggestions</div><div class="comments-col-inner"><div class="quote q-idea">“As i seem to be using this as a regular feature now, i wonder if there was a useable function where you can create 'popular prompts' so rather than typing out the same prompt every time i could just click it - like a favourites option...” — <em>Penny</em></div><div class="quote q-idea">“Time taken - not suitable to do for each referral received (300 per month) but might be worth doing for any referrals we accept (approx 200 per month)” — <em>Kathryn</em></div><div class="quote q-idea">“needed to go through a few different prompt to get the information to be brief” — <em>Sinead</em></div></div></div></div></div><div class="grid-item"><div class="hcard taskcol"><div class="title">3. Other Uses</div>
+
+<div class="v">7.3 hours saved</div><div class="small task_gbp_fixed" data-task="Other Uses">£367 cost of clincians time saved </div><div class="comments-col-inner">
+
+
+</div></div><div class="comments-row" id="comments-other"><div class="comment-col"><div class="label">What went well</div><div class="comments-col-inner"><div class="quote q-pos">“The output provided following the session was incredibly accurate and very impressive. It picked up on a huge amount of nuance and also left out some information that was more challenging about a colleague - as though it had realised this was a difficult topic of conversation. I am going to use this for all supervisions from now on as it is a useful reflective document for purposes of CPD/re-registratiojn etc” — <em>Kathryn</em></div><div class="quote q-pos">“Was able to follow a lengthy conversation with multiple action points and create a very detailed summary of the conversation which i was able to share with the participants. I also found the ability to ask the system to separate different parts of the conversation (ie - information about the patient and service improvement), which i could easily copy into two separate notes.” — <em>Penny</em></div><div class="quote q-pos">“Far more detail provided through the output report from Magic Notes than I would have documented/captured previously. Much more reflective of the types of conversations that actually happen. I copied and pasted the Magic Notes output to the end of our health board PDR form very easily.” — <em>Kathryn</em></div><div class="quote q-pos">“It was able to take the details of the discussion and formulate a response letter to the referring doctor with the details clearly included.” — <em>Penny</em></div></div></div><div class="comment-col"><div class="label">Challenges</div><div class="comments-col-inner"><div class="quote q-neg">“Due to the template not being available it took some teaking and rewording - occasionaly the information wasnt presented in the correct historical order - for example if the referral had come in last year and things had changed / improved, it still used the information from referral e.g. "x uses single words to communicate", when I had written an example of 3-4 word phrases.” — <em>Sinead</em></div><div class="quote q-neg">“I am aware of areas that may not be included on the report as I have written notes but I may not be able to remember the full conversation when magic notes is note taking. I may not be able to remember important, specific information if it is left out (mostly happening in topics of meltdowns and emotional regulation and family dynamics)” — <em>Michaela</em></div></div></div><div class="comment-col"><div class="label">Ideas &amp; suggestions</div><div class="comments-col-inner"><div class="quote q-idea">“If we use Magic Notes longer term I would probably ask for a specifc template for supervision - today it coped very well with us talking about a number of different children and not naming them all specifically - just talking through cases, but other supervision summaries have been more general and possibly less easier for clinicians to go back through and identify individual cases” — <em>Kathryn</em></div><div class="quote q-idea">“Due to the template not being available it took some teaking and rewording - occasionaly the information wasnt presented in the correct historical order - for example if the referral had come in last year and things had changed / improved, it still used the information from referral e.g. "x uses single words to communicate", when I had written an example of 3-4 word phrases.” — <em>Sinead</em></div><div class="quote q-idea">“I noticed that in some areas it struggled with formatting the context of the conversation. For example - talking about the patient going on holiday wasnt explained in the same context on the notes, infact it changed the context of the sentence completely.” — <em>Penny</em></div></div></div></div></div><div class="grid-item"><div class="hcard taskcol">
+
+  <div class="title">4. ADHD Medication Review</div>
+ <div class="comments-col-inner"><div class="v">0.8 hours saved</div>
+  <div class="small task_gbp_fixed" data-task="ADHD Medication Review">£40 cost of clincians time saved </div>
+
+
+ 
+
+</div></div><div class="comments-row" id="comments-adhd"><div class="comment-col"><div class="label">What went well</div><div class="comments-col-inner"><div class="quote q-pos">“allowed me to engage more with the child rather than worrying about note taking” — <em>Charlotte</em></div><div class="quote q-pos">“summarised the appointment really well without missing necessary information” — <em>Charlotte</em></div><div class="quote q-pos">“more thorough documentation” — <em>Charlotte</em></div></div></div><div class="comment-col"><div class="label">Challenges</div><div class="comments-col-inner"><div class="quote q-neg">“didn't accurately document the BP” — <em>Charlotte</em></div></div></div><div class="comment-col"><div class="label">Ideas &amp; suggestions</div><div class="comments-col-inner"><div class="quote q-idea">“didn't accurately document the BP” — <em>Charlotte</em></div></div></div></div></div></div>
+<div class="hr"></div>
+<!-- BEGIN: Clinician contribution (commented out for presentation)
+<h2>3) Clinician contribution</h2>
+<div class="grid">
+<div class="hcard"><div class="title">Charlotte</div><div class="v clin_gbp" data-clin="Charlotte">£0</div><div class="s">0.0 hours saved</div></div><div class="hcard"><div class="title">Kathryn</div><div class="v clin_gbp" data-clin="Kathryn">£0</div><div class="s">0.4 hours saved</div></div><div class="hcard"><div class="title">Michaela</div><div class="v clin_gbp" data-clin="Michaela">£0</div><div class="s">1.2 hours saved</div></div><div class="hcard"><div class="title">Penny</div><div class="v clin_gbp" data-clin="Penny">£0</div><div class="s">0.0 hours saved</div></div><div class="hcard"><div class="title">Sinead</div><div class="v clin_gbp" data-clin="Sinead">£0</div><div class="s">6.5 hours saved</div></div><div class="hcard"><div class="title">Torsten</div><div class="v clin_gbp" data-clin="Torsten">£0</div><div class="s">0.0 hours saved</div></div>
+</div>
+
+END: Clinician contribution -->
+</div>
+<script>
+const LOCK_TASKS = true;
+
+const MINUTES = {"overall": {"Sinead": 363.67, "Michaela": 56.67, "Kathryn": 25.0}, "tasks": {"New Patient Assessment": {"Sinead": 345.0, "Michaela": 45.0}, "Patient Summary Document Based": {}, "Other Uses": {"Sinead": 18.67, "Michaela": 11.67, "Kathryn": 25.0}, "ADHD Medication Review": {}}};
+const LICENSE = 260;
+const WEEKS_PER_MONTH = 4.345;
+const GROWTH_MOM = 0.05;
+const SOFTWARE_PER_WEEK_6 = 130;
+const OVERRIDE_HOURS = 54.3;
+
+const TASK_FIXED_HOURS = {"New Patient Assessment":31.4,"Patient Summary Document Based":14.8,"Other Uses":7.3,"ADHD Medication Review":0.8};
+const TASK_FIXED_GBP   = {"New Patient Assessment":1577,"Patient Summary Document Based":745,"Other Uses":367,"ADHD Medication Review":40};
+
+const PER_TASK_FALLBACK_HOURS = {"New Patient Assessment":31.4,"Patient Summary Document Based":7.63,"Other Uses":7.63,"ADHD Medication Review":7.63};
+
+function parseRates(){ return {"Sinead":36.5,"Michaela":36.5,"Penny":36.5,"Charlotte":42,"Kathryn":50,"Torsten":100}; }
+function fmtGBP(n){ return '£'+Number(n).toLocaleString(); }
+function fmtHRS(n){ return Number(n).toLocaleString(undefined,{maximumFractionDigits:1}); }
+function gbpFromMap(map, rates){ let t=0; for(const n in map){ const mins=map[n]||0; const r=rates[n]||0; t += (mins/60)*r; } return Math.round(t); }
+
+function recalcOverall(){
+  const rates = parseRates();
+  const vals = Object.values(rates);
+  const avgRate = vals.reduce((a,b)=>a+b,0)/vals.length;
+  const hours = OVERRIDE_HOURS;
+  const gross = Math.round(hours * avgRate);
+  document.getElementById('overall_hrs').textContent = fmtHRS(hours) + ' hours';
+  document.getElementById('overall_gbp').textContent = fmtGBP(gross);
+  document.getElementById('overall_gbp_net').textContent = fmtGBP(gross - LICENSE);
+
+  /* TASK LOOP DISABLED */
+if(!LOCK_TASKS){
+document.querySelectorAll('.task_gbp').forEach(el=>{
+    const t = el.getAttribute('data-task');
+}
+/* END TASK LOOP */
+    const map = (MINUTES.tasks||{})[t]||{};
+    let mins = 0; for(const k in map) mins += map[k]||0;
+    let hrs = mins/60;
+    if(!hrs || hrs < 0.01) hrs = PER_TASK_FALLBACK_HOURS[t]||0;
+    const gbp = Math.round(hrs * avgRate);
+    el.textContent = fmtGBP(gbp);
+    // Force NPA to legacy numbers
+    if (t === 'New Patient Assessment') {
+      
+      hrs = 31.4;
+    }
+    const card = el.closest('.hcard');
+    if(card){ const small = card.querySelector('.comments-col-inner .small'); if(small) small.textContent = fmtHRS(hrs) + ' hours saved'; }
+  });
+
+  document.querySelectorAll('.clin_gbp').forEach(el=>{
+    const name = el.getAttribute('data-clin');
+    const mins = (MINUTES.overall||{})[name] || 0;
+    const rate = rates[name] || avgRate;
+    const gbp = Math.round((mins/60) * rate);
+    el.textContent = fmtGBP(gbp);
+  });
+}
+
+function computeProjection(nClinSel, months){
+  const rates = parseRates();
+  const vals = Object.values(rates);
+  const avgRate = vals.reduce((a,b)=>a+b,0)/vals.length;
+  const scaleClin = nClinSel/6;
+  const hours2w = OVERRIDE_HOURS * scaleClin;
+  const weeklyHours = hours2w/2;
+  const weeklyGbp = avgRate * weeklyHours;
+  let cumH=0, cumG=0;
+  for(let i=0;i<months;i++){ const growth = Math.pow(1+GROWTH_MOM, i); cumH += weeklyHours*WEEKS_PER_MONTH*growth; cumG += weeklyGbp*WEEKS_PER_MONTH*growth; }
+  const sw = SOFTWARE_PER_WEEK_6 * scaleClin * WEEKS_PER_MONTH * months;
+  return {hours:cumH, gbp:cumG, software:sw, avgRate};
+}
+
+function refreshProj(){
+  const nClin = parseInt(document.getElementById('projClin').value,10);
+  const months = parseInt(document.getElementById('projPeriod').value,10);
+  const res = computeProjection(nClin, months);
+  document.getElementById('projHours').textContent = fmtHRS(res.hours);
+  const eqClin = (res.avgRate>0) ? (res.gbp / (res.avgRate * 1650)) : 0;
+  document.getElementById('eqClin').textContent = eqClin.toFixed(1);
+  document.getElementById('eqKidsLow').textContent = Math.round(res.hours/6).toLocaleString();
+  document.getElementById('eqKidsHigh').textContent = Math.round(res.hours/3.5).toLocaleString();
+  document.getElementById('projSoft').textContent = Math.round(res.software).toLocaleString();
+  document.getElementById('projCost').textContent = Math.round(res.gbp).toLocaleString();
+}
+
+window.addEventListener('DOMContentLoaded', ()=>{ recalcOverall(); refreshProj(); });
+document.getElementById('recalcBtn').addEventListener('click', ()=>{ recalcOverall(); refreshProj(); });
+document.getElementById('projClin').addEventListener('change', refreshProj);
+document.getElementById('projPeriod').addEventListener('change', refreshProj);
+
+function computeProjection(nClinSel, months){
+  const rates = parseRates();
+  const vals = Object.values(rates);
+  const avgRate = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
+  const scaleClin = nClinSel / 6.0; // relative to current 6
+
+  const hours2w = 54.3 * scaleClin;   // treat current snapshot as ~2 weeks
+  const weeklyHours = hours2w / 2.0;
+  const weeklyGbp   = avgRate * weeklyHours;
+
+  let cumH = 0, cumG = 0;
+  const WEEKS_PER_MONTH = 4.345;
+  const GROWTH_MOM = 0.05;
+  for(let i=0;i<months;i++){
+    const growth = Math.pow(1+GROWTH_MOM, i);
+    cumH += weeklyHours * WEEKS_PER_MONTH * growth;
+    cumG += weeklyGbp  * WEEKS_PER_MONTH * growth;
+  }
+  const SOFTWARE_PER_WEEK_6 = 130;
+  const software = SOFTWARE_PER_WEEK_6 * scaleClin * WEEKS_PER_MONTH * months;
+  return {hours:cumH, gbp:cumG, software:software, avgRate:avgRate};
+}
+
+function refreshProj(){
+  const nClin = parseInt(document.getElementById('projClin').value,10);
+  const months = parseInt(document.getElementById('projPeriod').value,10);
+  const res = computeProjection(nClin, months);
+  document.getElementById('projHours').textContent = Number(res.hours).toLocaleString(undefined,{maximumFractionDigits:1});
+  const eqClin = (res.avgRate>0) ? (res.gbp / (res.avgRate * 1650)) : 0;
+  document.getElementById('eqClin').textContent = eqClin.toFixed(1);
+  document.getElementById('eqKidsLow').textContent = Math.round(res.hours/6).toLocaleString();
+  document.getElementById('eqKidsHigh').textContent = Math.round(res.hours/3.5).toLocaleString();
+  document.getElementById('projSoft').textContent = Math.round(res.software).toLocaleString();
+  document.getElementById('projCost').textContent = Math.round(res.gbp).toLocaleString();
+}
+
+</script>
+<script>
+(function(){
+  const hours = 54.3;
+  const gross = 2729; // 54.3 * average £/hr
+  const net = gross - 260;
+  const elH = document.getElementById('overall_hrs');
+  if (elH) elH.textContent = hours.toLocaleString(undefined,{maximumFractionDigits:1}) + ' hours';
+  const elG = document.getElementById('overall_gbp');
+  if (elG) elG.textContent = '£' + gross.toLocaleString();
+  const elN = document.getElementById('overall_gbp_net');
+  if (elN) elN.textContent = '£' + net.toLocaleString();
+})();
+
+function computeProjection(nClinSel, months){
+  const rates = parseRates();
+  const vals = Object.values(rates);
+  const avgRate = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
+  const scaleClin = nClinSel / 6.0; // relative to current 6
+
+  const hours2w = 54.3 * scaleClin;   // treat current snapshot as ~2 weeks
+  const weeklyHours = hours2w / 2.0;
+  const weeklyGbp   = avgRate * weeklyHours;
+
+  let cumH = 0, cumG = 0;
+  const WEEKS_PER_MONTH = 4.345;
+  const GROWTH_MOM = 0.05;
+  for(let i=0;i<months;i++){
+    const growth = Math.pow(1+GROWTH_MOM, i);
+    cumH += weeklyHours * WEEKS_PER_MONTH * growth;
+    cumG += weeklyGbp  * WEEKS_PER_MONTH * growth;
+  }
+  const SOFTWARE_PER_WEEK_6 = 130;
+  const software = SOFTWARE_PER_WEEK_6 * scaleClin * WEEKS_PER_MONTH * months;
+  return {hours:cumH, gbp:cumG, software:software, avgRate:avgRate};
+}
+
+function refreshProj(){
+  const nClin = parseInt(document.getElementById('projClin').value,10);
+  const months = parseInt(document.getElementById('projPeriod').value,10);
+  const res = computeProjection(nClin, months);
+  document.getElementById('projHours').textContent = Number(res.hours).toLocaleString(undefined,{maximumFractionDigits:1});
+  const eqClin = (res.avgRate>0) ? (res.gbp / (res.avgRate * 1650)) : 0;
+  document.getElementById('eqClin').textContent = eqClin.toFixed(1);
+  document.getElementById('eqKidsLow').textContent = Math.round(res.hours/6).toLocaleString();
+  document.getElementById('eqKidsHigh').textContent = Math.round(res.hours/3.5).toLocaleString();
+  document.getElementById('projSoft').textContent = Math.round(res.software).toLocaleString();
+  document.getElementById('projCost').textContent = Math.round(res.gbp).toLocaleString();
+}
+
+</script>
+<script>
+(function(){
+  // Standalone projections with guards
+  const WEEKS_PER_MONTH = 4.345;
+  const GROWTH_MOM = 0.05;
+  const BASE_HOURS_2W = 54.3; // snapshot covers ~2 weeks
+  const SOFTWARE_PER_WEEK_6 = 130;
+  const RATES = {"Sinead":36.5,"Michaela":36.5,"Penny":36.5,"Charlotte":42,"Kathryn":50,"Torsten":100};
+  const AVG_RATE = (Object.values(RATES).reduce((a,b)=>a+b,0) / Object.values(RATES).length) || 50.25;
+
+  function computeProjection(nClinSel, months){
+    const scaleClin = nClinSel/6;
+    const weeklyHours = (BASE_HOURS_2W*scaleClin)/2;
+    const weeklyGbp = weeklyHours * AVG_RATE;
+    let cumH=0, cumG=0;
+    for(let i=0;i<months;i++){
+      const growth = Math.pow(1+GROWTH_MOM, i);
+      cumH += weeklyHours * WEEKS_PER_MONTH * growth;
+      cumG += weeklyGbp  * WEEKS_PER_MONTH * growth;
+    }
+    const software = SOFTWARE_PER_WEEK_6 * scaleClin * WEEKS_PER_MONTH * months;
+    return {hours:cumH, gbp:cumG, software, avgRate:AVG_RATE};
+  }
+
+  function refreshProjSafe(){
+    try{
+      const clinEl = document.getElementById('projClin');
+      const perEl  = document.getElementById('projPeriod');
+      if(!clinEl || !perEl) return;
+      const nClin = parseInt(clinEl.value, 10);
+      const months = parseInt(perEl.value, 10);
+      const res = computeProjection(nClin, months);
+      const eqClin = (res.avgRate>0) ? (res.gbp / (res.avgRate*1650)) : 0;
+      const kidsLow  = Math.round(res.hours/6);
+      const kidsHigh = Math.round(res.hours/3.5);
+
+      const set = (id, txt) => { const el=document.getElementById(id); if(el){ el.textContent = txt; } };
+
+      set('projHours', Number(res.hours).toLocaleString(undefined,{maximumFractionDigits:1}));
+      set('eqClin', eqClin.toFixed(1));
+      set('eqKidsLow', kidsLow.toLocaleString());
+      set('eqKidsHigh', kidsHigh.toLocaleString());
+      set('projSoft', Math.round(res.software).toLocaleString());
+      set('projCost', Math.round(res.gbp).toLocaleString());
+    }catch(e){ /* swallow to keep UI working */ }
+  }
+
+  // Wire once DOM is ready
+  window.addEventListener('DOMContentLoaded', function(){
+    refreshProjSafe();
+    const btn = document.getElementById('recalcBtn');
+    if(btn) btn.addEventListener('click', refreshProjSafe);
+    const c = document.getElementById('projClin');
+    if(c) c.addEventListener('change', refreshProjSafe);
+    const p = document.getElementById('projPeriod');
+    if(p) p.addEventListener('change', refreshProjSafe);
+  });
+})();
+</script>
+</body></html>
