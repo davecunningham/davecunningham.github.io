@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designing Better ND Services in Wales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:     #1a6b6b;
+    --teal-lt:  #e8f4f4;
+    --amber:    #c47c2b;
+    --amber-lt: #fdf3e7;
+    --rose:     #a63d4a;
+    --slate:    #2e3a3a;
+    --mid:      #556060;
+    --pale:     #f7f5f2;
+    --white:    #ffffff;
+    --border:   #d4dada;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--slate);
+    background: var(--pale);
+    line-height: 1.65;
+  }
+
+  /* ── NAV ─────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,245,242,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    max-width: 220px;
+    line-height: 1.2;
+  }
+  .nav-links {
+    display: flex; gap: 1.5rem; list-style: none;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .nav-links a {
+    color: var(--mid); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 2rem 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .hero-text h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--slate);
+    margin-bottom: 1.5rem;
+  }
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--teal);
+  }
+  .hero-text p {
+    font-size: 1.1rem;
+    color: var(--mid);
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--teal-lt);
+    color: var(--teal);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border-radius: 2rem;
+    margin-bottom: 1.2rem;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .stat-card {
+    background: var(--white);
+    padding: 1.6rem 1.4rem;
+    transition: background 0.2s;
+  }
+  .stat-card:hover { background: var(--teal-lt); }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.3;
+  }
+
+  /* ── SECTIONS ─────────────────────────────────────────── */
+  section { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--slate);
+    margin-bottom: 1rem;
+  }
+  .section-intro {
+    font-size: 1.05rem;
+    color: var(--mid);
+    max-width: 640px;
+    margin-bottom: 3rem;
+  }
+
+  /* full-width banded sections */
+  .band { background: var(--white); }
+  .band-teal { background: var(--teal); }
+  .band-amber { background: var(--amber-lt); }
+
+  /* ── PATHWAY ─────────────────────────────────────────── */
+  .pathway-stages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .pathway-stage {
+    background: var(--white);
+    padding: 1.4rem 1rem;
+    text-align: center;
+    position: relative;
+  }
+  .stage-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--teal);
+    opacity: 0.25;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stage-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--slate);
+    line-height: 1.3;
+  }
+  .stage-arrow {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: var(--teal);
+    clip-path: polygon(0 0, 55% 50%, 0 100%);
+    z-index: 1;
+  }
+  .pathway-stage:last-child .stage-arrow { display: none; }
+
+  /* ── PAIN POINTS ─────────────────────────────────────── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+  .pain-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem;
+    border-left: 3px solid var(--teal);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .pain-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .pain-stage-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+  .pain-card p {
+    font-size: 0.92rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* ── ANTI-PERSONAS ───────────────────────────────────── */
+  .personas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
+  .persona-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .persona-card:hover {
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+  }
+  .persona-header {
+    padding: 1.2rem 1.4rem 0.8rem;
+    display: flex; align-items: flex-start; gap: 0.8rem;
+  }
+  .persona-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .persona-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--slate);
+    line-height: 1.25;
+  }
+  .persona-who {
+    font-size: 0.82rem;
+    color: var(--mid);
+    margin-top: 0.2rem;
+  }
+  .persona-body {
+    padding: 0 1.4rem 1.2rem;
+    display: none;
+  }
+  .persona-card.open .persona-body { display: block; }
+  .persona-row {
+    font-size: 0.84rem;
+    color: var(--slate);
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
+  }
+  .persona-row strong {
+    color: var(--teal);
+    font-weight: 500;
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.1rem;
+  }
+  .persona-quote {
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--mid);
+    border-left: 2px solid var(--amber);
+    padding-left: 0.8rem;
+    margin-top: 0.8rem;
+  }
+  .persona-toggle {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0 1.4rem 1rem;
+    display: block;
+  }
+
+  /* ── PILOT RESULTS ───────────────────────────────────── */
+  .pilot-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .results-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--pale);
+  }
+  .results-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--slate);
+  }
+  .results-table tr:last-child td { border-bottom: none; }
+  .results-table tr:hover td { background: var(--teal-lt); }
+  .saving-bar-wrap { display: flex; align-items: center; gap: 0.6rem; }
+  .saving-bar {
+    height: 8px; border-radius: 4px;
+    background: linear-gradient(90deg, var(--teal), #3d9e9e);
+    flex-shrink: 0;
+  }
+  .saving-pct {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--teal);
+    white-space: nowrap;
+  }
+
+  /* sidebar quotes */
+  .pilot-sidebar .quote-block {
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 1.4rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .quote-block p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+  .quote-block .attribution {
+    font-size: 0.78rem;
+    opacity: 0.75;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .quote-block.amber-q {
+    background: var(--amber-lt);
+    border: 1px solid #e8c98a;
+  }
+  .quote-block.amber-q p { color: var(--slate); }
+  .quote-block.amber-q .attribution { color: var(--mid); }
+
+  /* ── USER NEEDS TABLE ────────────────────────────────── */
+  .needs-filters {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .filter-btn {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: var(--white);
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--teal);
+    color: var(--white);
+    border-color: var(--teal);
+  }
+  .needs-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--white);
+  }
+  .needs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.86rem;
+  }
+  .needs-table th {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    background: var(--pale);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .needs-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--slate);
+    line-height: 1.45;
+  }
+  .needs-table tr:last-child td { border-bottom: none; }
+  .needs-table tr:hover td { background: #f0f7f7; }
+  .needs-table tr[data-stage].hidden { display: none; }
+
+  .status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .status-met { background: #d4edda; color: #1e6b39; }
+  .status-partial { background: #fff3cd; color: #856404; }
+  .status-totest { background: #d1ecf1; color: #0c5460; }
+  .status-notmet { background: #f8d7da; color: #721c24; }
+
+  /* ── WHATSAPP / VOICES ───────────────────────────────── */
+  .voices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+  .voice-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+  .voice-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+  .voice-card::before {
+    content: '"';
+    font-family: 'Fraunces', serif;
+    font-size: 5rem;
+    color: var(--teal);
+    opacity: 0.12;
+    position: absolute;
+    top: 0.2rem; left: 0.8rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .voice-card p {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.55;
+    margin-bottom: 0.8rem;
+    position: relative;
+    z-index: 1;
+  }
+  .voice-who {
+    font-size: 0.78rem;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--mid);
+    font-weight: 500;
+  }
+
+  /* ── VALUE STREAM ────────────────────────────────────── */
+  .value-steps {
+    display: grid;
+    gap: 0;
+    margin-bottom: 2rem;
+  }
+  .value-step {
+    display: grid;
+    grid-template-columns: 2.2rem 2.2rem 1fr 120px 80px 1fr;
+    gap: 0 0.8rem;
+    align-items: center;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.84rem;
+  }
+  .value-step:first-child { border-radius: 10px 10px 0 0; background: var(--pale); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--mid); }
+  .value-step:last-child { border-bottom: none; border-radius: 0 0 10px 10px; }
+  .value-step:not(:first-child) { background: var(--white); }
+  .value-step:not(:first-child):hover { background: var(--teal-lt); }
+  .step-n { font-family: 'Fraunces', serif; font-weight: 700; color: var(--teal); }
+  .dot-green { color: #22a55e; font-size: 1rem; }
+  .dot-amber { color: var(--amber); font-size: 1rem; }
+  .dot-red { color: var(--rose); font-size: 1rem; }
+
+  /* ── LANDSCAPE ───────────────────────────────────────── */
+  .landscape-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .landscape-card {
+    background: var(--white);
+    padding: 1.3rem 1.2rem;
+  }
+  .landscape-area {
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--teal);
+    margin-bottom: 0.4rem;
+  }
+  .landscape-what {
+    font-size: 0.88rem;
+    color: var(--slate);
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+  }
+  .landscape-why {
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.4;
+  }
+
+  /* ── RECOMMENDATIONS ─────────────────────────────────── */
+  .recs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+  .rec-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem;
+    border-top: 3px solid var(--amber);
+  }
+  .rec-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--amber);
+    opacity: 0.35;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .rec-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--slate);
+    margin-bottom: 0.5rem;
+  }
+  .rec-body {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  footer {
+    background: var(--slate);
+    color: rgba(255,255,255,0.7);
+    padding: 3rem 2rem;
+    font-size: 0.88rem;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .footer-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  footer a { color: rgba(255,255,255,0.7); }
+  footer a:hover { color: #fff; }
+  .footer-refs { list-style: none; }
+  .footer-refs li { margin-bottom: 0.4rem; }
+
+  /* ── DIVIDER ─────────────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 100px 1.2rem 3rem; }
+    .pilot-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .value-step { grid-template-columns: 1.5rem 1.5rem 1fr 80px 60px; font-size: 0.78rem; }
+    .value-step > :last-child { display: none; }
+  }
+
+  /* ── SCROLL ANIMATIONS ───────────────────────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Designing Better ND Services in Wales</a>
+  <ul class="nav-links">
+    <li><a href="#pathway">Pathway</a></li>
+    <li><a href="#pain-points">Pain Points</a></li>
+    <li><a href="#personas">Personas</a></li>
+    <li><a href="#pilot">AI Scribe Pilot</a></li>
+    <li><a href="#user-needs">User Needs</a></li>
+    <li><a href="#voices">Voices</a></li>
+    <li><a href="#landscape">Landscape</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text fade-up">
+    <span class="hero-tag">Service Design Research · Wales · 2024–26</span>
+    <h1>Designing <em>better</em> neurodevelopmental services in Wales</h1>
+    <p>A public record of service design research across Welsh NHS neurodevelopmental pathways — documenting user needs, system pressures, AI innovation pilots, and a way forward.</p>
+  </div>
+  <div class="hero-stats fade-up">
+    <div class="stat-card">
+      <div class="stat-num">~150</div>
+      <div class="stat-label">hours of clinical use in the AI scribe pilot</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">35–80%</div>
+      <div class="stat-label">time savings across documentation tasks</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4.9/5</div>
+      <div class="stat-label">ease-of-use rating from clinicians</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">14</div>
+      <div class="stat-label">anti-personas mapped across the system</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">6</div>
+      <div class="stat-label">pathway stages mapped end-to-end</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">29</div>
+      <div class="stat-label">user needs evaluated against pilot evidence</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="band">
+  <section id="about">
+    <span class="section-tag">About this work</span>
+    <h2>Why this matters</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+      <div>
+        <p class="section-intro" style="margin-bottom:1.2rem;">Neurodevelopmental (ND) services in Wales are under significant strain. Demand is rising, waiting lists are long, and the clinicians doing this work carry enormous administrative burden — often at the cost of time with families.</p>
+        <p style="font-size:0.95rem;color:var(--mid);line-height:1.7;">This site preserves the findings from a service design project exploring the entire ND pathway: from first referral through to post-diagnostic follow-up. It documents what families experience, what clinicians need, where the system breaks down, and where innovation is beginning to make a real difference.</p>
+        <p style="font-size:0.95rem;color:var(--mid);line-height:1.7;margin-top:1rem;">The research spans qualitative interviews, pathway mapping, simulation testing, and a real-world pilot of AI scribe technology across the Cwm Taf Morgannwg (CTM) Children's ND Service.</p>
+      </div>
+      <div>
+        <div style="background:var(--teal-lt);border-radius:12px;padding:1.8rem;">
+          <p style="font-family:'Fraunces',serif;font-size:1.1rem;font-style:italic;color:var(--teal);margin-bottom:0.8rem;line-height:1.5;">"Magic Notes gave me back the part of my job I love."</p>
+          <p style="font-size:0.82rem;color:var(--mid);">— Clinician, CTM Pilot</p>
+        </div>
+        <div style="background:var(--amber-lt);border:1px solid #e8c98a;border-radius:12px;padding:1.4rem;margin-top:1rem;">
+          <p style="font-size:0.9rem;color:var(--slate);font-weight:500;margin-bottom:0.4rem;">Research scope</p>
+          <ul style="font-size:0.84rem;color:var(--mid);list-style:none;line-height:1.8;">
+            <li>→ Full end-to-end pathway mapping</li>
+            <li>→ Clinician and family user research</li>
+            <li>→ Admin process mapping (Hywel Dda)</li>
+            <li>→ Simulation testing of AI scribe technology</li>
+            <li>→ 6-week live pilot (CTM)</li>
+            <li>→ 29 user needs evaluated against evidence</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- PATHWAY -->
+<section id="pathway">
+  <span class="section-tag">The service</span>
+  <h2>The neurodevelopmental pathway</h2>
+  <p class="section-intro">Six stages from first referral to post-diagnostic support — each with distinct user needs, pain points, and opportunities for improvement.</p>
+  <div class="pathway-stages fade-up">
+    <div class="pathway-stage">
+      <div class="stage-num">01</div>
+      <div class="stage-name">Identification &amp; Referral</div>
+      <div class="stage-arrow"></div>
+    </div>
+    <div class="pathway-stage">
+      <div class="stage-num">02</div>
+      <div class="stage-name">Screening &amp; Triage</div>
+      <div class="stage-arrow"></div>
+    </div>
+    <div class="pathway-stage">
+      <div class="stage-num">03</div>
+      <div class="stage-name">Assessment &amp; Observation</div>
+      <div class="stage-arrow"></div>
+    </div>
+    <div class="pathway-stage">
+      <div class="stage-num">04</div>
+      <div class="stage-name">Panel &amp; Clinical Decisions</div>
+      <div class="stage-arrow"></div>
+    </div>
+    <div class="pathway-stage">
+      <div class="stage-num">05</div>
+      <div class="stage-name">Diagnostic Decision</div>
+      <div class="stage-arrow"></div>
+    </div>
+    <div class="pathway-stage">
+      <div class="stage-num">06</div>
+      <div class="stage-name">Reporting &amp; Follow-up</div>
+    </div>
+  </div>
+
+  <!-- Value stream table -->
+  <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+    <div class="value-step">
+      <span></span><span>Value</span><span>Step</span><span>Process time</span><span>Lead time</span><span>Notes</span>
+    </div>
+    <div class="value-step"><span class="step-n">1</span><span class="dot-green">●</span><span>Receive referral</span><span>5 min</span><span>0 days</span><span style="font-size:0.8rem;color:var(--mid)">Often slow due to volume</span></div>
+    <div class="value-step"><span class="step-n">2</span><span class="dot-green">●</span><span>Triage referral</span><span>15 min</span><span>2–4 weeks</span><span style="font-size:0.8rem;color:var(--mid)">Clinician availability bottleneck</span></div>
+    <div class="value-step"><span class="step-n">3</span><span class="dot-green">●</span><span>Review evidence</span><span>20 min</span><span>—</span><span style="font-size:0.8rem;color:var(--mid)">Missing info delays onward flow</span></div>
+    <div class="value-step"><span class="step-n">4</span><span class="dot-amber">●</span><span>Reject referral (if needed)</span><span>10 min</span><span>+1–2 wks</span><span style="font-size:0.8rem;color:var(--mid)">Could be automated</span></div>
+    <div class="value-step"><span class="step-n">5</span><span class="dot-amber">●</span><span>List child on waiting list</span><span>5 min</span><span>0–2 wks</span><span style="font-size:0.8rem;color:var(--mid)">Admin delay before letter</span></div>
+    <div class="value-step"><span class="step-n">6</span><span class="dot-amber">●</span><span>Book appointment</span><span>10 min</span><span>4–12 wks</span><span style="font-size:0.8rem;color:var(--mid)">Parent response chase stalls flow</span></div>
+    <div class="value-step"><span class="step-n">7</span><span class="dot-red">●</span><span>Discharge if no response</span><span>5 min</span><span>6–10 wks</span><span style="font-size:0.8rem;color:var(--mid)">Admin waste if chase cycles repeat</span></div>
+    <div class="value-step"><span class="step-n">8</span><span class="dot-green">●</span><span>Take developmental history</span><span>60–90 min</span><span>4–12 mo</span><span style="font-size:0.8rem;color:var(--mid)">⚠ Major bottleneck</span></div>
+    <div class="value-step"><span class="step-n">9</span><span class="dot-amber">●</span><span>Gather further information</span><span>30–60 min</span><span>6–12 wks</span><span style="font-size:0.8rem;color:var(--mid)">Schools/EPs slow to respond</span></div>
+    <div class="value-step"><span class="step-n">10</span><span class="dot-green">●</span><span>Medical assessment</span><span>45–75 min</span><span>9–18 mo</span><span style="font-size:0.8rem;color:var(--mid)">⚠ Highest bottleneck</span></div>
+    <div class="value-step"><span class="step-n">11</span><span class="dot-amber">●</span><span>Consolidate findings (panel)</span><span>45 min</span><span>2–4 wks</span><span style="font-size:0.8rem;color:var(--mid)">Often a delay step</span></div>
+    <div class="value-step"><span class="step-n">12</span><span class="dot-green">●</span><span>Feedback decision</span><span>20–30 min</span><span>2–6 wks</span><span style="font-size:0.8rem;color:var(--mid)">Dependent on availability</span></div>
+    <div class="value-step"><span class="step-n">13</span><span class="dot-green">●</span><span>Signpost support</span><span>20 min</span><span>0–2 wks</span><span style="font-size:0.8rem;color:var(--mid)">Can merge with feedback appt</span></div>
+    <div class="value-step"><span class="step-n">15</span><span class="dot-green">●</span><span>Titrate medication (ADHD)</span><span>20 min/review</span><span>Monthly × 3–5</span><span style="font-size:0.8rem;color:var(--mid)">Medium-intensity staffing needed</span></div>
+    <div class="value-step"><span class="step-n">18</span><span class="dot-green">●</span><span>Discharge with advice</span><span>10 min</span><span>0</span><span style="font-size:0.8rem;color:var(--mid)">Straightforward</span></div>
+  </div>
+  <p style="font-size:0.78rem;color:var(--mid);margin-top:0.8rem;">● Green: direct clinical value — protect. ● Amber: necessary but streamlinable. ● Red: no clinical value — challenge or remove.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- PAIN POINTS -->
+<div class="band">
+<section id="pain-points">
+  <span class="section-tag">What's not working</span>
+  <h2>Key pain points across the pathway</h2>
+  <p class="section-intro">These pain points were identified through clinician interviews, admin task mapping, and pathway observation across Welsh NHS services.</p>
+  <div class="pain-grid">
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Referral</div>
+      <p>Referral forms are long, PDF-based and inconsistent — GPs and schools lack time to gather quality evidence, leading to repeated requests, delays, and unsuitable referrals re-entering the system.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Referral</div>
+      <p>Bulk school referrals contain duplicated or inconsistent information. Schools receive no feedback on why referrals are accepted or declined, so problems repeat without improvement.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Screening &amp; Triage</div>
+      <p>Clinicians spend 1–2 hours per case reading long questionnaires from multiple sources. Information is scattered across WelshPAS, CarePartner, spreadsheets and email — requiring manual detective work.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Screening &amp; Triage</div>
+      <p>Safeguarding and risk information is buried in long documents. There is no early visibility of risk before appointments — meaning sessions can begin without clinicians being adequately prepared.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Assessment</div>
+      <p>One-hour assessment sessions must cover introduction, risk, observation, questions and documentation simultaneously. Recording across multiple systems during sessions competes directly with clinical observation.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Assessment</div>
+      <p>Back-to-back sessions with no protected documentation time mean clinicians reconstruct notes from memory, sometimes mixing up details. This creates safeguarding risk and fragile continuity of care.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Admin (Hywel Dda)</div>
+      <p>Admin staff navigate four disconnected systems — WelshPAS, Care Partner, Excel spreadsheets, and OneDrive — to process a single referral. Total time: 21–69 minutes with significant manual duplication.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Panel</div>
+      <p>Panel members are expected to have read long reports in advance, but rarely do. Information is re-explained in meetings rather than decisions being made — consuming large volumes of clinician time.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Panel</div>
+      <p>Panels are used as a substitute for clinical supervision. Historical inconsistency in decisions and high professional consequence weight drives defensive over-documentation and repeated panel attendance.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Reporting</div>
+      <p>Clinicians spend more time writing reports than seeing children. Manual rewriting of the same content for different audiences (family, GP, school, CAMHS) adds significant workload after every assessment.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Reporting</div>
+      <p>Post-diagnostic support is inequitable. Diagnosis is prioritised before support, families struggle to process outcomes in a single delivery, and there is no consistent offer of follow-up or signposting.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-stage-label">Caseload visibility</div>
+      <p>Clinicians manage caseloads through personal spreadsheets and local workarounds. As one clinician put it: "Nobody can see my caseload. If something happens to me, you have nothing."</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ANTI-PERSONAS -->
+<section id="personas">
+  <span class="section-tag">Who the system creates</span>
+  <h2>Anti-personas</h2>
+  <p class="section-intro">Anti-personas don't describe the people — they describe what the system forces people to become. Click any card to see details.</p>
+  <div class="personas-grid" id="personas-grid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PILOT RESULTS -->
+<div class="band">
+<section id="pilot">
+  <span class="section-tag">CTM AI Scribe Pilot · 6 weeks · Oct–Nov 2025</span>
+  <h2>AI scribe pilot results</h2>
+  <p class="section-intro">The CTM Children's ND Service piloted Magic Notes AI scribe across 5 clinicians over 6 weeks. Here are the headline findings.</p>
+  <div class="pilot-grid">
+    <div>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Task type</th>
+            <th>Time saved</th>
+            <th>% saving</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>New patient assessment write-up</td>
+            <td>~124 min/case</td>
+            <td>
+              <div class="saving-bar-wrap">
+                <div class="saving-bar" style="width:76px"></div>
+                <span class="saving-pct">72–80%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Patient summary (document-based)</td>
+            <td>~41 min/case</td>
+            <td>
+              <div class="saving-bar-wrap">
+                <div class="saving-bar" style="width:67px"></div>
+                <span class="saving-pct">~67%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>ADHD medication review</td>
+            <td>~27 min/case</td>
+            <td>
+              <div class="saving-bar-wrap">
+                <div class="saving-bar" style="width:57px"></div>
+                <span class="saving-pct">50–65%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Letters &amp; admin correspondence</td>
+            <td>~28 min/task</td>
+            <td>
+              <div class="saving-bar-wrap">
+                <div class="saving-bar" style="width:40px"></div>
+                <span class="saving-pct">35–50%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>MDT meeting minutes</td>
+            <td>~45 min/meeting</td>
+            <td>
+              <div class="saving-bar-wrap">
+                <div class="saving-bar" style="width:70px"></div>
+                <span class="saving-pct">~75%</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:1.5rem;">
+        <div style="background:var(--white);padding:1.2rem;text-align:center;">
+          <div style="font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:var(--teal);">560h</div>
+          <div style="font-size:0.82rem;color:var(--mid);">hours saved in pilot period (5 clinicians)</div>
+        </div>
+        <div style="background:var(--white);padding:1.2rem;text-align:center;">
+          <div style="font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:var(--teal);">£260K</div>
+          <div style="font-size:0.82rem;color:var(--mid);">estimated annual value at full service scale</div>
+        </div>
+        <div style="background:var(--white);padding:1.2rem;text-align:center;">
+          <div style="font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:var(--teal);">149:0</div>
+          <div style="font-size:0.82rem;color:var(--mid);">ratings of "improved" vs "worse" quality</div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.4rem;">
+        <p style="font-size:0.82rem;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--mid);margin-bottom:1rem;">Simulation testing — word error rates</p>
+        <div style="display:grid;gap:0.5rem;">
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Echolalia</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:1%;height:100%;background:var(--teal);border-radius:3px;"></div></div>
+            <span style="color:var(--teal);font-weight:500;width:40px;">~1%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Accents</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:2%;height:100%;background:var(--teal);border-radius:3px;"></div></div>
+            <span style="color:var(--teal);font-weight:500;width:40px;">~2%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Topic switching</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:3%;height:100%;background:var(--teal);border-radius:3px;"></div></div>
+            <span style="color:var(--teal);font-weight:500;width:40px;">~3%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Non-verbal / sensitive</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:5%;height:100%;background:var(--teal);border-radius:3px;"></div></div>
+            <span style="color:var(--teal);font-weight:500;width:40px;">~5%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Disruptive environment</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:7%;height:100%;background:var(--amber);border-radius:3px;"></div></div>
+            <span style="color:var(--amber);font-weight:500;width:40px;">~7%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Quiet / hesitant voice</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:9%;height:100%;background:var(--amber);border-radius:3px;"></div></div>
+            <span style="color:var(--amber);font-weight:500;width:40px;">~9%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Bilingual (Eng/Welsh)</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:10%;height:100%;background:var(--rose);border-radius:3px;"></div></div>
+            <span style="color:var(--rose);font-weight:500;width:40px;">~10%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;">
+            <span style="width:160px;color:var(--slate);">Average across all tests</span>
+            <div style="flex:1;height:6px;background:var(--border);border-radius:3px;"><div style="width:6.6%;height:100%;background:var(--slate);border-radius:3px;"></div></div>
+            <span style="color:var(--slate);font-weight:500;width:40px;">6.6%</span>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--mid);margin-top:0.8rem;">Leading ASR systems benchmark at 5–10% WER. Welsh-only sessions showed hallucinations and require dedicated Welsh-language support.</p>
+      </div>
+    </div>
+
+    <div class="pilot-sidebar">
+      <div class="quote-block">
+        <p>"Guys if we don't get magic notes after this pilot I think I might quit my job."</p>
+        <span class="attribution">— Charlotte, Clinician, CTM Pilot WhatsApp group</span>
+      </div>
+      <div class="quote-block amber-q">
+        <p>"The family were sat down at 1.35 and the report draft was on my screen by 2.38."</p>
+        <span class="attribution">— Sinead, Clinician (previously: report took 1–2 hours on admin day)</span>
+      </div>
+      <div class="quote-block">
+        <p>"I feel so much more engaged with the family and it feels more like a conversation than an assessment."</p>
+        <span class="attribution">— Michaela, Clinician, CTM Pilot</span>
+      </div>
+      <div class="quote-block amber-q">
+        <p>"As an autistic person myself, I used to write really detailed lengthy reports. Magic Notes has taken so much stress out of report writing."</p>
+        <span class="attribution">— Sarah, Clinician</span>
+      </div>
+      <div class="quote-block">
+        <p>"I still can't remember all the IT systems I've got to add to, I still forget."</p>
+        <span class="attribution">— Clinician, service landscape research</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;">
+    <h3 style="font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;color:var(--slate);margin-bottom:1rem;">Pilot recommendations</h3>
+    <div class="recs-grid">
+      <div class="rec-card fade-up">
+        <div class="rec-num">01</div>
+        <div class="rec-title">Scale adoption across Welsh ND services</div>
+        <div class="rec-body">Evidence supports expansion beyond CTM. A standard IG position and governance framework would enable consistent rollout across health boards.</div>
+      </div>
+      <div class="rec-card fade-up">
+        <div class="rec-num">02</div>
+        <div class="rec-title">Co-design templates with clinicians and families</div>
+        <div class="rec-body">Templates for school obs, ADOS, supervision and non-diagnosis letters are already requested. Families should be involved in shaping neuro-affirming report language.</div>
+      </div>
+      <div class="rec-card fade-up">
+        <div class="rec-num">03</div>
+        <div class="rec-title">Standardise Welsh-language support</div>
+        <div class="rec-body">Welsh-only sessions require dedicated transcription support. This is both a clinical and language-rights requirement for services in Wales.</div>
+      </div>
+      <div class="rec-card fade-up">
+        <div class="rec-num">04</div>
+        <div class="rec-title">Redesign the service model — not just the tools</div>
+        <div class="rec-body">AI scribe creates capacity. That capacity should be reinvested in family time, differentiated pathways and proportionate panel use — not absorbed back into backlogs.</div>
+      </div>
+      <div class="rec-card fade-up">
+        <div class="rec-num">05</div>
+        <div class="rec-title">Extend retention periods to 30–60 days</div>
+        <div class="rec-body">The pilot's 7-day retention period was set for procurement speed and is too short for clinical workflows. Standard practice in comparable services is 30–60 days.</div>
+      </div>
+      <div class="rec-card fade-up">
+        <div class="rec-num">06</div>
+        <div class="rec-title">Monitor and report on hallucination rates</div>
+        <div class="rec-body">Systematic hallucination tracking is essential for governance and for making the case to sceptical health boards. A simple tally per clinician per period would provide sufficient data.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- USER NEEDS -->
+<section id="user-needs">
+  <span class="section-tag">Evidence base</span>
+  <h2>User needs &amp; success indicators</h2>
+  <p class="section-intro">29 user needs evaluated against pilot evidence. Filter by pathway stage to explore what was met, partially met, or still to test.</p>
+  <div class="needs-filters" id="needs-filters">
+    <button class="filter-btn active" data-stage="all">All</button>
+    <button class="filter-btn" data-stage="Identification and referral">Referral</button>
+    <button class="filter-btn" data-stage="Screening and triage">Screening</button>
+    <button class="filter-btn" data-stage="Assessment and observation">Assessment</button>
+    <button class="filter-btn" data-stage="Panel and clinical decisions">Panel</button>
+    <button class="filter-btn" data-stage="Reporting letters and follow up">Reporting</button>
+  </div>
+  <div class="needs-table-wrap">
+    <table class="needs-table" id="needs-table">
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Persona</th>
+          <th style="min-width:280px">User need</th>
+          <th>Evidence status</th>
+          <th style="min-width:180px">Success measures</th>
+        </tr>
+      </thead>
+      <tbody id="needs-tbody">
+        <!-- populated by JS -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VOICES FROM THE PILOT -->
+<div class="band">
+<section id="voices">
+  <span class="section-tag">Voices from the field</span>
+  <h2>From the pilot WhatsApp group</h2>
+  <p class="section-intro">These are real messages from the Magic Notes pilot group chat — unfiltered, unprompted reflections from clinicians using AI scribe in their day-to-day work.</p>
+  <div class="voices-grid">
+    <div class="voice-card fade-up">
+      <p>I have had 6 new patient appointments since Friday (including a mum with ADHD who talked constantly for 2 hours while the child sang loudly) and it has coped really well.</p>
+      <span class="voice-who">— Michaela, Clinician</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>It took me 20 mins to just format it how I wanted it. That would have taken me hours.</p>
+      <span class="voice-who">— Penny, Clinician</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>Oh my gosh it's a game changer! I could listen properly. Definitely some fiddling to do on my end — but so much better.</p>
+      <span class="voice-who">— Bethan, Clinician (first day using Magic Notes)</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>I've been fully up to date with my reports for the first time in many years. It feels great.</p>
+      <span class="voice-who">— Sarah, Clinician</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>It's been amazing today, I'll update my spreadsheet tomorrow. No problems at all with consent — everyone agreed.</p>
+      <span class="voice-who">— Charlotte, Clinician</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>I had a mum with a really strong German accent and it picked up words that I couldn't! So Torsten should be okay.</p>
+      <span class="voice-who">— Michaela, on accent handling</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>It translated my whole report into Polish as an additional copy for the parents who didn't have any English. I feel like it made the session so much more inclusive.</p>
+      <span class="voice-who">— Tasha, Clinician (bilingual session)</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>A parent handed me this in the assessment which covered most of the questions I needed to ask. I took a photo of it and uploaded it to MN — it summarised it all, even the bits I was struggling to read.</p>
+      <span class="voice-who">— Michaela, on handwritten notes</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>I did a difficult MDT on Teams with multiple specialists. The report was really accurate and nicely written. I emailed everyone the minutes that evening — only 15 minutes to edit. Would have taken over an hour.</p>
+      <span class="voice-who">— Bethan, on complex MDT minutes</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>It's the first time in many years I've been fully up to date. Not only that, but we're adding in an extra clinic from next week — we can spend more time with families and less writing reports.</p>
+      <span class="voice-who">— Sarah &amp; Kath, on service capacity</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>Going on annual leave knowing that my letters have all been finalized brings such relief — but most of all, better service for the patient and family.</p>
+      <span class="voice-who">— Bethan, after two weeks leave</span>
+    </div>
+    <div class="voice-card fade-up">
+      <p>It's remembering what I like it to do! I was like: wow. This is the first time in many years I've been fully up to date with my reports.</p>
+      <span class="voice-who">— Sarah, on personalised AI learning</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- SERVICE LANDSCAPE -->
+<section id="landscape">
+  <span class="section-tag">System context</span>
+  <h2>Service landscape</h2>
+  <p class="section-intro">Understanding why transformation is hard — the structural pressures that shape every decision in ND services.</p>
+  <div class="landscape-grid fade-up">
+    <div class="landscape-card">
+      <div class="landscape-area">Demand</div>
+      <div class="landscape-what">High and rising referral volumes, especially from schools</div>
+      <div class="landscape-why">Creates pressure on triage, panels and clinician time</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Case mix</div>
+      <div class="landscape-what">Wide variation in complexity, masking, trauma and co-occurring needs</div>
+      <div class="landscape-why">One-size-fits-all pathways don't work</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Waiting times</div>
+      <div class="landscape-what">Long waits mean information becomes outdated</div>
+      <div class="landscape-why">Increases rework, uncertainty and risk</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Workforce</div>
+      <div class="landscape-what">Staff shortages and turnover; limited admin capacity</div>
+      <div class="landscape-why">Clinicians absorb non-clinical work</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Capacity vs flow</div>
+      <div class="landscape-what">Internal waiting lists across different professions</div>
+      <div class="landscape-why">Bottlenecks and stop–start progress</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Risk &amp; safeguarding</div>
+      <div class="landscape-what">High professional consequence weight</div>
+      <div class="landscape-why">Drives defensive documentation and panel use</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Systems</div>
+      <div class="landscape-what">Multiple unconnected systems; reliance on email and PDFs</div>
+      <div class="landscape-why">Creates duplication, detective work and data loss risk</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Information quality</div>
+      <div class="landscape-what">Referral info arrives incomplete, duplicated or late</div>
+      <div class="landscape-why">Delays acceptance and progression</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Multi-agency working</div>
+      <div class="landscape-what">Schools, GPs, CAMHS operate under different pressures</div>
+      <div class="landscape-why">Coordination is slow and fragile</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Family context</div>
+      <div class="landscape-what">Families wait in distress, with limited visibility</div>
+      <div class="landscape-why">Anxiety, complaints and escalation increase</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Variation</div>
+      <div class="landscape-what">Differences across LHBs in setup and delivery control</div>
+      <div class="landscape-why">Same changes land differently in practice</div>
+    </div>
+    <div class="landscape-card">
+      <div class="landscape-area">Learning loops</div>
+      <div class="landscape-what">Limited feedback on referral quality or experience</div>
+      <div class="landscape-why">Problems repeat without improvement</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OPERATING MODEL -->
+<div class="band">
+<section id="operating">
+  <span class="section-tag">Operating model tensions</span>
+  <h2>Current state → intended direction</h2>
+  <p class="section-intro">The tensions that need to shift if ND services are to work better for families and clinicians alike.</p>
+  <div style="overflow-x:auto;border:1px solid var(--border);border-radius:10px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:0.8rem 1rem;font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid);background:var(--pale);border-bottom:1px solid var(--border);">Tension</th>
+          <th style="text-align:left;padding:0.8rem 1rem;font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid);background:var(--pale);border-bottom:1px solid var(--border);">Current state</th>
+          <th style="text-align:left;padding:0.8rem 1rem;font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);background:var(--pale);border-bottom:1px solid var(--border);">Intended direction</th>
+        </tr>
+      </thead>
+      <tbody id="om-tbody"></tbody>
+    </table>
+  </div>
+</section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-title">Designing Better ND Services in Wales</div>
+      <p style="max-width:360px;line-height:1.6;">A public record of service design research — preserved to support ongoing improvement in Welsh NHS neurodevelopmental pathways.</p>
+      <p style="margin-top:1rem;opacity:0.5;font-size:0.8rem;">This site contains no personal data. All quotes are anonymised. Research conducted 2024–2026.</p>
+    </div>
+    <div>
+      <p style="font-weight:500;color:var(--white);margin-bottom:0.7rem;">Related resources</p>
+      <ul class="footer-refs">
+        <li><a href="https://www.gov.wales/safe-and-responsible-adoption-ambient-voice-technologies-ai-scribes-clinical-settings-whc2025026-0" target="_blank">Welsh Gov: Safe adoption of AI scribes in clinical settings (WHC 2025/026)</a></li>
+        <li><a href="https://www.healthcarecode.co.uk/projects/1033/" target="_blank">Exploring the Impact of Ambient Voice Technology in Primary Care</a></li>
+        <li><a href="https://ctmuhb.nhs.wales/patient-advice/support-for-children-young-people-and-families/neurodevelopmental-services/information-for-referrers/" target="_blank">CTM UHB: Information for referrers</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── ANTI-PERSONAS DATA ────────────────────────────────────
+const personas = [
+  { name: "Anxious Waiting Family", icon: "👨‍👩‍👧", who: "Family waiting long periods with little clarity or support", reality: "Diagnosis-led pathway; poor communication; long waits", needs: "Clear timelines; early support; reassurance", behaviour: "Repeated contact; distress; loss of trust", risk: "Complaints; disengagement; escalation", quote: "They're desperate… they need to talk." },
+  { name: "Data Detective Clinician", icon: "🔍", who: "Clinician manually hunting for missing or scattered information", reality: "Information spread across WelshPAS, CarePartner, emails, OneDrive, paper", needs: "One-view access to information; automated retrieval", behaviour: "Spends hours searching, chasing and copying", risk: "Delays; rework; clinician time lost to admin", quote: "I've got to pull all those pieces of jigsaw together from lots of different places." },
+  { name: "Divided-Attention Clinician", icon: "💻", who: "Clinician forced to split attention between observing a child and recording", reality: "Live documentation expectations; fragmented tools", needs: "Ability to fully observe behaviour; low cognitive load", behaviour: "Prioritises typing over interaction; reduced rapport; missed subtle behaviours", risk: "Distorted behavioural evidence; reduced diagnostic confidence", quote: "You've got a lot to do… and you've got to make sure you record those in all the relevant different places." },
+  { name: "Memory-Overloaded Clinician", icon: "🧠", who: "Clinician relying on memory to reconstruct sessions and actions later", reality: "Back-to-back sessions; no protected documentation time; too many systems", needs: "Immediate capture of facts; reduced reliance on memory; continuity", behaviour: "Reconstructs notes later; mixes up details; uses personal checklists", risk: "Inaccurate reports; safeguarding risk; fragile continuity", quote: "I still can't remember all the IT systems I've got to add to, I still forget." },
+  { name: "De-Contextualised Panel", icon: "👥", who: "MDT panel making decisions without shared, digestible context", reality: "Reports sent late; unread in advance; inconsistent summaries", needs: "Clear evidence-to-criteria linkage; shared understanding", behaviour: "Requests further work; defers decisions", risk: "Repeat panels; prolonged waits for families", quote: "People are reading these panel reports before they come to panel… not really, no." },
+  { name: "Invisible Administrator", icon: "🗂️", who: "Admin staff holding the system together behind the scenes", reality: "Heavy spreadsheet use; manual duplication; limited tooling", needs: "Reliable systems; automation; recognition of workload", behaviour: "Manually tracks, copies, scans and updates", risk: "Single points of failure; untracked risk", quote: "(Implicit across admin task mapping)" },
+  { name: "Masked & Missed Child", icon: "🎭", who: "Child whose difficulties are hidden or inconsistent across settings", reality: "Screening relies on forms; limited observation; long waits", needs: "Fair interpretation across environments; early support", behaviour: "Not accepted onto pathway; difficulties escalate", risk: "Late intervention; crisis presentations", quote: "It is contentious when we reject referrals where families are concerned but schools are not." },
+  { name: "Reporting-Pressured Service", icon: "📊", who: "Service responding to increasing demand for granular reporting", reality: "Weak delivery boundaries; manual data extraction; multiple audiences", needs: "Proportionate reporting; clarity on what's 'good enough'", behaviour: "Expanding reporting burden; clinicians diverted from care", risk: "Reduced capacity; burnout; distorted priorities", quote: "Managers want us to do it a lot shorter… but I'm just not going to ever do that." },
+  { name: "Workaround-Dependent Clinician", icon: "🔧", who: "Clinician managing caseloads through personal spreadsheets and folders", reality: "Systems don't support day-to-day case management; poor visibility", needs: "Reliable case tracking; shared visibility; supported workflows", behaviour: "Creates local workarounds; duplicates effort; holds risk personally", risk: "Hidden workload; loss of continuity if staff leave", quote: "Nobody can see my caseload. If something happens to me, you have nothing." },
+  { name: "Over-Burdened Referrer", icon: "📝", who: "GP, school or professional completing referrals under pressure", reality: "Long PDF forms; little guidance; no feedback loop", needs: "Clear guidance; validation; understanding expectations", behaviour: "Submits incomplete or vague referrals", risk: "Delays; rejections; re-entry into system", quote: "GPs and consultants notoriously won't do forms like that." },
+  { name: "Clear-Cut Case (Delayed)", icon: "⏳", who: "Child whose needs are evident but still routed through full process", reality: "Panel-heavy assurance model; limited fast-tracking", needs: "Proportionate review; timely decisions", behaviour: "Waits unnecessarily; occupies scarce capacity", risk: "Backlogs; delayed support for all", quote: "Mine tends to have an outcome… because I try to tick every box before I go there." },
+  { name: "Bottleneck Specialist", icon: "⚡", who: "Specialist whose involvement creates delays across the pathway", reality: "Concentrated expertise with no distributed alternative", needs: "Protected capacity; differentiated case routing", behaviour: "Cases queue; others wait; specialist is overwhelmed", risk: "Pathway stalls; specialist burnout", quote: "(Structural role, not a single person)" },
+  { name: "Compliance-Trained User", icon: "📋", who: "Clinician who has learned to document for compliance rather than care", reality: "Risk-averse culture; defensive documentation norms", needs: "Clarity on what's 'enough'; psychological safety", behaviour: "Over-documents; adds caveats; writes defensively", risk: "Reports lose clinical usefulness; families confused", quote: "(Observed across clinical interviews)" },
+  { name: "Unguided Referrer", icon: "❓", who: "Referrer with no support or feedback on referral quality", reality: "No feedback loop; long PDF forms; unclear expectations", needs: "Real-time guidance; examples; validation", behaviour: "Submits incomplete or marginal referrals", risk: "System delays; clinician frustration; poor outcomes", quote: "(Common in GP and school referral patterns)" }
+];
+
+const grid = document.getElementById('personas-grid');
+personas.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'persona-card';
+  card.innerHTML = `
+    <div class="persona-header">
+      <span class="persona-icon">${p.icon}</span>
+      <div>
+        <div class="persona-name">${p.name}</div>
+        <div class="persona-who">${p.who}</div>
+      </div>
+    </div>
+    <span class="persona-toggle">▸ Show details</span>
+    <div class="persona-body">
+      <div class="persona-row"><strong>System reality</strong>${p.reality}</div>
+      <div class="persona-row"><strong>Violated needs</strong>${p.needs}</div>
+      <div class="persona-row"><strong>Resulting behaviour</strong>${p.behaviour}</div>
+      <div class="persona-row"><strong>System risk</strong>${p.risk}</div>
+      <div class="persona-quote">${p.quote}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => {
+    const open = card.classList.toggle('open');
+    card.querySelector('.persona-toggle').textContent = open ? '▾ Hide details' : '▸ Show details';
+  });
+  grid.appendChild(card);
+});
+
+// ── USER NEEDS DATA ────────────────────────────────────────
+const needs = [
+  { stage: "Identification and referral", persona: "Unguided Referrer", need: "As a clinician, I need referral information to be clearly structured and comprehensive so that I can decide whether a child is appropriate for assessment without unnecessary delays.", status: "totest", measures: "% agree referral was clear; avg screening time; % referrals queried" },
+  { stage: "Identification and referral", persona: "Reporting-Pressured Service", need: "As a health service, we need referral information to be accurate and consistent so that unsuitable referrals do not re-enter the system.", status: "notmet", measures: "% re-submitted declined referrals; time spent re-reviewing" },
+  { stage: "Screening and triage", persona: "Data Detective Clinician", need: "As a clinician, I need to surface key risks early so I can plan safely without reading all documents.", status: "met", measures: "% cases with risk visible pre-session; incidents linked to missed risk" },
+  { stage: "Screening and triage", persona: "Data Detective Clinician", need: "As a clinician, I need to efficiently review and summarise information from schools, parents and previous services so I can screen confidently before assessment.", status: "met", measures: "Time spent reviewing pre-assessment info; time from referral to screening" },
+  { stage: "Screening and triage", persona: "De-Contextualised Panel", need: "As a clinician, I need information organised according to diagnostic frameworks (e.g., DSM criteria) so I can quickly identify whether reported behaviours align with autism or ADHD.", status: "met", measures: "% summaries structured to criteria; variation in screening decisions" },
+  { stage: "Screening and triage", persona: "Data Detective Clinician", need: "As a clinician, I need referral information to be summarised clearly so I can understand context and risks without rereading long documents.", status: "met", measures: "Reread frequency" },
+  { stage: "Screening and triage", persona: "Workaround-Dependent Clinician", need: "As a clinician, I need to pull key information from multiple uploaded documents into one view so I can avoid manually copying and pasting across systems.", status: "met", measures: "Number of systems accessed per case" },
+  { stage: "Assessment and observation", persona: "Divided-Attention Clinician", need: "As a clinician, I need to observe a child without being distracted by documentation so I can accurately assess interaction, communication and behaviour.", status: "met", measures: "% session spent typing; session experience feedback" },
+  { stage: "Assessment and observation", persona: "Memory-Overloaded Clinician", need: "As a clinician, I need to gather and compare information from multiple sources during assessment so I can determine whether behaviours are consistent across environments.", status: "met", measures: "% assessments referencing multiple settings" },
+  { stage: "Assessment and observation", persona: "Masked & Missed Child", need: "As a clinician, I need a way to distinguish behaviours linked to neurodevelopmental conditions from those linked to trauma or environment so I can make a safe diagnostic decision.", status: "totest", measures: "% assessments with differential reasoning; appeals or re-reviews" },
+  { stage: "Assessment and observation", persona: "Divided-Attention Clinician", need: "As a clinician, I need a quick view of safeguarding and risk information so I can plan the session safely.", status: "totest", measures: "% confidence in session planning; pre-session risk visibility checks" },
+  { stage: "Assessment and observation", persona: "Divided-Attention Clinician", need: "As a clinician, I need accurate speaker separation and transcription in noisy or multi-speaker settings so I can rely on the output without correction.", status: "met", measures: "Editing time per transcript" },
+  { stage: "Assessment and observation", persona: "Divided-Attention Clinician", need: "As a clinician, I need to focus on observing and interacting with the child instead of typing, so I can notice subtle behaviours and build rapport.", status: "met", measures: "Session experience survey" },
+  { stage: "Assessment and observation", persona: "Divided-Attention Clinician", need: "As a clinician, I need the tool to handle multiple speakers, accents and noisy environments so the transcript and report are still usable.", status: "met", measures: "% sessions requiring rework" },
+  { stage: "Assessment and observation", persona: "Memory-Overloaded Clinician", need: "As a clinician, I need to quickly add my own observations after the family leaves so non-verbal behaviours and clinical impressions are captured.", status: "met", measures: "Time from session to notes" },
+  { stage: "Assessment and observation", persona: "Divided-Attention Clinician", need: "As a clinician, I need clear controls for starting, pausing and stopping recordings so I can be confident the session is being captured.", status: "met", measures: "Recording failure rate" },
+  { stage: "Panel and clinical decisions", persona: "De-Contextualised Panel", need: "As the MDT, we need a clear summary of evidence linked to diagnostic criteria so decisions can be made fairly and supported by shared information.", status: "totest", measures: "Panel duration; clarification requests" },
+  { stage: "Panel and clinical decisions", persona: "De-Contextualised Panel", need: "As the MDT, we need case information from all clinicians to be available in one place so decisions are not delayed by missing documentation.", status: "totest", measures: "% panels requiring follow-up work" },
+  { stage: "Panel and clinical decisions", persona: "Reporting-Pressured Service", need: "As a clinician, I need to present complex cases efficiently so panel discussions are focused and evidence-driven.", status: "totest", measures: "Prep time per panel case" },
+  { stage: "Panel and clinical decisions", persona: "De-Contextualised Panel", need: "As a clinician, I need clear traceability from evidence to criteria so panel decisions feel defensible and transparent.", status: "met", measures: "Post-panel clarification requests" },
+  { stage: "Panel and clinical decisions", persona: "De-Contextualised Panel", need: "As a clinician, I need to quickly pull together a panel summary from existing notes so we can focus panel time on decision-making rather than transcription.", status: "totest", measures: "Panel prep time per case" },
+  { stage: "Panel and clinical decisions", persona: "De-Contextualised Panel", need: "As a clinician, I need evidence in panel summaries to be clearly linked to diagnostic criteria so decisions feel fair, transparent and defensible.", status: "totest", measures: "Repeat panel rate" },
+  { stage: "Panel and clinical decisions", persona: "Reporting-Pressured Service", need: "As a service, we need templates that can be iterated easily to align with local practice and national standards without long development cycles.", status: "met", measures: "Time to implement template changes" },
+  { stage: "Reporting letters and follow up", persona: "Anxious Waiting Family", need: "As a clinician, I need to complete reports and letters promptly after assessments so families receive timely communication.", status: "met", measures: "Average report turnaround time" },
+  { stage: "Reporting letters and follow up", persona: "Anxious Waiting Family", need: "As a clinician, I need reports and correspondence to share clear recommendations and signposting so families understand next steps.", status: "totest", measures: "Number of clarification contacts post-report" },
+  { stage: "Reporting letters and follow up", persona: "Workaround-Dependent Clinician", need: "As a clinician, I need repetitive fields in letters to be populated efficiently so administrative effort is reduced.", status: "partial", measures: "Time spent producing letters" },
+  { stage: "Reporting letters and follow up", persona: "Reporting-Pressured Service", need: "As a clinician, I need a near-final draft of the clinical report shortly after the appointment so I can complete reports promptly and reduce backlog.", status: "met", measures: "Backlog size over time" },
+  { stage: "Reporting letters and follow up", persona: "Reporting-Pressured Service", need: "As a clinician, I need reports to maintain clinical tone and professionalism so I am confident signing them without rewriting whole sections.", status: "met", measures: "Rewrite time per report" },
+  { stage: "Reporting letters and follow up", persona: "Workaround-Dependent Clinician", need: "As a clinician, I need help tailoring outputs for different audiences (family, GP, school, CAMHS, panel) so I don't have to rewrite the same information multiple times.", status: "met", measures: "Duplicate writing avoided" }
+];
+
+const statusLabels = { met: "Met", partial: "Partially Met", totest: "To Test", notmet: "Not Met" };
+const statusClass = { met: "status-met", partial: "status-partial", totest: "status-totest", notmet: "status-notmet" };
+
+const tbody = document.getElementById('needs-tbody');
+needs.forEach(n => {
+  const tr = document.createElement('tr');
+  tr.dataset.stage = n.stage.toLowerCase();
+  tr.innerHTML = `
+    <td style="white-space:nowrap;font-size:0.78rem;color:var(--teal);font-weight:500;">${n.stage}</td>
+    <td style="white-space:nowrap;font-size:0.82rem;">${n.persona}</td>
+    <td>${n.need}</td>
+    <td><span class="status-badge ${statusClass[n.status]}">${statusLabels[n.status]}</span></td>
+    <td style="font-size:0.8rem;color:var(--mid);">${n.measures}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// filter buttons
+document.getElementById('needs-filters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const stage = btn.dataset.stage;
+  document.querySelectorAll('#needs-tbody tr').forEach(tr => {
+    if (stage === 'all' || tr.dataset.stage.includes(stage.toLowerCase())) {
+      tr.classList.remove('hidden');
+    } else {
+      tr.classList.add('hidden');
+    }
+  });
+});
+
+// ── OPERATING MODEL DATA ───────────────────────────────────
+const om = [
+  ["Demand vs capacity", "High demand, limited staff", "Ways of working that can cope with volume over time"],
+  ["Diagnosis vs support", "Diagnosis-led", "Earlier needs-based support"],
+  ["Guided referral submission", "Information submitted without real-time guidance or validation", "Use technology to guide, validate and support submissions"],
+  ["Clinician administration", "Clinician-heavy", "Supported and automated"],
+  ["Data continuity", "System silos", "Single evidence trail where possible (a joined-up view of the child)"],
+  ["Assurance", "Panel-heavy (most cases reviewed by panels)", "Proportionate, risk-based (level of review matches risk)"],
+  ["Clinical documentation", "Highly variable and often verbose (to ensure balance and defensibility)", "Structured, proportionate documentation (enough to support safe decisions)"],
+  ["Time with families", "Sessions expand to meet individual need (after long waits)", "Time used flexibly, guided by risk and need"],
+  ["System–work fit", "Systems don't fully reflect how clinicians actually work", "Systems configured around real clinical workflows"],
+  ["Delivery control", "Services vary in ability to shape how work is delivered", "Clear delivery ownership with agreed limits and priorities"]
+];
+
+const omTbody = document.getElementById('om-tbody');
+om.forEach(row => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-weight:500;font-size:0.88rem;color:var(--slate);white-space:nowrap;">${row[0]}</td>
+    <td style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.86rem;color:var(--mid);">${row[1]}</td>
+    <td style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.86rem;color:var(--teal);">${row[2]}</td>
+  `;
+  omTbody.appendChild(tr);
+});
+
+// ── SCROLL ANIMATIONS ──────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
