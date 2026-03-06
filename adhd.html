@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic Notes — ADHD Team, Hywel Dda Evaluation Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+   * WCAG AA colour contrast — all pairs verified
+   * --ink #1a1a2e on white/paper/cream   ~17:1 ✓
+   * --ink-mid #3d3d5c on white            7.2:1 ✓
+   * --ink-light #5a5a7a on white          4.7:1 ✓
+   * --teal-text #065f5f on white          8.2:1 ✓  | on cream 7.6:1 ✓
+   * --amber-text #7a4e00 on white         7.9:1 ✓  | on amber-bg 6.1:1 ✓
+   * --rose-text #8b1a1a on white          8.7:1 ✓  | on rose-bg 6.2:1 ✓
+   * --sage-text #2d5c33 on white          8.5:1 ✓  | on sage-bg 4.9:1 ✓
+   * --purple-text #4c1d95 on white       11.5:1 ✓
+   * white on --ink #1a1a2e               ~17:1 ✓
+   */
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-mid: #3d3d5c;
+    --ink-light: #5a5a7a;
+    --paper: #faf9f6;
+    --cream: #f0ede6;
+    --border: #d8d4cc;
+
+    --teal-text: #065f5f;
+    --teal-accent: #0a8080;
+
+    --amber-text: #7a4e00;
+    --amber-bg: #fdf3d8;
+    --amber-accent: #c98a00;
+
+    --rose-text: #8b1a1a;
+    --rose-bg: #fde8e8;
+    --rose-accent: #c93030;
+
+    --sage-text: #2d5c33;
+    --sage-bg: #d4edd8;
+    --sage-accent: #3a7a42;
+
+    --purple-text: #4c1d95;
+    --purple-accent: #6d28d9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,128,128,0.30) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7dd3d3;
+    margin-bottom: 14px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 5vw, 50px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.80);
+    max-width: 580px;
+    font-weight: 300;
+  }
+
+  /* ── OVERALL KPI BAND ── */
+  .overall-section {
+    background: var(--ink);
+    color: #fff;
+    padding: 44px 60px;
+  }
+  .overall-section h2 {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    margin-bottom: 28px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.12);
+  }
+  .kpi {
+    background: var(--ink);
+    padding: 26px 22px;
+    text-align: center;
+  }
+  .kpi-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .kpi:nth-child(1) .kpi-value { color: #7dd3d3; }
+  .kpi:nth-child(2) .kpi-value { color: #fcd27a; }
+  .kpi:nth-child(3) .kpi-value { color: #c4b5fd; }
+  .kpi:nth-child(4) .kpi-value { color: #86efac; }
+  .kpi-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.70);
+    margin-top: 4px;
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 52px 0 22px;
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--teal-text);
+    border: 2px solid var(--teal-text);
+    border-radius: 3px;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .n-count {
+    font-size: 14px;
+    color: var(--ink-light);
+    font-weight: 400;
+  }
+
+  /* ── METRIC CARDS ── */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .metric-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .metric-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .metric-card.c-teal::after   { background: var(--teal-accent); }
+  .metric-card.c-amber::after  { background: var(--amber-accent); }
+  .metric-card.c-purple::after { background: var(--purple-accent); }
+  .metric-card.c-rose::after   { background: var(--rose-accent); }
+
+  .m-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .m-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-card.c-teal   .m-value { color: var(--teal-text); }
+  .metric-card.c-amber  .m-value { color: var(--amber-text); }
+  .metric-card.c-purple .m-value { color: var(--purple-text); }
+  .metric-card.c-rose   .m-value { color: var(--rose-text); }
+  .m-sub { font-size: 12px; color: var(--ink-light); }
+
+  /* ── QUALITY BAR ── */
+  .quality-bar-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quality-bar-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--sage-accent);
+  }
+  .q-bar {
+    display: flex;
+    height: 18px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0 8px;
+  }
+  .q-bar .yes     { background: var(--sage-accent); }
+  .q-bar .no      { background: var(--rose-accent); }
+  .q-bar .neutral { background: var(--amber-accent); }
+  .q-legend { display: flex; gap: 12px; font-size: 12px; flex-wrap: wrap; }
+  .q-legend span { display: flex; align-items: center; gap: 5px; color: var(--ink); font-weight: 500; }
+  .q-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .q-dot.yes     { background: var(--sage-accent); }
+  .q-dot.no      { background: var(--rose-accent); }
+  .q-dot.neutral { background: var(--amber-accent); }
+  .q-dot.na      { background: var(--border); }
+
+  /* ── NOTE BOX ── */
+  .note {
+    font-size: 13px;
+    color: var(--ink-mid);
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    border-radius: 6px;
+    margin: 24px 0 0;
+  }
+
+  /* ── HALLUCINATION BOX ── */
+  .hallucination-box {
+    background: var(--amber-bg);
+    border: 1px solid #e8c97a;
+    border-left: 4px solid var(--amber-accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 14px;
+  }
+  .hallucination-box h4 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber-text);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .hallucination-box ul { list-style: none; padding: 0; }
+  .hallucination-box ul li {
+    font-size: 13.5px;
+    color: var(--ink);
+    padding: 5px 0 5px 20px;
+    border-bottom: 1px solid #e8c97a;
+    position: relative;
+    line-height: 1.5;
+  }
+  .hallucination-box ul li::before {
+    content: '⚠';
+    position: absolute;
+    left: 0; top: 6px;
+    font-size: 11px;
+    color: var(--amber-text);
+  }
+  .hallucination-box ul li:last-child { border-bottom: none; }
+
+  /* ── COMMENT CHIPS ── */
+  .comments-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .comment-chip {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px 12px 20px;
+    font-size: 13.5px;
+    color: var(--ink-mid);
+    font-style: italic;
+    line-height: 1.55;
+    position: relative;
+  }
+  .comment-chip::before {
+    content: '"';
+    position: absolute;
+    left: 7px; top: 8px;
+    color: var(--teal-text);
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    font-style: normal;
+  }
+
+  /* ── CHALLENGE BLOCKS ── */
+  .challenges-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .challenge-block {
+    background: var(--rose-bg);
+    border: 1px solid #f0b0b0;
+    border-radius: 6px;
+    padding: 11px 14px 11px 22px;
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.5;
+    position: relative;
+  }
+  .challenge-block::before {
+    content: '↯';
+    position: absolute;
+    left: 7px; top: 10px;
+    color: var(--rose-text);
+    font-size: 13px;
+  }
+
+  /* ── TABLES ── */
+  .uses-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .uses-table th {
+    background: var(--ink);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 13px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .uses-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .uses-table tr:last-child td { border-bottom: none; }
+  .uses-table tr:hover td { background: #f5f3ee; }
+  .uses-table tfoot td {
+    background: var(--cream);
+    font-weight: 600;
+    color: var(--ink);
+    border-top: 2px solid var(--border);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .badge.good    { background: var(--sage-bg);  color: var(--sage-text); }
+  .badge.bad     { background: var(--rose-bg);  color: var(--rose-text); }
+  .badge.neutral { background: var(--amber-bg); color: var(--amber-text); }
+
+  .pct-pos { color: var(--teal-text);  font-weight: 700; }
+  .pct-neg { color: var(--rose-text);  font-weight: 700; }
+
+  /* ── DIVIDERS & LABELS ── */
+  hr.section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 44px 0 0;
+  }
+  .sub-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-mid);
+    margin: 18px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    background: var(--cream);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    color: var(--ink-mid);
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 720px) {
+    .metrics-row     { grid-template-columns: 1fr 1fr; }
+    .kpi-grid        { grid-template-columns: 1fr 1fr; }
+    header           { padding: 36px 24px 30px; }
+    .overall-section { padding: 36px 24px; }
+    .container       { padding: 0 20px 60px; }
+    .comments-grid, .challenges-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-label">Diary Study Results</div>
+  <h1>Magic Notes Evaluation Report<br><span style="font-size:0.55em;font-weight:400;opacity:0.85;">ADHD Team, Hywel Dda University Health Board</span></h1>
+  <p>Analysis of time savings, ease-of-use, quality outcomes and hallucinations across all task types.</p>
+</header>
+
+<!-- OVERALL KPIs -->
+<div class="overall-section">
+  <h2>Overall Summary — 10 entries across 3 active task types</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-value">62.4%</div>
+      <div class="kpi-label">Avg time saved</div>
+      <div class="kpi-sub">10 paired data points</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">108m</div>
+      <div class="kpi-label">Avg mins saved</div>
+      <div class="kpi-sub">per session</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">4.5</div>
+      <div class="kpi-label">Ease of use</div>
+      <div class="kpi-sub">out of 5 · 10 ratings</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">100%</div>
+      <div class="kpi-label">Quality: Yes</div>
+      <div class="kpi-sub">9 Yes · 0 No · 9 total</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="note">
+    <strong>How to read this report:</strong> Time saved % is the average of entries where both "normal time" and "Magic Notes time" were recorded. Quality = "Did Magic Notes improve notes quality vs your previous method?" Ease is 1–5 (1 = Very Difficult, 5 = Very Easy). This diary included a dedicated hallucinations question — responses are reported verbatim where a hallucination was confirmed.
+  </div>
+
+  <!-- 01 PRE-ASSESSMENT -->
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>Pre-assessment <span class="n-count">— 0 entries</span></h2>
+  </div>
+  <div class="empty-state">
+    No data was submitted for this category during the diary study period.
+  </div>
+
+  <!-- 02 REGULAR REVIEW -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>Regular Review <span class="n-count">— 3 entries</span></h2>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-card c-teal">
+      <div class="m-label">Time Saved %</div>
+      <div class="m-value">55.6%</div>
+      <div class="m-sub">avg · 3 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Mins Saved</div>
+      <div class="m-value">22m</div>
+      <div class="m-sub">avg per session</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of Use</div>
+      <div class="m-value">4.33</div>
+      <div class="m-sub">out of 5 · 3 ratings</div>
+    </div>
+    <div class="quality-bar-wrap">
+      <div class="m-label">Quality Improved?</div>
+      <div class="q-bar"><div class="yes" style="width:100%"></div></div>
+      <div class="q-legend">
+        <span><span class="q-dot yes"></span>Yes: 2</span>
+        <span><span class="q-dot na"></span>N/A: 1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-label">Supporting comments</div>
+  <div class="comments-grid">
+    <div class="comment-chip">Captured information I could have missed — ability to do a more complex review that was person-centred, more detailed and quicker.</div>
+    <div class="comment-chip">I was able to dictate after a telephone review and it was quick and comprehensive — reduced cognitive overload.</div>
+    <div class="comment-chip">Very easy to dictate and it picked up my voice accurately. It made it into a comprehensive health case note.</div>
+    <div class="comment-chip">The patient was apprehensive about Magic Notes until I reassured her — once explained, she was comfortable to continue.</div>
+  </div>
+
+  <div class="sub-label">Key challenges</div>
+  <div class="challenges-grid">
+    <div class="challenge-block">Did not manage to capture the word "Threshold" on numerous occasions — transcribed it as "depression" and "Fresh start".</div>
+    <div class="challenge-block">Struggled to pick up names of Welsh GP surgeries accurately.</div>
+    <div class="challenge-block">Microphone appeared muted on first record attempt — resolved on restart, but no data was lost.</div>
+  </div>
+
+  <div class="hallucination-box">
+    <h4>Hallucinations Reported — 2 of 3 entries</h4>
+    <ul>
+      <li>Stated that the patient reported "saving her medication for this appointment" — this was not mentioned during the session.</li>
+      <li>Stated the plan was to recommence Escitalopram — the clinician had clearly stated Atomoxetine. A medication name was fabricated or substituted.</li>
+    </ul>
+  </div>
+
+  <!-- 03 END REVIEW -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <h2>End Review <span class="n-count">— 0 entries</span></h2>
+  </div>
+  <div class="empty-state">
+    No data was submitted for this category during the diary study period.
+  </div>
+
+  <!-- 04 RATIFICATION -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>Ratification <span class="n-count">— 3 entries</span></h2>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-card c-teal">
+      <div class="m-label">Time Saved %</div>
+      <div class="m-value">44.4%</div>
+      <div class="m-sub">avg · 3 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Mins Saved</div>
+      <div class="m-value">27m</div>
+      <div class="m-sub">avg per session</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of Use</div>
+      <div class="m-value">5.0</div>
+      <div class="m-sub">out of 5 · 3 ratings</div>
+    </div>
+    <div class="quality-bar-wrap">
+      <div class="m-label">Quality Improved?</div>
+      <div class="q-bar"><div class="yes" style="width:100%"></div></div>
+      <div class="q-legend">
+        <span><span class="q-dot yes"></span>Yes: 3</span>
+        <span><span class="q-dot no"></span>No: 0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-label">Supporting comments</div>
+  <div class="comments-grid">
+    <div class="comment-chip">Reduced cognitive load, significantly saved time — a lot easier and more accurate than I expected.</div>
+    <div class="comment-chip">It made a very complicated report much easier to ratify. It even picked up on some GP notes written by hand on the back of a document.</div>
+    <div class="comment-chip">The layout, the way it justifies each section, makes it easier to check and make amendments.</div>
+    <div class="comment-chip">I have over 250 reports to work through — this is going to make a huge difference to that backlog.</div>
+  </div>
+
+  <div class="sub-label">Key challenges</div>
+  <div class="challenges-grid">
+    <div class="challenge-block">Ratification is just one step — to make this work well a report template needs to be created and a workflow set up around the Magic Notes output.</div>
+    <div class="challenge-block">One entry involved a complicated report requiring additional cross-checking — but Magic Notes was confirmed correct, which was a confidence boost.</div>
+  </div>
+
+  <div class="hallucination-box">
+    <h4>Hallucinations Reported — 0 of 3 entries</h4>
+    <ul>
+      <li>No hallucinations reported across any of the 3 ratification entries. All three explicitly answered "No".</li>
+    </ul>
+  </div>
+
+  <!-- 05 OTHER USES -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <h2>Other Uses <span class="n-count">— 4 entries</span></h2>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-card c-teal">
+      <div class="m-label">Time Saved %</div>
+      <div class="m-value">81.1%</div>
+      <div class="m-sub">avg · 4 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Mins Saved</div>
+      <div class="m-value">235m</div>
+      <div class="m-sub">avg per session</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of Use</div>
+      <div class="m-value">4.25</div>
+      <div class="m-sub">out of 5 · 4 ratings</div>
+    </div>
+    <div class="quality-bar-wrap">
+      <div class="m-label">Quality Improved?</div>
+      <div class="q-bar"><div class="yes" style="width:100%"></div></div>
+      <div class="q-legend">
+        <span><span class="q-dot yes"></span>Yes: 4</span>
+        <span><span class="q-dot no"></span>No: 0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-label">Breakdown by use case</div>
+  <table class="uses-table">
+    <thead>
+      <tr>
+        <th>Use Case</th>
+        <th>Normal Time</th>
+        <th>Magic Notes Time</th>
+        <th>Time Saved %</th>
+        <th>Ease /5</th>
+        <th>Quality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>DIVA Assessment Transcription &amp; Report</strong><br><span style="font-size:12px;color:var(--ink-light)">2.5hr live DIVA assessment + pre &amp; informant questionnaires, formatted into report-ready output</span></td>
+        <td>900m (15hrs)</td>
+        <td>180m</td>
+        <td><span class="pct-pos">+80%</span></td>
+        <td>4</td>
+        <td><span class="badge good">Yes</span></td>
+      </tr>
+      <tr>
+        <td><strong>Document Collation for ADHD Assessment Report</strong><br><span style="font-size:12px;color:var(--ink-light)">Imported DIVA tool, care partner notes, child health portal notes into report structure</span></td>
+        <td>90m</td>
+        <td>20m</td>
+        <td><span class="pct-pos">+78%</span></td>
+        <td>4</td>
+        <td><span class="badge good">Yes</span></td>
+      </tr>
+      <tr>
+        <td><strong>Key Document Extraction for ADHD Report</strong><br><span style="font-size:12px;color:var(--ink-light)">Pulled together key documents — particularly DIVA scores and symptom information</span></td>
+        <td>90m</td>
+        <td>20m</td>
+        <td><span class="pct-pos">+78%</span></td>
+        <td>4</td>
+        <td><span class="badge good">Yes</span></td>
+      </tr>
+      <tr>
+        <td><strong>Live ADHD Assessment &amp; Report</strong><br><span style="font-size:12px;color:var(--ink-light)">Full live assessment recorded and summarised — significant portion of report completed before leaving the room</span></td>
+        <td>90m</td>
+        <td>10m</td>
+        <td><span class="pct-pos">+89%</span></td>
+        <td>5</td>
+        <td><span class="badge good">Yes</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sub-label">Supporting comments</div>
+  <div class="comments-grid">
+    <div class="comment-chip">This could be a game changer in terms of our assessments. Report writing and collating information is incredibly time consuming.</div>
+    <div class="comment-chip">After one session I had completed a significant portion of the assessment report — it was written up before I stepped out of the room.</div>
+    <div class="comment-chip">I felt very happy when I saw how much info it had captured in an assessment with someone with ADHD who spoke fast and went off on tangents.</div>
+    <div class="comment-chip">More comprehensive information available to import into report — reduced cognitive load. Easy to pull out key info from child health notes that may have been missed.</div>
+  </div>
+
+  <div class="sub-label">Key challenges</div>
+  <div class="challenges-grid">
+    <div class="challenge-block">Tone can be overly cold and blunt about events described by the client — needed editing to make the report more empathetic and person-centred.</div>
+    <div class="challenge-block">Used "they/their" throughout instead of the correct pronoun — easy to change but requires a careful read-through.</div>
+    <div class="challenge-block">Repetitive sentences appeared across entries — noted by two separate clinicians.</div>
+    <div class="challenge-block">Nearly forgot to pause recording when leaving the room — a reminder or auto-pause feature would reduce risk of recording continuing unattended.</div>
+    <div class="challenge-block">Did not handle document dates correctly — reported historical documents as if they were current, which is misleading.</div>
+  </div>
+
+  <div class="hallucination-box">
+    <h4>Hallucinations Reported — 1 of 4 entries</h4>
+    <ul>
+      <li>Incorrectly identified the clinician as a "clinical psychologist" — all other details were correct. The clinician asked the client to review the output and he agreed it was otherwise accurate.</li>
+      <li>No further hallucinations reported in the remaining 3 entries.</li>
+    </ul>
+  </div>
+
+  <!-- 06 SUMMARY COMPARISON -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>Summary Comparison</h2>
+  </div>
+  <table class="uses-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Entries (n)</th>
+        <th>Time Saved %</th>
+        <th>Mins Saved</th>
+        <th>Ease /5</th>
+        <th>Quality Yes%</th>
+        <th>Hallucinations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Other Uses</strong></td>
+        <td>4</td>
+        <td><span class="pct-pos">+81.1%</span></td>
+        <td>235m</td>
+        <td>4.25</td>
+        <td><span class="badge good">100%</span></td>
+        <td><span class="badge neutral">1 of 4</span></td>
+      </tr>
+      <tr>
+        <td><strong>Regular Review</strong></td>
+        <td>3</td>
+        <td><span class="pct-pos">+55.6%</span></td>
+        <td>22m</td>
+        <td>4.33</td>
+        <td><span class="badge good">100%</span></td>
+        <td><span class="badge bad">2 of 3</span></td>
+      </tr>
+      <tr>
+        <td><strong>Ratification</strong></td>
+        <td>3</td>
+        <td><span class="pct-pos">+44.4%</span></td>
+        <td>27m</td>
+        <td>5.0</td>
+        <td><span class="badge good">100%</span></td>
+        <td><span class="badge good">0 of 3</span></td>
+      </tr>
+      <tr>
+        <td><em style="color:var(--ink-light)">Pre-assessment</em></td>
+        <td><em style="color:var(--ink-light)">0</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+      </tr>
+      <tr>
+        <td><em style="color:var(--ink-light)">End Review</em></td>
+        <td><em style="color:var(--ink-light)">0</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong>OVERALL</strong></td>
+        <td><strong>10</strong></td>
+        <td><strong><span class="pct-pos">+62.4%</span></strong></td>
+        <td><strong>108m</strong></td>
+        <td><strong>4.5</strong></td>
+        <td><strong><span class="badge good">100%</span></strong></td>
+        <td><strong><span class="badge neutral">3 of 10</span></strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <p style="font-size:12.5px;color:var(--ink-light);margin-top:14px;font-style:italic;">
+    All active categories rated quality as improved (100% Yes). Hallucinations were most prevalent in Regular Review (2 of 3 entries) — both involved medication-related errors and warrant careful clinical review before relying on Magic Notes output in that context. Pre-assessment and End Review had no submissions during the diary study period.
+  </p>
+
+</div>
+</body>
+</html>

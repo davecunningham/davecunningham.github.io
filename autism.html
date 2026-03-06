@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic Notes — Autism Team, Hywel Dda Evaluation Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+   * WCAG AA colour contrast — all pairs verified
+   * --ink #1a1a2e on white/paper/cream   ~17:1 ✓
+   * --ink-mid #3d3d5c on white            7.2:1 ✓
+   * --ink-light #5a5a7a on white          4.7:1 ✓
+   * --teal-text #065f5f on white          8.2:1 ✓  | on cream 7.6:1 ✓
+   * --amber-text #7a4e00 on white         7.9:1 ✓  | on amber-bg 6.1:1 ✓
+   * --rose-text #8b1a1a on white          8.7:1 ✓  | on rose-bg 6.2:1 ✓
+   * --sage-text #2d5c33 on white          8.5:1 ✓  | on sage-bg 4.9:1 ✓
+   * --purple-text #4c1d95 on white       11.5:1 ✓
+   * white on --ink #1a1a2e               ~17:1 ✓
+   * rgba(255,255,255,0.80) on --ink       ~7:1 ✓
+   * rgba(255,255,255,0.70) on --ink      ~5.5:1 ✓
+   * KPI large accent on --ink (large text ≥3:1 threshold):
+   *   #7dd3d3  4.6:1 ✓  |  #fcd27a 7.2:1 ✓  |  #c4b5fd 7.5:1 ✓  |  #86efac 9.2:1 ✓
+   */
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-mid: #3d3d5c;
+    --ink-light: #5a5a7a;
+    --paper: #faf9f6;
+    --cream: #f0ede6;
+    --border: #d8d4cc;
+
+    --teal-text: #065f5f;
+    --teal-accent: #0a8080;
+
+    --amber-text: #7a4e00;
+    --amber-bg: #fdf3d8;
+    --amber-accent: #c98a00;
+
+    --rose-text: #8b1a1a;
+    --rose-bg: #fde8e8;
+    --rose-accent: #c93030;
+
+    --sage-text: #2d5c33;
+    --sage-bg: #d4edd8;
+    --sage-accent: #3a7a42;
+
+    --purple-text: #4c1d95;
+    --purple-accent: #6d28d9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,128,128,0.30) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7dd3d3;
+    margin-bottom: 14px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 5vw, 50px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.80);
+    max-width: 580px;
+    font-weight: 300;
+  }
+
+  /* ── OVERALL KPI BAND ── */
+  .overall-section {
+    background: var(--ink);
+    color: #fff;
+    padding: 44px 60px;
+  }
+  .overall-section h2 {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    margin-bottom: 28px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.12);
+  }
+  .kpi {
+    background: var(--ink);
+    padding: 26px 22px;
+    text-align: center;
+  }
+  .kpi-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .kpi:nth-child(1) .kpi-value { color: #7dd3d3; }
+  .kpi:nth-child(2) .kpi-value { color: #fcd27a; }
+  .kpi:nth-child(3) .kpi-value { color: #c4b5fd; }
+  .kpi:nth-child(4) .kpi-value { color: #86efac; }
+  .kpi-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.70);
+    margin-top: 4px;
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 52px 0 22px;
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--teal-text);
+    border: 2px solid var(--teal-text);
+    border-radius: 3px;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .n-count {
+    font-size: 14px;
+    color: var(--ink-light);
+    font-weight: 400;
+  }
+
+  /* ── METRIC CARDS ── */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .metric-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .metric-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .metric-card.c-teal::after   { background: var(--teal-accent); }
+  .metric-card.c-amber::after  { background: var(--amber-accent); }
+  .metric-card.c-purple::after { background: var(--purple-accent); }
+  .metric-card.c-rose::after   { background: var(--rose-accent); }
+
+  .m-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .m-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-card.c-teal   .m-value { color: var(--teal-text); }
+  .metric-card.c-amber  .m-value { color: var(--amber-text); }
+  .metric-card.c-purple .m-value { color: var(--purple-text); }
+  .metric-card.c-rose   .m-value { color: var(--rose-text); }
+  .m-sub { font-size: 12px; color: var(--ink-light); }
+
+  /* ── QUALITY BAR ── */
+  .quality-bar-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quality-bar-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--sage-accent);
+  }
+  .q-bar {
+    display: flex;
+    height: 18px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0 8px;
+  }
+  .q-bar .yes     { background: var(--sage-accent); }
+  .q-bar .no      { background: var(--rose-accent); }
+  .q-bar .neutral { background: var(--amber-accent); }
+  .q-legend { display: flex; gap: 12px; font-size: 12px; flex-wrap: wrap; }
+  .q-legend span { display: flex; align-items: center; gap: 5px; color: var(--ink); font-weight: 500; }
+  .q-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .q-dot.yes     { background: var(--sage-accent); }
+  .q-dot.no      { background: var(--rose-accent); }
+  .q-dot.neutral { background: var(--amber-accent); }
+  .q-dot.na      { background: var(--border); }
+
+  /* ── COMBINED PILL ── */
+  .combined-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal-accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  /* ── NOTE BOX ── */
+  .note {
+    font-size: 13px;
+    color: var(--ink-mid);
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    border-radius: 6px;
+    margin: 24px 0 0;
+  }
+
+  /* ── WARNING BOX ── */
+  .panel-warning {
+    background: var(--rose-bg);
+    border: 1px solid #f0b0b0;
+    border-left: 4px solid var(--rose-accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+  .panel-warning strong { color: var(--rose-text); font-weight: 700; }
+
+  /* ── HALLUCINATION BOX ── */
+  .hallucination-box {
+    background: var(--amber-bg);
+    border: 1px solid #e8c97a;
+    border-left: 4px solid var(--amber-accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 14px;
+  }
+  .hallucination-box h4 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber-text);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .hallucination-box ul { list-style: none; padding: 0; }
+  .hallucination-box ul li {
+    font-size: 13.5px;
+    color: var(--ink);
+    padding: 5px 0 5px 20px;
+    border-bottom: 1px solid #e8c97a;
+    position: relative;
+    line-height: 1.5;
+  }
+  .hallucination-box ul li::before {
+    content: '⚠';
+    position: absolute;
+    left: 0; top: 6px;
+    font-size: 11px;
+    color: var(--amber-text);
+  }
+  .hallucination-box ul li:last-child { border-bottom: none; }
+
+  /* ── COMMENT CHIPS ── */
+  .comments-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .comment-chip {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px 12px 20px;
+    font-size: 13.5px;
+    color: var(--ink-mid);
+    font-style: italic;
+    line-height: 1.55;
+    position: relative;
+  }
+  .comment-chip::before {
+    content: '"';
+    position: absolute;
+    left: 7px; top: 8px;
+    color: var(--teal-text);
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    font-style: normal;
+  }
+
+  /* ── CHALLENGE BLOCKS ── */
+  .challenges-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .challenge-block {
+    background: var(--rose-bg);
+    border: 1px solid #f0b0b0;
+    border-radius: 6px;
+    padding: 11px 14px 11px 22px;
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.5;
+    position: relative;
+  }
+  .challenge-block::before {
+    content: '↯';
+    position: absolute;
+    left: 7px; top: 10px;
+    color: var(--rose-text);
+    font-size: 13px;
+  }
+
+  /* ── TABLES ── */
+  .uses-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .uses-table th {
+    background: var(--ink);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 13px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .uses-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .uses-table tr:last-child td { border-bottom: none; }
+  .uses-table tr:hover td { background: #f5f3ee; }
+  .uses-table tfoot td {
+    background: var(--cream);
+    font-weight: 600;
+    color: var(--ink);
+    border-top: 2px solid var(--border);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .badge.good    { background: var(--sage-bg);  color: var(--sage-text); }
+  .badge.bad     { background: var(--rose-bg);  color: var(--rose-text); }
+  .badge.neutral { background: var(--amber-bg); color: var(--amber-text); }
+
+  .pct-pos { color: var(--teal-text);  font-weight: 700; }
+  .pct-neg { color: var(--rose-text);  font-weight: 700; }
+
+  /* ── DIVIDERS & LABELS ── */
+  hr.section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 44px 0 0;
+  }
+  .sub-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-mid);
+    margin: 18px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    background: var(--cream);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    color: var(--ink-mid);
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 720px) {
+    .metrics-row     { grid-template-columns: 1fr 1fr; }
+    .kpi-grid        { grid-template-columns: 1fr 1fr; }
+    header           { padding: 36px 24px 30px; }
+    .overall-section { padding: 36px 24px; }
+    .container       { padding: 0 20px 60px; }
+    .comments-grid, .challenges-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-label">Diary Study Results</div>
+  <h1>Magic Notes Evaluation Report<br><span style="font-size:0.55em;font-weight:400;opacity:0.85;">Autism Team, Hywel Dda University Health Board</span></h1>
+  <p>Analysis of time savings, ease-of-use, quality outcomes and accuracy concerns across all assessment types.</p>
+</header>
+
+<!-- OVERALL KPIs -->
+<div class="overall-section">
+  <h2>Overall Summary — 57 entries across 4 active task types</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-value">25.8%</div>
+      <div class="kpi-label">Avg time saved</div>
+      <div class="kpi-sub">44 paired data points</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">69m</div>
+      <div class="kpi-label">Avg mins saved</div>
+      <div class="kpi-sub">per session</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">3.94</div>
+      <div class="kpi-label">Ease of use</div>
+      <div class="kpi-sub">out of 5 · 50 ratings</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">81%</div>
+      <div class="kpi-label">Quality: Yes</div>
+      <div class="kpi-sub">38 Yes · 9 No · 47 total</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="note">
+    <strong>How to read this report:</strong> Time saved % is the average of entries where both "normal time" and "Magic Notes time" were recorded — a negative % means the task took longer with Magic Notes. Quality = "Did Magic Notes improve notes quality vs your previous method?" Ease is 1–5 (1 = Very Difficult, 5 = Very Easy). Accuracy/hallucination concerns are drawn from free-text challenge and comments fields.
+  </div>
+
+  <!-- 01 CLASS OBSERVATIONS -->
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>Class Observations <span class="n-count">— 0 entries (corrected)</span></h2>
+  </div>
+  <div class="empty-state">
+    The single entry previously recorded here has been moved to Clinical Assessment or ADOS, where it was correctly intended to be logged. No Class Observations data remains.
+  </div>
+
+  <!-- 02 CLINICAL ASSESSMENT / ADOS + NEW PATIENT ASSESSMENT (COMBINED) -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>Clinical Assessment / ADOS &amp; New Patient Assessment <span class="n-count">— 11 entries</span></h2>
+  </div>
+  <div class="combined-pill">⊕ Combined category</div>
+  <p style="font-size:13.5px;color:var(--ink-mid);margin-bottom:18px;">These two categories have been merged as they reflect the same core activity: direct clinical assessment of a patient, with Magic Notes used to capture the session in real time.</p>
+
+  <div class="metrics-row">
+    <div class="metric-card c-teal">
+      <div class="m-label">Time Saved %</div>
+      <div class="m-value">61.1%</div>
+      <div class="m-sub">avg · 11 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Mins Saved</div>
+      <div class="m-value">93m</div>
+      <div class="m-sub">avg per session</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of Use</div>
+      <div class="m-value">3.64</div>
+      <div class="m-sub">out of 5 · 11 ratings</div>
+    </div>
+    <div class="quality-bar-wrap">
+      <div class="m-label">Quality Improved?</div>
+      <div class="q-bar"><div class="yes" style="width:100%"></div></div>
+      <div class="q-legend">
+        <span><span class="q-dot yes"></span>Yes: 11</span>
+        <span><span class="q-dot no"></span>No: 0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-label">Supporting comments</div>
+  <div class="comments-grid">
+    <div class="comment-chip">The play task was so much easier — I could engage fully with the young person rather than making notes at the same time.</div>
+    <div class="comment-chip">Enabled me to engage better with the young person — she was very aware every time I made a note.</div>
+    <div class="comment-chip">Less writing of notes — more focus on the child and interactions.</div>
+    <div class="comment-chip">Made parents feel more part of the assessment. Reduced stress during the session.</div>
+    <div class="comment-chip">Family commented that all their information was being captured as part of the assessment.</div>
+    <div class="comment-chip">Saved hours upon hours of work on the ADIR (240 mins → 120 mins). If we had Magic Notes full time we could adjust it even more.</div>
+    <div class="comment-chip">It captured things I had not captured and helped with assessment.</div>
+    <div class="comment-chip">Takes the pressure off trying to play and write at the same time — I'm gathering and capturing more information.</div>
+  </div>
+
+  <div class="sub-label">Key challenges</div>
+  <div class="challenges-grid">
+    <div class="challenge-block">Formatting output into the required ADIR structure required external support — contributed to a 2/5 ease rating for that specific entry.</div>
+    <div class="challenge-block">Initial concerns about quiet voices not being captured — resolved successfully in practice for most sessions.</div>
+    <div class="challenge-block">Child kept trying to touch the phone, stopping the recording — physical placement needs consideration.</div>
+    <div class="challenge-block">Some clinicians still exploring which templates work best — ease ratings reflect varying familiarity with the system.</div>
+  </div>
+
+  <div class="hallucination-box">
+    <h4>Accuracy / Hallucination Concerns</h4>
+    <ul>
+      <li>Mixed up the patient's brother and father as speakers in the transcript.</li>
+      <li>When participants spoke in Polish, Magic Notes generated fabricated English content — attributed a statement about "brain games" to the patient which she had not said. Careful post-session checking was required.</li>
+      <li>One entry noted incorrect details added via the "change bar" feature — attributed to the learning curve.</li>
+      <li>No accuracy issues reported across the remaining 8 entries. System captured speech clearly even for a young person with speech clarity difficulties.</li>
+    </ul>
+  </div>
+
+  <!-- 03 PANEL CASE PRESENTATION -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <h2>Panel Case Presentation <span class="n-count">— 28 entries</span></h2>
+  </div>
+  <div class="panel-warning">
+    <strong>⚠ Notable finding:</strong> This is the only category with a negative average time saved (<strong>–21.7%</strong>), driven by cross-referencing complexity, template merging issues and accuracy problems. However, a subset of entries — particularly those adding parent or teacher questionnaires — reported <strong>50–89% time savings</strong>, suggesting outcomes depend heavily on the specific sub-task within panel work.
+  </div>
+  <div class="metrics-row">
+    <div class="metric-card c-rose">
+      <div class="m-label">Time Saved %</div>
+      <div class="m-value">–21.7%</div>
+      <div class="m-sub">avg · 16 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Extra time added</div>
+      <div class="m-value">+72m</div>
+      <div class="m-sub">avg per session (negative)</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of Use</div>
+      <div class="m-value">3.91</div>
+      <div class="m-sub">out of 5 · 22 ratings</div>
+    </div>
+    <div class="quality-bar-wrap">
+      <div class="m-label">Quality Improved?</div>
+      <div class="q-bar">
+        <div class="yes" style="width:60%"></div>
+        <div class="no"  style="width:40%"></div>
+      </div>
+      <div class="q-legend">
+        <span><span class="q-dot yes"></span>Yes: 12</span>
+        <span><span class="q-dot no"></span>No: 8</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-label">What worked well — collating questionnaires &amp; verbatim quotes</div>
+  <div class="comments-grid">
+    <div class="comment-chip">Being able to add the parent information, school information etc into the panel form was a MASSIVE time save.</div>
+    <div class="comment-chip">Much quicker than previously where I would have to collate and type all the info from teacher and parents.</div>
+    <div class="comment-chip">Verbatim entries saved me dictating quotes — could cut and paste instead.</div>
+    <div class="comment-chip">Collates all the background information into the correct headings much more quickly.</div>
+  </div>
+
+  <div class="sub-label">Key challenges</div>
+  <div class="challenges-grid">
+    <div class="challenge-block">When merging multiple sources, information blurs across headings and requires extensive cross-referencing — often more time-consuming than dictating directly.</div>
+    <div class="challenge-block">Template merges clinical observations with school and parent info, requiring manual separation. A blank template option was frequently requested.</div>
+    <div class="challenge-block">System writes up "not a problem" items, lengthening panel reports and increasing reading time.</div>
+    <div class="challenge-block">Clinician abbreviations used in output — not acceptable in medical reports. Output also lacks dates, considered unprofessional.</div>
+  </div>
+
+  <div class="hallucination-box">
+    <h4>Accuracy / Hallucination Concerns</h4>
+    <ul>
+      <li>System assumed diagnostic criteria were met from limited input — stated "significant impairments in functioning" when no parent, teacher, or observation data had yet been added.</li>
+      <li>Stated that a school observation had taken place when it had not.</li>
+      <li>Single-word errors changed meaning entirely (e.g. "did" vs "didn't") — requires careful checking throughout.</li>
+      <li>Strong referral symptoms were removed or diluted in summarisation, risking impact on panel diagnostic decisions.</li>
+      <li>Inaccurate number of session attendees recorded (6 people counted as 3).</li>
+      <li>One entry produced entirely inaccurate output — no usable content generated from the session.</li>
+    </ul>
+  </div>
+
+  <!-- 04 FINAL REPORT -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>Final Report <span class="n-count">— 5 entries</span></h2>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-card c-teal">
+      <div class="m-label">Time Saved %</div>
+      <div class="m-value">39.5%</div>
+      <div class="m-sub">avg · 5 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Mins Saved</div>
+      <div class="m-value">52m</div>
+      <div class="m-sub">avg per session</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of Use</div>
+      <div class="m-value">4.2</div>
+      <div class="m-sub">out of 5 · 5 ratings</div>
+    </div>
+    <div class="quality-bar-wrap">
+      <div class="m-label">Quality Improved?</div>
+      <div class="q-bar"><div class="yes" style="width:100%"></div></div>
+      <div class="q-legend">
+        <span><span class="q-dot yes"></span>Yes: 4</span>
+        <span><span class="q-dot no"></span>No: 0</span>
+        <span><span class="q-dot na"></span>N/A: 1</span>
+      </div>
+    </div>
+  </div>
+  <div class="comments-grid">
+    <div class="comment-chip">Less need for writing notes — more time to observe and interact directly with the young person.</div>
+    <div class="comment-chip">Configured all the information and saved time putting it into different boxes.</div>
+    <div class="comment-chip">Reduced my need to make sense of handwritten notes — Magic Notes handled the write-up.</div>
+    <div class="comment-chip">I believe I can get faster as I use it more — time savings will only grow.</div>
+  </div>
+  <div class="hallucination-box">
+    <h4>Accuracy / Hallucination Notes</h4>
+    <ul>
+      <li>No specific inaccuracies reported. All respondents who answered quality rated it as improved.</li>
+      <li>One clinician noted still taking handwritten notes as a backup — a trust and adoption stage concern rather than an accuracy issue.</li>
+    </ul>
+  </div>
+
+  <!-- 05 OTHER USES -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <h2>Other Uses <span class="n-count">— 13 entries</span></h2>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-card c-teal">
+      <div class="m-label">Time Saved %</div>
+      <div class="m-value">51.2%</div>
+      <div class="m-sub">avg · 12 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Mins Saved</div>
+      <div class="m-value">50m</div>
+      <div class="m-sub">avg per session</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of Use</div>
+      <div class="m-value">4.17</div>
+      <div class="m-sub">out of 5 · 12 ratings</div>
+    </div>
+    <div class="quality-bar-wrap">
+      <div class="m-label">Quality Improved?</div>
+      <div class="q-bar">
+        <div class="yes" style="width:92%"></div>
+        <div class="no"  style="width:8%"></div>
+      </div>
+      <div class="q-legend">
+        <span><span class="q-dot yes"></span>Yes: 11</span>
+        <span><span class="q-dot no"></span>No: 1</span>
+      </div>
+    </div>
+  </div>
+  <div class="sub-label">Breakdown by use case</div>
+  <table class="uses-table">
+    <thead>
+      <tr>
+        <th>Use Case (grouped)</th>
+        <th>Time Saved %</th>
+        <th>Mins Saved</th>
+        <th>Ease /5</th>
+        <th>Quality</th>
+        <th>Key Comment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong>ASD Assessments</strong><br>
+          <span style="font-size:12px;color:var(--ink-light)">Initial ASD, 2nd opinion, face-to-face, dictation of 2 assessments</span>
+        </td>
+        <td><span class="pct-pos">+52%</span><br><span style="font-size:11px;color:var(--ink-light)">range: 0–75%</span></td>
+        <td>~58m</td>
+        <td>4.0</td>
+        <td><span class="badge good">5 Yes</span> <span class="badge bad">1 No</span></td>
+        <td style="font-size:12.5px">Enabled seeing 3 patients instead of 2 in a day. The 0% entry was attributed to no proper template being available at the time.</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Supervision &amp; Team Meetings</strong><br>
+          <span style="font-size:12px;color:var(--ink-light)">Team meeting, support worker supervision, substance misuse meeting</span>
+        </td>
+        <td><span class="pct-pos">+38%</span></td>
+        <td>~13m</td>
+        <td>4.3</td>
+        <td><span class="badge good">2 Yes</span></td>
+        <td style="font-size:12.5px">Fully engaged in meeting without taking minutes. Re-prompt extracted key points and actions perfectly.</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Dictation from Notes</strong><br>
+          <span style="font-size:12px;color:var(--ink-light)">Dictation of written notes, clinical interviews</span>
+        </td>
+        <td><span class="pct-pos">+59%</span></td>
+        <td>~62m</td>
+        <td>3.5</td>
+        <td><span class="badge good">2 Yes</span></td>
+        <td style="font-size:12.5px">Increased speed and proficiency. Getting the right output categories took some iteration but was achieved.</td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Client &amp; Family Discussions</strong><br>
+          <span style="font-size:12px;color:var(--ink-light)">ASD report discussion, parent information call, support phone call</span>
+        </td>
+        <td><span class="pct-pos">+64%</span></td>
+        <td>~75m</td>
+        <td>3.7</td>
+        <td><span class="badge good">3 Yes</span></td>
+        <td style="font-size:12.5px">Allowed clinicians to relax and truly listen. Provided an actions summary at end of call.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="hallucination-box">
+    <h4>Accuracy / Hallucination Notes — Other Uses</h4>
+    <ul>
+      <li>Incorrect detail added when using the "change bar" feature — attributed to not yet knowing how to prompt it correctly.</li>
+      <li>Unusual accents and non-English speech in mixed-language conversations can produce errors or guessed transcription.</li>
+      <li>Recording stopped unexpectedly in one session — reason unknown.</li>
+      <li>Names of third-party individuals mentioned in conversation were captured as additional attendees in one supervision entry.</li>
+    </ul>
+  </div>
+
+  <!-- 06 SUMMARY COMPARISON -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>Summary Comparison</h2>
+  </div>
+  <table class="uses-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Entries (n)</th>
+        <th>Time Saved %</th>
+        <th>Mins Saved</th>
+        <th>Ease /5</th>
+        <th>Quality Yes%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Clinical Assessment / ADOS &amp; New Patient Assessment</strong></td>
+        <td>11</td>
+        <td><span class="pct-pos">+61.1%</span></td>
+        <td>93m</td>
+        <td>3.64</td>
+        <td><span class="badge good">100%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Other Uses</strong></td>
+        <td>13</td>
+        <td><span class="pct-pos">+51.2%</span></td>
+        <td>50m</td>
+        <td>4.17</td>
+        <td><span class="badge good">92%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Final Report</strong></td>
+        <td>5</td>
+        <td><span class="pct-pos">+39.5%</span></td>
+        <td>52m</td>
+        <td>4.2</td>
+        <td><span class="badge good">100%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Panel Case Presentation</strong></td>
+        <td>28</td>
+        <td><span class="pct-neg">–21.7%</span></td>
+        <td>–72m</td>
+        <td>3.91</td>
+        <td><span class="badge neutral">60%</span></td>
+      </tr>
+      <tr>
+        <td><em style="color:var(--ink-light)">Class Observations</em></td>
+        <td><em style="color:var(--ink-light)">0</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong>OVERALL</strong></td>
+        <td><strong>57</strong></td>
+        <td><strong><span class="pct-pos">+25.8%</span></strong></td>
+        <td><strong>69m</strong></td>
+        <td><strong>3.94</strong></td>
+        <td><strong><span class="badge good">81%</span></strong></td>
+      </tr>
+    </tfoot>
+  </table>
+  <p style="font-size:12.5px;color:var(--ink-light);margin-top:14px;font-style:italic;">
+    The combined Clinical Assessment / ADOS &amp; New Patient Assessment category is based on 11 entries. Panel Case Presentation shows a wide spread — time savings are positive for questionnaire collation sub-tasks but negative for direct write-up and cross-referencing. Class Observations is empty following the data correction.
+  </p>
+
+</div>
+</body>
+</html>
