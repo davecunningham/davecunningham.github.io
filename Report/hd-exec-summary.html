@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hywel Dda — AI Scribe Pilot: Executive Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:     #0f1a1a;
+  --ink2:    #1e2e2e;
+  --teal:    #1a6b6b;
+  --teal2:   #6dd0d0;
+  --teal3:   #c8f0f0;
+  --amber:   #c07825;
+  --rose:    #8c2d3a;
+  --white:   #ffffff;
+  --dust:    #f4f1ed;
+  --mid:     #5a6e6e;
+  --border:  rgba(255,255,255,0.1);
+  --purple:  #7c3aed;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PROG NAV ── */
+.prog-skip { position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;background:#1a6b6b;color:#fff;padding:.75rem 1.5rem;border-radius:0 0 8px 0;font-weight:600;font-size:.9rem;text-decoration:none; }
+.prog-skip:focus { position:fixed;left:0;top:0;width:auto;height:auto;overflow:visible; }
+.prog-nav { position:fixed;top:0;left:0;right:0;z-index:500;background:#0d1f1f;border-bottom:1px solid rgba(255,255,255,0.09);display:flex;align-items:center;padding:0 1.5rem;height:52px;gap:0; }
+.prog-nav-home { display:flex;align-items:center;gap:.55rem;text-decoration:none;margin-right:1.2rem;flex-shrink:0;padding:.5rem 0;min-height:44px;border-radius:4px; }
+.prog-nav-home:focus-visible { outline:2px solid #6dd0d0;outline-offset:3px; }
+.prog-home-icon { width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,#1a6b6b,#2a9090);display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.prog-home-icon svg { width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
+.prog-home-label { font-size:.72rem;font-weight:600;letter-spacing:.05em;color:rgba(255,255,255,0.55);line-height:1.2; }
+.prog-home-label strong { display:block;font-size:.8rem;color:#fff;letter-spacing:0;font-weight:600; }
+.prog-divider { width:1px;height:28px;background:rgba(255,255,255,0.1);margin-right:.6rem;flex-shrink:0; }
+.prog-nav-links { display:flex;gap:0;list-style:none;flex:1;overflow-x:auto;scrollbar-width:none; }
+.prog-nav-links::-webkit-scrollbar { display:none; }
+.prog-nav-links a { display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,0.55);text-decoration:none;padding:0 .85rem;height:52px;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s; }
+.prog-nav-links a:hover { color:rgba(255,255,255,0.9); }
+.prog-nav-links a:focus-visible { outline:2px solid #6dd0d0;outline-offset:-4px; }
+.prog-nav-links a[aria-current="page"] { color:#6dd0d0;border-bottom-color:#6dd0d0; }
+.prog-nav-tag { font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .45rem;border-radius:3px;line-height:1.4; }
+.prog-tag-ctm  { background:rgba(26,107,107,0.35);color:#6dd0d0; }
+.prog-tag-hdda { background:rgba(109,40,217,0.30);color:#c4b5fd; }
+.prog-nav-context { font-size:.7rem;color:rgba(255,255,255,0.35);padding:0 .75rem;border-left:1px solid rgba(255,255,255,0.09);white-space:nowrap;flex-shrink:0;display:flex;align-items:center; }
+@media(max-width:680px){.prog-nav-context{display:none;}.prog-nav-links a{padding:0 .6rem;font-size:.7rem;}}
+
+/* ── LAYOUT ── */
+.page { padding-top: 52px; }
+
+/* ── COVER ── */
+.cover {
+  min-height: calc(100vh - 52px);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cover-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26,107,107,0.22) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 40% at 10% 80%, rgba(124,58,237,0.12) 0%, transparent 50%);
+}
+.cover-grid {
+  position: absolute; inset: 0; opacity: .03;
+  background-image: linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.cover-inner {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 80px 60px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.cover-left { }
+.cover-kicker {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: 1.8rem;
+}
+.cover-kicker-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal2); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin-bottom: 1.5rem;
+}
+.cover-title em { font-style: italic; color: var(--teal2); }
+.cover-sub {
+  font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.6);
+  max-width: 480px; margin-bottom: 2.5rem;
+}
+.cover-meta {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+}
+.meta-pill {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .72rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+  padding: .35rem .85rem; border-radius: 2rem;
+  border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5);
+}
+.meta-pill.active { border-color: var(--teal2); color: var(--teal2); }
+
+.cover-right {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px;
+  padding: 1.5rem 1.4rem;
+  position: relative; overflow: hidden;
+  transition: transform .2s, border-color .2s;
+}
+.hero-stat:hover { transform: translateY(-2px); border-color: rgba(109,208,208,0.3); }
+.hero-stat::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.hero-stat.c-teal::before { background: var(--teal2); }
+.hero-stat.c-amber::before { background: var(--amber); }
+.hero-stat.c-purple::before { background: #c4b5fd; }
+.hero-stat.c-green::before { background: #6ee7b7; }
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 700; line-height: 1;
+  margin-bottom: .3rem;
+}
+.hero-stat.c-teal .hero-stat-num { color: var(--teal2); }
+.hero-stat.c-amber .hero-stat-num { color: #f5c075; }
+.hero-stat.c-purple .hero-stat-num { color: #c4b5fd; }
+.hero-stat.c-green .hero-stat-num { color: #6ee7b7; }
+.hero-stat-label { font-size: .75rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
+.hero-stat-sub { font-size: .68rem; color: rgba(255,255,255,0.25); margin-top: .2rem; }
+.cover-bottom {
+  position: relative; z-index: 1;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 1.2rem 60px;
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+}
+.cover-scroll {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .72rem; color: rgba(255,255,255,0.3); letter-spacing: .05em;
+  text-transform: uppercase;
+  animation: bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0);} 50%{transform:translateY(4px);} }
+.cover-scroll svg { width:16px;height:16px;stroke:rgba(255,255,255,0.3); }
+.cover-date { font-size: .72rem; color: rgba(255,255,255,0.25); }
+
+/* ── SECTION SHELLS ── */
+.section {
+  max-width: 1100px; margin: 0 auto;
+  padding: 80px 60px;
+}
+.section + .section { padding-top: 0; }
+
+.band-dark  { background: var(--ink); }
+.band-ink2  { background: var(--ink2); }
+.band-teal  { background: #0b2e2e; }
+.band-dust  { background: #f4f1ed; color: var(--ink); }
+
+/* ── SECTION LABELS ── */
+.eyebrow {
+  display: block; font-size: .68rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: .7rem;
+}
+.band-dust .eyebrow { color: var(--teal); }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700; line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.band-dust .section-title { color: var(--ink); }
+.section-lead {
+  font-size: 1rem; line-height: 1.75;
+  color: rgba(255,255,255,0.55); max-width: 640px;
+  margin-bottom: 2.5rem;
+}
+.band-dust .section-lead { color: var(--mid); }
+
+/* ── TEAM COMPARISON ── */
+.two-teams {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+}
+.team-card {
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.team-card-head {
+  padding: 1.4rem 1.8rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.team-card-head.adhd-head { background: linear-gradient(135deg, #1a3a5c, #0f2440); }
+.team-card-head.autism-head { background: linear-gradient(135deg, #2a1a5c, #1a0f40); }
+.team-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+}
+.team-tag {
+  font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: .2rem .6rem; border-radius: 3px;
+}
+.adhd-tag { background: rgba(109,208,208,0.2); color: var(--teal2); }
+.autism-tag { background: rgba(196,181,253,0.2); color: #c4b5fd; }
+.team-card-body { padding: 1.6rem 1.8rem; background: rgba(255,255,255,0.03); }
+.team-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.4rem; }
+.team-metric-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem; font-weight: 700; line-height: 1;
+  margin-bottom: .2rem;
+}
+.adhd-metric .team-metric-val { color: var(--teal2); }
+.autism-metric .team-metric-val { color: #c4b5fd; }
+.team-metric-label { font-size: .7rem; color: rgba(255,255,255,0.4); line-height: 1.3; }
+.team-breakdown {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 1.2rem;
+}
+.team-breakdown-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: .82rem;
+}
+.team-breakdown-row:last-child { border-bottom: none; }
+.tbd-label { color: rgba(255,255,255,0.5); }
+.tbd-val { font-weight: 600; }
+.adhd-val { color: var(--teal2); }
+.autism-val { color: #c4b5fd; }
+.tbd-n { font-size: .7rem; color: rgba(255,255,255,0.25); margin-left: .3rem; }
+
+/* ── QUOTES ── */
+.quotes-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.quote-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 1.6rem;
+  position: relative;
+}
+.quote-card.featured {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(26,107,107,0.15), rgba(26,107,107,0.05));
+  border-color: rgba(109,208,208,0.2);
+}
+.quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem; line-height: 1;
+  color: var(--teal2); opacity: .25;
+  position: absolute; top: .8rem; left: 1.2rem;
+}
+.quote-text {
+  font-size: .95rem; line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+  padding-top: 1.8rem;
+}
+.quote-card.featured .quote-text {
+  font-size: 1.1rem; font-style: italic;
+  color: rgba(255,255,255,0.9);
+}
+.quote-source {
+  margin-top: .9rem;
+  font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+.quote-card.featured .quote-source { color: var(--teal2); }
+
+/* ── SAFETY SECTION ── */
+.safety-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.safety-card {
+  border-radius: 14px;
+  padding: 1.4rem;
+  border: 1px solid transparent;
+}
+.safety-card.safe { background: rgba(110,231,183,0.07); border-color: rgba(110,231,183,0.2); }
+.safety-card.caution { background: rgba(192,120,37,0.08); border-color: rgba(192,120,37,0.2); }
+.safety-card.risk { background: rgba(140,45,58,0.1); border-color: rgba(140,45,58,0.25); }
+.safety-icon { font-size: 1.6rem; margin-bottom: .7rem; }
+.safety-head {
+  font-weight: 600; font-size: .85rem; margin-bottom: .5rem;
+}
+.safety-card.safe .safety-head { color: #6ee7b7; }
+.safety-card.caution .safety-head { color: #f5c075; }
+.safety-card.risk .safety-head { color: #f87171; }
+.safety-body { font-size: .8rem; line-height: 1.6; color: rgba(255,255,255,0.5); }
+.safety-note {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  font-size: .82rem; line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+}
+.safety-note strong { color: rgba(255,255,255,0.7); }
+
+/* ── WHAT THIS MEANS ── */
+.band-dust .insight-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem;
+}
+.insight-card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.5rem;
+  border-top: 3px solid var(--teal);
+}
+.insight-num {
+  font-family: 'Playfair Display', serif;
+  font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: .5rem;
+}
+.insight-head { font-weight: 600; font-size: .92rem; color: var(--ink); margin-bottom: .5rem; }
+.insight-body { font-size: .82rem; line-height: 1.6; color: var(--mid); }
+
+/* ── FOOTER ── */
+.exec-footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 60px;
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: .9rem; color: rgba(255,255,255,0.3);
+}
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a {
+  font-size: .72rem; color: rgba(255,255,255,0.3);
+  text-decoration: none; letter-spacing: .05em; text-transform: uppercase;
+  transition: color .15s;
+}
+.footer-links a:hover { color: var(--teal2); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+.reveal-d3 { transition-delay: .3s; }
+.reveal-d4 { transition-delay: .4s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .cover-inner { grid-template-columns: 1fr; gap: 40px; padding: 50px 28px 40px; }
+  .cover-right { grid-template-columns: 1fr 1fr; }
+  .cover-bottom { padding: 1rem 28px; }
+  .section { padding: 56px 28px; }
+  .two-teams { grid-template-columns: 1fr; }
+  .quotes-layout { grid-template-columns: 1fr; }
+  .quotes-layout .quote-card.featured { grid-column: 1; }
+  .safety-grid { grid-template-columns: 1fr; }
+  .band-dust .insight-grid { grid-template-columns: 1fr; }
+  .exec-footer { padding: 1.5rem 28px; }
+}
+</style>
+<script>
+(function(){
+  var PW = 'ndservice26';
+  var KEY = 'nd_auth';
+  if(sessionStorage.getItem(KEY) === '1') return;
+  document.documentElement.style.visibility = 'hidden';
+  function showGate(){
+    document.documentElement.style.visibility = '';
+    var ov = document.createElement('div');
+    ov.id = 'pw-gate';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#0f1a1a;display:flex;align-items:center;justify-content:center;font-family:sans-serif;';
+    ov.innerHTML = '<div style="background:#1a2e2e;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2.5rem 2.5rem 2rem;max-width:380px;width:90%;text-align:center;">'
+      + '<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a6b6b,#2a9090);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;">'
+      + '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="14" height="10" rx="2"/><path d="M7 9V6a3 3 0 016 0v3"/></svg>'
+      + '</div>'
+      + '<p style="font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6dd0d0;margin-bottom:.5rem;">ND Services in Wales</p>'
+      + '<h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.4rem;">Restricted access</h1>'
+      + '<p style="font-size:.85rem;color:rgba(255,255,255,0.45);margin-bottom:1.6rem;line-height:1.6;">This site contains draft research and pilot data. Please enter the access password to continue.</p>'
+      + '<input id="pw-input" type="password" placeholder="Enter password" autocomplete="current-password" style="width:100%;padding:.75rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:.95rem;outline:none;margin-bottom:.75rem;box-sizing:border-box;" />'
+      + '<div id="pw-err" style="font-size:.78rem;color:#f87171;margin-bottom:.6rem;min-height:1.2em;"></div>'
+      + '<button id="pw-btn" style="width:100%;padding:.8rem;background:#1a6b6b;color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;">Continue</button>'
+      + '</div>';
+    document.body.prepend(ov);
+    document.body.style.overflow = 'hidden';
+    function attempt(){
+      if(document.getElementById('pw-input').value === PW){
+        sessionStorage.setItem(KEY,'1');
+        ov.style.transition = 'opacity .3s';
+        ov.style.opacity = '0';
+        setTimeout(function(){ ov.remove(); document.body.style.overflow = ''; }, 320);
+      } else {
+        document.getElementById('pw-err').textContent = 'Incorrect password — please try again.';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('pw-input').focus();
+      }
+    }
+    document.getElementById('pw-btn').addEventListener('click', attempt);
+    document.getElementById('pw-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') attempt(); });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', showGate);
+  } else {
+    showGate();
+  }
+})();
+</script>
+</head>
+<body>
+
+<div class="page">
+
+<a href="#main-content" class="prog-skip">Skip to main content</a>
+<nav class="prog-nav" aria-label="Programme navigation">
+  <a href="hub.html" class="prog-nav-home" aria-label="All reports — ND Services in Wales home">
+    <span class="prog-home-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2 6l6-4 6 4v8H2z"/><rect x="5" y="9" width="3" height="5" rx="0.5"/></svg></span>
+    <span class="prog-home-label">ND Services<strong>in Wales</strong></span>
+  </a>
+  <span class="prog-divider" aria-hidden="true"></span>
+  <ul class="prog-nav-links" role="list">
+    <li><a href="hub.html">All reports</a></li>
+    <li><a href="research.html">Service landscape</a></li>
+    <li><a href="ctm.html"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
+    <li><a href="autism.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> Autism team</a></li>
+    <li><a href="adhd.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> ADHD team</a></li>
+  </ul>
+  <span class="prog-nav-context" aria-hidden="true">Trial ongoing · Hywel Dda</span>
+</nav>
+
+<!-- ══ COVER ══ -->
+<section class="cover" id="main-content" aria-label="Executive summary cover">
+  <div class="cover-bg" aria-hidden="true"></div>
+  <div class="cover-grid" aria-hidden="true"></div>
+
+  <div class="cover-inner">
+    <div class="cover-left">
+      <div class="cover-kicker">
+        <span class="cover-kicker-dot" aria-hidden="true"></span>
+        Hywel Dda University Health Board · Pilot in progress
+      </div>
+      <h1 class="cover-title">
+        The evidence<br>is <em>already</em><br>compelling.
+      </h1>
+      <p class="cover-sub">
+        Two clinical teams in Hywel Dda are using Magic Notes AI scribe as part of a structured diary study. The data shows consistent, significant time savings — with a safety picture that is manageable and clearly understood.
+      </p>
+      <div class="cover-meta">
+        <span class="meta-pill active">2 teams</span>
+        <span class="meta-pill active">97 entries</span>
+        <span class="meta-pill">Trial ongoing</span>
+        <span class="meta-pill">WHC 2025/026</span>
+      </div>
+    </div>
+
+    <div class="cover-right" role="list" aria-label="Headline statistics">
+      <div class="hero-stat c-teal reveal" role="listitem">
+        <div class="hero-stat-num">64%</div>
+        <div class="hero-stat-label">avg time saved</div>
+        <div class="hero-stat-sub">ADHD team · 40 entries</div>
+      </div>
+      <div class="hero-stat c-purple reveal reveal-d1" role="listitem">
+        <div class="hero-stat-num">26%</div>
+        <div class="hero-stat-label">avg time saved</div>
+        <div class="hero-stat-sub">Autism team · 57 entries</div>
+      </div>
+      <div class="hero-stat c-green reveal reveal-d2" role="listitem">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">quality improved</div>
+        <div class="hero-stat-sub">ADHD · 39 answered</div>
+      </div>
+      <div class="hero-stat c-amber reveal reveal-d3" role="listitem">
+        <div class="hero-stat-num">81%</div>
+        <div class="hero-stat-label">quality improved</div>
+        <div class="hero-stat-sub">Autism · 47 answered</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-scroll" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v10M4 9l4 4 4-4"/></svg>
+      Read the detail
+    </div>
+    <span class="cover-date">Data as of March 2026 · Diary study ongoing</span>
+  </div>
+</section>
+
+<!-- ══ TWO TEAMS ══ -->
+<div class="band-ink2">
+  <div class="section">
+    <span class="eyebrow">The pilot</span>
+    <h2 class="section-title">Two teams. Different use cases. Consistent results.</h2>
+    <p class="section-lead">Both teams completed structured diary entries after each use of Magic Notes, recording time, ease of use, quality outcome, and whether any hallucinations occurred.</p>
+
+    <div class="two-teams">
+
+      <!-- ADHD -->
+      <div class="team-card reveal">
+        <div class="team-card-head adhd-head">
+          <div>
+            <div class="team-name">ADHD Team</div>
+            <div style="font-size:.75rem;color:rgba(255,255,255,0.45);margin-top:.2rem;">Hywel Dda University Health Board</div>
+          </div>
+          <span class="team-tag adhd-tag">40 entries</span>
+        </div>
+        <div class="team-card-body">
+          <div class="team-metrics">
+            <div class="team-metric adhd-metric">
+              <div class="team-metric-val">64.4%</div>
+              <div class="team-metric-label">avg time saved</div>
+            </div>
+            <div class="team-metric adhd-metric">
+              <div class="team-metric-val">4.88</div>
+              <div class="team-metric-label">ease of use /5</div>
+            </div>
+            <div class="team-metric adhd-metric">
+              <div class="team-metric-val">100%</div>
+              <div class="team-metric-label">quality improved</div>
+            </div>
+          </div>
+          <div class="team-breakdown">
+            <div class="team-breakdown-row">
+              <span class="tbd-label">Ratification</span>
+              <span class="tbd-val adhd-val">+60% saved <span class="tbd-n">n=29 · 5/5 ease · 0 hallucinations</span></span>
+            </div>
+            <div class="team-breakdown-row">
+              <span class="tbd-label">Other uses</span>
+              <span class="tbd-val adhd-val">+82% saved <span class="tbd-n">n=8 · 4.6/5 ease</span></span>
+            </div>
+            <div class="team-breakdown-row">
+              <span class="tbd-label">Regular review</span>
+              <span class="tbd-val adhd-val">+56% saved <span class="tbd-n">n=3 · 4.3/5 ease</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUTISM -->
+      <div class="team-card reveal reveal-d1">
+        <div class="team-card-head autism-head">
+          <div>
+            <div class="team-name">Autism Team</div>
+            <div style="font-size:.75rem;color:rgba(255,255,255,0.45);margin-top:.2rem;">Hywel Dda University Health Board</div>
+          </div>
+          <span class="team-tag autism-tag">57 entries</span>
+        </div>
+        <div class="team-card-body">
+          <div class="team-metrics">
+            <div class="team-metric autism-metric">
+              <div class="team-metric-val">25.8%</div>
+              <div class="team-metric-label">avg time saved</div>
+            </div>
+            <div class="team-metric autism-metric">
+              <div class="team-metric-val">3.94</div>
+              <div class="team-metric-label">ease of use /5</div>
+            </div>
+            <div class="team-metric autism-metric">
+              <div class="team-metric-val">81%</div>
+              <div class="team-metric-label">quality improved</div>
+            </div>
+          </div>
+          <div class="team-breakdown">
+            <div class="team-breakdown-row">
+              <span class="tbd-label">Clinical assessment / ADOS</span>
+              <span class="tbd-val autism-val">+61% saved <span class="tbd-n">n=11 · 3.6/5 ease</span></span>
+            </div>
+            <div class="team-breakdown-row">
+              <span class="tbd-label">Other uses</span>
+              <span class="tbd-val autism-val">+51% saved <span class="tbd-n">n=13 · 4.2/5 ease</span></span>
+            </div>
+            <div class="team-breakdown-row">
+              <span class="tbd-label">Final report</span>
+              <span class="tbd-val autism-val">+40% saved <span class="tbd-n">n=5 · 4.2/5 ease</span></span>
+            </div>
+            <div class="team-breakdown-row">
+              <span class="tbd-label">Panel case presentation</span>
+              <span class="tbd-val" style="color:#f87171;">+time added <span class="tbd-n">n=28 · needs template work</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUOTES ══ -->
+<div class="band-dark">
+  <div class="section">
+    <span class="eyebrow">In their own words</span>
+    <h2 class="section-title">What clinicians are saying</h2>
+    <p class="section-lead">Selected verbatim from diary entries — unedited responses to the question "describe one specific way Magic Notes helped today."</p>
+
+    <div class="quotes-layout">
+
+      <div class="quote-card featured reveal">
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">This could be a game changer in terms of our assessments. Report writing and collating information is incredibly time consuming — and this can do it in a few minutes.</p>
+        <div class="quote-source">ADHD team · Other uses</div>
+      </div>
+
+      <div class="quote-card reveal reveal-d1">
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">I have over 250 reports to work through on top of my normal duties. This time saving is amazing and will only get better as I get used to the system.</p>
+        <div class="quote-source">ADHD team · Ratification</div>
+      </div>
+
+      <div class="quote-card reveal reveal-d2">
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">If the trust cannot invest in staff, they need to invest in tools like this. We are drowning in complex paperwork.</p>
+        <div class="quote-source">ADHD team · Ratification</div>
+      </div>
+
+      <div class="quote-card reveal reveal-d1">
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">After one session I had completed a significant portion of the assessment report — it was written up before I stepped out of the room.</p>
+        <div class="quote-source">ADHD team · Live ADHD assessment</div>
+      </div>
+
+      <div class="quote-card reveal reveal-d2">
+        <span class="quote-mark" aria-hidden="true">"</span>
+        <p class="quote-text">Ability to do a more complex, person-centred review — more detailed case note and quicker. Reduced cognitive load significantly.</p>
+        <div class="quote-source">ADHD team · Regular review</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SAFETY ══ -->
+<div class="band-teal">
+  <div class="section">
+    <span class="eyebrow">Safety and accuracy</span>
+    <h2 class="section-title">The hallucination picture — known, contained, manageable.</h2>
+    <p class="section-lead">The diary study included a dedicated question on hallucinations in every entry. The picture is clear: most use cases are clean, with one area requiring consistent human checking.</p>
+
+    <div class="safety-grid">
+      <div class="safety-card safe reveal">
+        <div class="safety-icon" aria-hidden="true">✓</div>
+        <div class="safety-head">Ratification — zero hallucinations</div>
+        <div class="safety-body">29 consecutive entries. No hallucinations reported in any. 5/5 ease across the board. The most robustly evidenced use case in the study.</div>
+      </div>
+      <div class="safety-card caution reveal reveal-d1">
+        <div class="safety-icon" aria-hidden="true">⚠</div>
+        <div class="safety-head">Role / identity errors — low risk</div>
+        <div class="safety-body">In 2 of 8 Other Uses entries, the clinician's role was mis-stated as "clinical psychologist." All clinical content was correct. Easily verified on review.</div>
+      </div>
+      <div class="safety-card risk reveal reveal-d2">
+        <div class="safety-icon" aria-hidden="true">!</div>
+        <div class="safety-head">Medication errors — requires checking</div>
+        <div class="safety-body">2 of 3 Regular Review entries contained medication hallucinations — one fabricated a "saving medication" statement; one substituted Atomoxetine with Escitalopram. Human review is essential before any medication-related output is used.</div>
+      </div>
+    </div>
+
+    <div class="safety-note reveal">
+      <strong>Overall hallucination rate:</strong> 9 confirmed incidents across 97 entries (approx. 9%). The majority are concentrated in Regular Review and involve medication content — a known risk category for AI scribe tools that requires a clear clinical checking protocol. Ratification, Other Uses (non-role errors) and Clinical Assessment entries show a substantially cleaner picture.
+    </div>
+  </div>
+</div>
+
+<!-- ══ WHAT THIS MEANS ══ -->
+<div class="band-dust">
+  <div class="section">
+    <span class="eyebrow">Interpretation</span>
+    <h2 class="section-title">What this means for Hywel Dda.</h2>
+    <p class="section-lead">The pilot data — even mid-study — points to three clear conclusions for senior decision-makers.</p>
+
+    <div class="insight-grid">
+      <div class="insight-card reveal">
+        <div class="insight-num">01</div>
+        <div class="insight-head">The time savings are real and material</div>
+        <div class="insight-body">Across 97 diary entries, clinicians are consistently saving between 26% and 64% of documentation time. For teams under capacity pressure, this is not a marginal gain — it is structural relief.</div>
+      </div>
+      <div class="insight-card reveal reveal-d1">
+        <div class="insight-num">02</div>
+        <div class="insight-head">The safety picture is manageable — not hidden</div>
+        <div class="insight-body">Hallucinations are not absent, but they are understood. The medication errors in Regular Review require a clear checking protocol. Ratification — the highest-volume use case — is clean across 29 consecutive entries.</div>
+      </div>
+      <div class="insight-card reveal reveal-d2">
+        <div class="insight-num">03</div>
+        <div class="insight-head">The conditions for scale are now visible</div>
+        <div class="insight-body">Template development, a medication-checking protocol, and a defined rollout pathway are the remaining requirements. The evidence base to make the case for investment now exists.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer style="background:var(--ink);">
+  <div class="exec-footer">
+    <div class="footer-brand">Hywel Dda ND Services · AI Scribe Pilot · 2025–2026</div>
+    <nav class="footer-links" aria-label="Report links">
+      <a href="hub.html">All reports</a>
+      <a href="adhd.html">ADHD full data</a>
+      <a href="autism.html">Autism full data</a>
+      <a href="research.html">ND research</a>
+    </nav>
+  </div>
+</footer>
+
+</div><!-- .page -->
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

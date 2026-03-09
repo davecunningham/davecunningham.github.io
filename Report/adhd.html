@@ -519,8 +519,55 @@
 body { padding-top: 52px !important; }
 
 </style>
+<script>
+(function(){
+  var PW = 'ndservice26';
+  var KEY = 'nd_auth';
+  if(sessionStorage.getItem(KEY) === '1') return;
+  document.documentElement.style.visibility = 'hidden';
+  function showGate(){
+    document.documentElement.style.visibility = '';
+    var ov = document.createElement('div');
+    ov.id = 'pw-gate';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#0f1a1a;display:flex;align-items:center;justify-content:center;font-family:sans-serif;';
+    ov.innerHTML = '<div style="background:#1a2e2e;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2.5rem 2.5rem 2rem;max-width:380px;width:90%;text-align:center;">'
+      + '<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a6b6b,#2a9090);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;">'
+      + '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="14" height="10" rx="2"/><path d="M7 9V6a3 3 0 016 0v3"/></svg>'
+      + '</div>'
+      + '<p style="font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6dd0d0;margin-bottom:.5rem;">ND Services in Wales</p>'
+      + '<h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.4rem;">Restricted access</h1>'
+      + '<p style="font-size:.85rem;color:rgba(255,255,255,0.45);margin-bottom:1.6rem;line-height:1.6;">This site contains draft research and pilot data. Please enter the access password to continue.</p>'
+      + '<input id="pw-input" type="password" placeholder="Enter password" autocomplete="current-password" style="width:100%;padding:.75rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:.95rem;outline:none;margin-bottom:.75rem;box-sizing:border-box;" />'
+      + '<div id="pw-err" style="font-size:.78rem;color:#f87171;margin-bottom:.6rem;min-height:1.2em;"></div>'
+      + '<button id="pw-btn" style="width:100%;padding:.8rem;background:#1a6b6b;color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;">Continue</button>'
+      + '</div>';
+    document.body.prepend(ov);
+    document.body.style.overflow = 'hidden';
+    function attempt(){
+      if(document.getElementById('pw-input').value === PW){
+        sessionStorage.setItem(KEY,'1');
+        ov.style.transition = 'opacity .3s';
+        ov.style.opacity = '0';
+        setTimeout(function(){ ov.remove(); document.body.style.overflow = ''; }, 320);
+      } else {
+        document.getElementById('pw-err').textContent = 'Incorrect password — please try again.';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('pw-input').focus();
+      }
+    }
+    document.getElementById('pw-btn').addEventListener('click', attempt);
+    document.getElementById('pw-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') attempt(); });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', showGate);
+  } else {
+    showGate();
+  }
+})();
+</script>
 </head>
 <body>
+
 <a href="#main-content" class="prog-skip">Skip to main content</a>
 <nav class="prog-nav" aria-label="Programme navigation">
   <a href="hub.html" class="prog-nav-home" aria-label="All reports — ND Services in Wales home">
@@ -530,7 +577,7 @@ body { padding-top: 52px !important; }
   <span class="prog-divider" aria-hidden="true"></span>
   <ul class="prog-nav-links" role="list">
     <li><a href="hub.html">All reports</a></li>
-    <li><a href="research.html">ND Research</a></li>
+    <li><a href="research.html">Service landscape</a></li>
     <li><a href="ctm.html"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
     <li><a href="autism.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> Autism team</a></li>
     <li><a href="adhd.html" aria-current="page"><span class="prog-nav-tag prog-tag-hdda">HD</span> ADHD team</a></li>
@@ -569,6 +616,16 @@ body { padding-top: 52px !important; }
       <div class="kpi-label">Quality: Yes</div>
       <div class="kpi-sub">39 Yes · 0 No · 39 total</div>
     </div>
+    <div class="kpi">
+      <div class="kpi-value">106m</div>
+      <div class="kpi-label">Avg time before</div>
+      <div class="kpi-sub">per session without Magic Notes</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">27m</div>
+      <div class="kpi-label">Avg time with MN</div>
+      <div class="kpi-sub">per session using Magic Notes</div>
+    </div>
   </div>
 </div>
 
@@ -598,6 +655,11 @@ body { padding-top: 52px !important; }
       <div class="m-label">Time Saved %</div>
       <div class="m-value">55.6%</div>
       <div class="m-sub">avg · 3 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Avg Time Before</div>
+      <div class="m-value">40m</div>
+      <div class="m-sub">without Magic Notes</div>
     </div>
     <div class="metric-card c-amber">
       <div class="m-label">Mins Saved</div>
@@ -665,6 +727,11 @@ body { padding-top: 52px !important; }
       <div class="m-sub">avg · 29 paired entries</div>
     </div>
     <div class="metric-card c-amber">
+      <div class="m-label">Avg Time Before</div>
+      <div class="m-value">60m</div>
+      <div class="m-sub">without Magic Notes</div>
+    </div>
+    <div class="metric-card c-amber">
       <div class="m-label">Mins Saved</div>
       <div class="m-value">36m</div>
       <div class="m-sub">avg per session</div>
@@ -721,6 +788,11 @@ body { padding-top: 52px !important; }
       <div class="m-label">Time Saved %</div>
       <div class="m-value">82.4%</div>
       <div class="m-sub">avg · 8 paired entries</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Avg Time Before</div>
+      <div class="m-value">300m</div>
+      <div class="m-sub">without Magic Notes</div>
     </div>
     <div class="metric-card c-amber">
       <div class="m-label">Mins Saved</div>
@@ -861,6 +933,7 @@ body { padding-top: 52px !important; }
       <tr>
         <th>Category</th>
         <th>Entries (n)</th>
+        <th>Avg Time Before</th>
         <th>Time Saved %</th>
         <th>Mins Saved</th>
         <th>Ease /5</th>
@@ -872,6 +945,7 @@ body { padding-top: 52px !important; }
       <tr>
         <td><strong>Other Uses</strong></td>
         <td>8</td>
+        <td>300m</td>
         <td><span class="pct-pos">+82.4%</span></td>
         <td>258m</td>
         <td>4.62</td>
@@ -881,6 +955,7 @@ body { padding-top: 52px !important; }
       <tr>
         <td><strong>Regular Review</strong></td>
         <td>3</td>
+        <td>40m</td>
         <td><span class="pct-pos">+55.6%</span></td>
         <td>22m</td>
         <td>4.33</td>
@@ -890,6 +965,7 @@ body { padding-top: 52px !important; }
       <tr>
         <td><strong>Ratification</strong></td>
         <td>29</td>
+        <td>60m</td>
         <td><span class="pct-pos">+60.3%</span></td>
         <td>36m</td>
         <td>5.0</td>
@@ -904,10 +980,12 @@ body { padding-top: 52px !important; }
         <td><em style="color:var(--ink-light)">—</em></td>
         <td><em style="color:var(--ink-light)">—</em></td>
         <td><em style="color:var(--ink-light)">—</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
       </tr>
       <tr>
         <td><em style="color:var(--ink-light)">End Review</em></td>
         <td><em style="color:var(--ink-light)">0</em></td>
+        <td><em style="color:var(--ink-light)">—</em></td>
         <td><em style="color:var(--ink-light)">—</em></td>
         <td><em style="color:var(--ink-light)">—</em></td>
         <td><em style="color:var(--ink-light)">—</em></td>
@@ -919,6 +997,7 @@ body { padding-top: 52px !important; }
       <tr>
         <td><strong>OVERALL</strong></td>
         <td><strong>40</strong></td>
+        <td><strong>106m</strong></td>
         <td><strong><span class="pct-pos">+64.4%</span></strong></td>
         <td><strong>80m</strong></td>
         <td><strong>4.88</strong></td>
