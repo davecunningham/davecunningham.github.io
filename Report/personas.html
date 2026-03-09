@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is this your team? — ND Service Reflection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:    #1a2424;
+  --teal:   #1a6b6b;
+  --teal2:  #6dd0d0;
+  --amber:  #c07825;
+  --rose:   #9e3a47;
+  --white:  #ffffff;
+  --dust:   #f5f2ee;
+  --mid:    #556060;
+  --border: #ddd9d4;
+
+  --never:   #556060;
+  --sometimes: #c07825;
+  --often:   #9e3a47;
+  --always:  #6b1f2a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── INTRO SCREEN ─────────────────────────────────── */
+#intro {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem 1.5rem 2rem;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+#intro::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,107,107,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.intro-kicker {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal2);
+  margin-bottom: 0.5rem;
+}
+.intro-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 1.2rem;
+}
+.intro-title em {
+  font-style: italic;
+  color: var(--teal2);
+}
+.intro-body {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.65;
+  max-width: 380px;
+  margin-bottom: 2rem;
+}
+.intro-body strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+
+.intro-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+.intro-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+}
+.intro-pill span { font-size: 1rem; }
+
+.btn-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: var(--teal2);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 24px rgba(109,208,208,0.25);
+}
+.btn-start:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(109,208,208,0.35); }
+.btn-start:active { transform: translateY(0); }
+
+/* ── CARD SCREEN ──────────────────────────────────── */
+#card-screen {
+  display: none;
+  min-height: 100dvh;
+  flex-direction: column;
+}
+
+.card-header {
+  padding: 1.2rem 1.5rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.card-back {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  font-family: 'DM Sans', sans-serif;
+}
+.card-back:hover { color: var(--teal2); }
+.progress-wrap {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--teal2);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.card-count {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Card viewport */
+.card-viewport {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+.persona-card {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 1.8rem 1.5rem;
+  position: absolute;
+  left: 1.5rem; right: 1.5rem;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease;
+  opacity: 0;
+  transform: translateX(60px);
+  pointer-events: none;
+}
+.persona-card.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  position: relative;
+  left: auto; right: auto;
+}
+.persona-card.exit-left {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+.card-icon {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  display: block;
+  filter: grayscale(0.2);
+}
+.card-persona-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal2);
+  margin-bottom: 0.35rem;
+}
+.card-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+}
+.card-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: 1.2rem;
+}
+.card-section-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 0.35rem;
+}
+.card-who {
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+.card-reality {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+}
+.card-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--teal2);
+  line-height: 1.5;
+  border-left: 2px solid var(--teal);
+  padding-left: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Rating buttons */
+.rating-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+.rating-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+.rating-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.7rem 0.3rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.rating-btn:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
+.rating-btn.selected { transform: scale(1.04); }
+.rating-btn[data-score="1"].selected { background: rgba(85,96,96,0.4); border-color: #556060; }
+.rating-btn[data-score="2"].selected { background: rgba(192,120,37,0.3); border-color: var(--amber); }
+.rating-btn[data-score="3"].selected { background: rgba(158,58,71,0.3); border-color: var(--rose); }
+.rating-btn[data-score="4"].selected { background: rgba(107,31,42,0.4); border-color: #6b1f2a; }
+.rating-btn[data-score="5"].selected { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+.rating-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+.rating-btn[data-score="1"] .rating-dot { background: #556060; }
+.rating-btn[data-score="2"] .rating-dot { background: var(--amber); }
+.rating-btn[data-score="3"] .rating-dot { background: var(--rose); }
+.rating-btn[data-score="4"] .rating-dot { background: #9e2030; }
+.rating-btn[data-score="5"] .rating-dot { background: rgba(255,255,255,0.25); }
+.rating-word {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  line-height: 1.2;
+}
+.rating-btn.selected .rating-word { color: rgba(255,255,255,0.9); }
+
+/* ── RESULTS SCREEN ───────────────────────────────── */
+#results-screen {
+  display: none;
+  min-height: 100dvh;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+#results-screen::before {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,107,107,0.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.results-kicker {
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--teal2); margin-bottom: 0.5rem;
+}
+.results-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--white); margin-bottom: 0.6rem;
+}
+.results-subtitle {
+  font-size: 0.88rem; color: rgba(255,255,255,0.5);
+  line-height: 1.55; margin-bottom: 2rem;
+}
+
+/* Heat score */
+.heat-score-wrap {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.heat-score-num {
+  font-family: 'Fraunces', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 4rem;
+}
+.heat-score-label {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 0.3rem;
+}
+.heat-score-desc {
+  font-size: 0.9rem; color: rgba(255,255,255,0.7);
+  line-height: 1.45;
+}
+
+/* Persona result rows */
+.results-section-label {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 0.8rem;
+}
+.result-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.result-row:last-child { border-bottom: none; }
+.result-icon { font-size: 1.3rem; flex-shrink: 0; width: 2rem; text-align: center; }
+.result-name {
+  flex: 1;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.3;
+}
+.result-bar-wrap {
+  width: 80px;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.result-bar { height: 100%; border-radius: 3px; }
+.result-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  min-width: 4.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+.label-never    { color: #556060; }
+.label-sometimes { color: var(--amber); }
+.label-often    { color: var(--rose); }
+.label-always   { color: #c44; }
+.label-na       { color: rgba(255,255,255,0.3); }
+.bar-never      { background: #556060; width: 25%; }
+.bar-sometimes  { background: var(--amber); width: 50%; }
+.bar-often      { background: var(--rose); width: 75%; }
+.bar-always     { background: #c44; width: 100%; }
+.bar-na         { background: rgba(255,255,255,0.15); width: 15%; }
+
+/* Talking points */
+.talking-card {
+  background: rgba(26,107,107,0.15);
+  border: 1px solid rgba(26,107,107,0.3);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+.talking-card-title {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.talking-card-body {
+  font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.55;
+}
+
+.btn-restart {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  width: 100%; padding: 0.9rem 1.5rem;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.75);
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+  border-radius: 12px; cursor: pointer; margin-top: 1.5rem;
+  transition: background 0.15s;
+}
+.btn-restart:hover { background: rgba(255,255,255,0.12); }
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.8rem; color: rgba(255,255,255,0.4);
+  text-decoration: none; margin-top: 1rem;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--teal2); }
+
+/* Share prompt */
+.share-prompt {
+  background: rgba(192,120,37,0.1);
+  border: 1px solid rgba(192,120,37,0.25);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.55;
+}
+.share-prompt strong { color: var(--amber); font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  .persona-card, .btn-start, .progress-fill { transition: none; }
+}
+
+/* ── PROGRAMME NAV (shared) ── */
+.prog-skip {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px;
+  overflow: hidden; z-index: 9999;
+  background: #1a6b6b; color: #fff; padding: 0.75rem 1.5rem;
+  border-radius: 0 0 8px 0; font-weight: 600; font-size: 0.9rem;
+  text-decoration: none; white-space: nowrap;
+}
+.prog-skip:focus {
+  position: fixed; left: 0; top: 0; width: auto; height: auto; overflow: visible;
+}
+.prog-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: #0d1f1f;
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+  display: flex; align-items: center;
+  padding: 0 1.5rem; height: 52px; gap: 0;
+}
+.prog-nav-home {
+  display: flex; align-items: center; gap: 0.55rem;
+  text-decoration: none; margin-right: 1.2rem; flex-shrink: 0;
+  padding: 0.5rem 0; min-height: 44px; border-radius: 4px;
+}
+.prog-nav-home:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 3px; }
+.prog-home-icon {
+  width: 26px; height: 26px; border-radius: 6px;
+  background: linear-gradient(135deg, #1a6b6b, #2a9090);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.prog-home-icon svg { width: 14px; height: 14px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.prog-home-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.55); line-height: 1.2; }
+.prog-home-label strong { display: block; font-size: 0.8rem; color: #fff; letter-spacing: 0; font-weight: 600; }
+.prog-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.1); margin-right: 0.6rem; flex-shrink: 0; }
+.prog-nav-links { display: flex; gap: 0; list-style: none; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.prog-nav-links::-webkit-scrollbar { display: none; }
+.prog-nav-links a {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  padding: 0 0.85rem; height: 52px; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.prog-nav-links a:hover { color: rgba(255,255,255,0.9); }
+.prog-nav-links a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: -4px; }
+.prog-nav-links a[aria-current="page"] { color: #6dd0d0; border-bottom-color: #6dd0d0; }
+.prog-nav-tag {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.15rem 0.45rem; border-radius: 3px; line-height: 1.4;
+}
+.prog-tag-ctm  { background: rgba(26,107,107,0.35); color: #6dd0d0; }
+.prog-tag-hdda { background: rgba(109,40,217,0.30); color: #c4b5fd; }
+.prog-nav-context {
+  font-size: 0.7rem; color: rgba(255,255,255,0.35);
+  padding: 0 0.75rem; border-left: 1px solid rgba(255,255,255,0.09);
+  white-space: nowrap; flex-shrink: 0; display: flex; align-items: center;
+}
+@media(max-width: 680px) {
+  .prog-nav-context { display: none; }
+  .prog-nav-links a { padding: 0 0.6rem; font-size: 0.7rem; }
+}
+body { padding-top: 52px !important; }
+
+</style>
+</head>
+<body>
+<a href="#intro" class="prog-skip">Skip to main content</a>
+<nav class="prog-nav" aria-label="Programme navigation">
+  <a href="hub.html" class="prog-nav-home" aria-label="All reports — ND Services in Wales home">
+    <span class="prog-home-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2 6l6-4 6 4v8H2z"/><rect x="5" y="9" width="3" height="5" rx="0.5"/></svg></span>
+    <span class="prog-home-label">ND Services<strong>in Wales</strong></span>
+  </a>
+  <span class="prog-divider" aria-hidden="true"></span>
+  <ul class="prog-nav-links" role="list">
+    <li><a href="hub.html">All reports</a></li>
+    <li><a href="research.html">ND Research</a></li>
+    <li><a href="ctm.html"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
+    <li><a href="personas.html" aria-current="page"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Personas</a></li>
+    <li><a href="autism.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> Autism team</a></li>
+    <li><a href="adhd.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> ADHD team</a></li>
+  </ul>
+  <span class="prog-nav-context" aria-hidden="true">Trial ongoing · Hywel Dda</span>
+</nav>
+
+<!-- ══ INTRO ══════════════════════════════════════════ -->
+<section id="intro" role="main">
+  <div>
+    <p class="intro-kicker">ND Service Reflection</p>
+    <h1 class="intro-title">Do you<br><em>recognise this?</em></h1>
+    <p class="intro-body">
+      When services are under pressure, they create behaviours nobody intended.<br><br>
+      These 12 patterns describe behaviours that show up in ND services when things aren't working — not because of individual failure, but because of how the service is set up. <strong>Rate how often you recognise each one in your own team.</strong>
+    </p>
+    <div class="intro-meta">
+      <span class="intro-pill"><span>🃏</span> 12 personas, ~5 minutes</span>
+      <span class="intro-pill"><span>📱</span> Nothing is saved or shared</span>
+      <span class="intro-pill"><span>💬</span> Use results to start a conversation</span>
+    </div>
+  </div>
+  <button class="btn-start" onclick="startTool()" aria-label="Begin the reflection tool">
+    Begin reflection →
+  </button>
+</section>
+
+<!-- ══ CARD SCREEN ════════════════════════════════════ -->
+<section id="card-screen" aria-label="Persona cards">
+  <div class="card-header">
+    <button class="card-back" onclick="goIntro()" aria-label="Back to introduction">← Back</button>
+    <div class="progress-wrap" role="progressbar" aria-label="Progress through personas" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <span class="card-count" id="card-count" aria-live="polite">1 / 12</span>
+  </div>
+
+  <div class="card-viewport" id="card-viewport">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- ══ RESULTS ════════════════════════════════════════ -->
+<section id="results-screen" aria-label="Your results">
+  <p class="results-kicker">Your reflection</p>
+  <h2 class="results-title" id="results-title">Your service map</h2>
+  <p class="results-subtitle" id="results-subtitle"></p>
+
+  <div class="heat-score-wrap">
+    <div class="heat-score-num" id="heat-score-num" aria-label="Overall pressure score"></div>
+    <div>
+      <p class="heat-score-label">Overall pressure level</p>
+      <p class="heat-score-desc" id="heat-score-desc"></p>
+    </div>
+  </div>
+
+  <p class="results-section-label">All 12 personas — your ratings</p>
+  <div id="results-rows"></div>
+
+  <div style="margin-top:2rem;">
+    <p class="results-section-label" style="margin-bottom:1rem;">Talking points for your meeting</p>
+    <div id="talking-points"></div>
+  </div>
+
+  <div class="share-prompt">
+    <strong>Before your meeting:</strong> Screenshot this page. When you compare with colleagues, look for where your ratings differ — those gaps are often where the most honest conversations happen.
+  </div>
+
+  <a href="index.html" class="back-link">← Back to full research</a>
+  <button class="btn-restart" onclick="restart()">↺ Rate again</button>
+</section>
+
+<script>
+var PERSONAS = [
+  {
+    name: "Anxious Waiting Family",
+    icon: "👨‍👩‍👧",
+    who: "Family waiting long periods with little clarity or support",
+    reality: "Pathway focused on diagnosis rather than early support; no capacity to proactively update families during long waits",
+    quote: '"They\'re desperate… they need to talk."',
+    behaviour: "Repeated contact; distress escalation; loss of trust in the service",
+    risk: "Complaints; disengagement; safeguarding escalation"
+  },
+  {
+    name: "Data Detective Clinician",
+    icon: "🔍",
+    who: "Clinician spending significant time searching for patient information across multiple systems before they can begin clinical work",
+    reality: "Patient data spread across WelshPAS, emails, OneDrive and paper — no single place to look",
+    quote: '"I\'ve got to pull all those pieces of jigsaw together from lots of different places."',
+    behaviour: "Spends hours searching, chasing and copying before clinical work can begin",
+    risk: "Delays; rework; clinician time lost entirely to admin"
+  },
+  {
+    name: "Divided-Attention Clinician",
+    icon: "💻",
+    who: "Clinician forced to split attention between observing a child and typing notes simultaneously",
+    reality: "Live documentation expectations combined with fragmented tools and systems",
+    quote: '"We were able to have quite a human conversation… I didn\'t have my head deep into the computer."',
+    source: "Clinician, CTM pilot — describing what changed when documentation was handled by AI",
+    behaviour: "Prioritises typing over observation; subtle behaviours are missed",
+    risk: "Distorted diagnostic evidence; reduced confidence in outcomes"
+  },
+  {
+    name: "Memory-Overloaded Clinician",
+    icon: "🧠",
+    who: "Clinician reconstructing session details from memory — sometimes days later",
+    reality: "Back-to-back appointments with no protected time to document",
+    quote: '"I\'m normally in the session until 2.45 and then don\'t get to do the write up until my admin day — two days later — which can take 1–2 hours to write and proof read."',
+    source: "Clinician, CTM ND service — before the pilot",
+    behaviour: "Reconstructs notes late; mixes details between families",
+    risk: "Inaccurate reports; safeguarding risk; fragile continuity of care"
+  },
+  {
+    name: "Invisible Administrator",
+    icon: "🗂️",
+    who: "Admin staff holding the whole system together through personal effort and workarounds",
+    reality: "Heavy spreadsheet use; manual duplication; limited tooling; invisible workload",
+    quote: "(Implicit across admin task mapping — the system depends on individuals no-one can see)",
+    behaviour: "Manually tracks, copies, scans and updates to fill gaps in digital systems",
+    risk: "Single points of failure; untracked risk if key people leave"
+  },
+  {
+    name: "Masked & Missed Child",
+    icon: "🎭",
+    who: "Child whose difficulties are hidden, inconsistent or unrecognised across settings",
+    reality: "Screening relies on forms; limited direct observation; long waits distort the picture",
+    quote: '"It is contentious when we reject referrals where families are concerned but schools are not."',
+    behaviour: "Not accepted onto pathway; needs escalate before support arrives",
+    risk: "Late intervention; crisis presentations; preventable harm"
+  },
+  {
+    name: "Reporting-Pressured Service",
+    icon: "📊",
+    who: "Service stretched by growing demand for granular performance data",
+    reality: "Reporting demands have grown without clear guidance on what's enough; data has to be extracted manually each time",
+    quote: '"Managers want us to do it a lot shorter… but I\'m just not going to ever do that."',
+    behaviour: "Expanding reporting burden; clinicians diverted from direct care",
+    risk: "Reduced capacity for families; burnout; distorted clinical priorities"
+  },
+  {
+    name: "Workaround-Dependent Clinician",
+    icon: "🔧",
+    who: "Clinician managing their caseload through personal spreadsheets, folders and workarounds",
+    reality: "Core systems don't support day-to-day case management; gaps are filled individually",
+    quote: '"Nobody can see my caseload. If something happens to me, you have nothing."',
+    behaviour: "Creates local workarounds; holds risk entirely personally",
+    risk: "Hidden workload; loss of continuity when staff leave or are absent"
+  },
+  {
+    name: "Over-Burdened Referrer",
+    icon: "📝",
+    who: "GP, school or professional completing referrals with little guidance or feedback",
+    reality: "Long PDF forms; no validation; no feedback loop to learn what works",
+    quote: '"GPs and consultants notoriously won\'t do forms like that."',
+    behaviour: "Submits incomplete or vague referrals; gives up on the process",
+    risk: "Delays; rejections; families re-enter the system with worse information"
+  },
+  {
+    name: "Clear-Cut Case (Delayed)",
+    icon: "⏳",
+    who: "Child with evident needs still routed through the full assessment process",
+    reality: "Panel-heavy assurance model; no fast-track or proportionate pathway",
+    quote: '"Mine tends to have an outcome… because I try to tick every box before I go there."',
+    behaviour: "Waits unnecessarily; occupies scarce assessment capacity",
+    risk: "Backlogs; delayed support for all children; clinician demoralisation"
+  },
+  {
+    name: "Compliance-Trained User",
+    icon: "📋",
+    who: "Clinician who has learned to document for the system rather than for families",
+    reality: "No shared clarity on what a 'good enough' report looks like; concern about scrutiny leads to longer, more defensive writing over time",
+    quote: "(Observed across clinical interviews — the habit forms quietly over time)",
+    behaviour: "Over-documents; adds extensive caveats; writes to protect rather than inform",
+    risk: "Reports lose clinical usefulness; families receive confusing, defensive letters"
+  }
+];
+
+var scores = new Array(PERSONAS.length).fill(0);
+var current = 0;
+
+var LABELS = ['', 'Never', 'Sometimes', 'Often', 'Always', 'N/A'];
+var BAR_CLASSES = ['', 'bar-never', 'bar-sometimes', 'bar-often', 'bar-always', 'bar-na'];
+var LABEL_CLASSES = ['', 'label-never', 'label-sometimes', 'label-often', 'label-always', 'label-na'];
+
+function show(id) {
+  ['intro','card-screen','results-screen'].forEach(function(s){
+    var el = document.getElementById(s);
+    el.style.display = (s === id) ? 'flex' : 'none';
+  });
+}
+
+function startTool() {
+  scores = new Array(PERSONAS.length).fill(0);
+  current = 0;
+  buildCards();
+  show('card-screen');
+  updateCard(0, false);
+}
+
+function goIntro() { show('intro'); }
+function restart() { startTool(); }
+
+function buildCards() {
+  var vp = document.getElementById('card-viewport');
+  vp.innerHTML = '';
+  PERSONAS.forEach(function(p, i) {
+    var card = document.createElement('div');
+    card.className = 'persona-card';
+    card.id = 'pcard-' + i;
+    card.setAttribute('aria-label', 'Persona ' + (i+1) + ': ' + p.name);
+    card.innerHTML =
+      '<span class="card-icon" aria-hidden="true">' + p.icon + '</span>' +
+      '<p class="card-persona-label">Pattern ' + (i+1) + ' of ' + PERSONAS.length + '</p>' +
+      '<h2 class="card-name">' + p.name + '</h2>' +
+      '<div class="card-divider"></div>' +
+      '<p class="card-section-label">What this looks like</p>' +
+      '<p class="card-who">' + p.who + '</p>' +
+      '<p class="card-section-label">Why it happens</p>' +
+      '<p class="card-reality">' + p.reality + '</p>' +
+      '<blockquote class="card-quote">' + p.quote + '<cite style="display:block;font-size:0.7rem;font-style:normal;font-family:DM Sans,sans-serif;color:rgba(109,208,208,0.6);margin-top:0.5rem;letter-spacing:0.04em;">— ' + (p.source || 'Clinician or family, Welsh ND pathway research') + '</cite></blockquote>' +
+      '<p class="rating-label">How often do you see this in your team?</p>' +
+      '<div class="rating-grid" role="group" aria-label="Rate how often this occurs">' +
+        [1,2,3,4,5].map(function(s){
+          return '<button class="rating-btn" data-score="'+s+'" data-idx="'+i+'" onclick="rate('+i+','+s+')" aria-label="'+LABELS[s]+'">' +
+            '<span class="rating-dot" aria-hidden="true"></span>' +
+            '<span class="rating-word">' + LABELS[s] + '</span>' +
+          '</button>';
+        }).join('') +
+      '</div>';
+    vp.appendChild(card);
+  });
+}
+
+function updateCard(idx, animate) {
+  var cards = document.querySelectorAll('.persona-card');
+  cards.forEach(function(c) { c.classList.remove('active', 'exit-left'); });
+  if(idx < PERSONAS.length) {
+    cards[idx].classList.add('active');
+  }
+  // Progress
+  var pct = (idx / PERSONAS.length) * 100;
+  var pf = document.getElementById('progress-fill');
+  pf.style.width = pct + '%';
+  pf.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+  document.getElementById('card-count').textContent = (idx + 1) + ' / ' + PERSONAS.length;
+  // Restore selection if revisiting
+  if(idx < PERSONAS.length && scores[idx] > 0) {
+    highlightRating(idx, scores[idx]);
+  }
+}
+
+function rate(idx, score) {
+  scores[idx] = score;
+  highlightRating(idx, score);
+  // Auto-advance after brief pause
+  setTimeout(function() {
+    var card = document.getElementById('pcard-' + idx);
+    if(card) card.classList.add('exit-left');
+    setTimeout(function() {
+      if(idx + 1 < PERSONAS.length) {
+        current = idx + 1;
+        updateCard(current, true);
+      } else {
+        showResults();
+      }
+    }, 300);
+  }, 420);
+}
+
+function highlightRating(idx, score) {
+  var btns = document.querySelectorAll('[data-idx="'+idx+'"]');
+  btns.forEach(function(b) {
+    b.classList.toggle('selected', parseInt(b.dataset.score) === score);
+  });
+}
+
+function showResults() {
+  buildResults();
+  show('results-screen');
+  // Scroll to top
+  document.getElementById('results-screen').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+
+function buildResults() {
+  var rated = scores.filter(function(s){ return s > 0 && s < 5; });
+  var total = rated.reduce(function(a,b){ return a+b; }, 0);
+  var max = rated.length * 4;
+  var pct = rated.length > 0 ? Math.round((total / max) * 100) : 0;
+
+  // Overall score colour
+  var scoreEl = document.getElementById('heat-score-num');
+  scoreEl.textContent = pct + '%';
+  var scoreDesc, titleText, subtitleText;
+  if(pct <= 30) {
+    scoreEl.style.color = '#6dd0d0';
+    scoreDesc = 'Low system pressure detected. Some tensions exist but the service is largely protecting people from adverse system effects.';
+    titleText = 'Your service is holding up well';
+    subtitleText = 'A few pressure points to watch — but overall the system is not forcing people into unwanted roles as often as it might.';
+  } else if(pct <= 55) {
+    scoreEl.style.color = 'var(--amber)';
+    scoreDesc = 'Moderate system pressure. Several personas are showing up regularly — the system is creating behaviours people didn\'t choose.';
+    titleText = 'Some real pressure points here';
+    subtitleText = 'These aren\'t individual failings — they\'re the system doing this to people. The question is which ones to address first.';
+  } else if(pct <= 75) {
+    scoreEl.style.color = 'var(--rose)';
+    scoreDesc = 'High system pressure. Many of these behaviours are frequent — staff and families are absorbing significant system dysfunction.';
+    titleText = 'The system is working against people';
+    subtitleText = 'This level of pressure doesn\'t sustain. These patterns point to structural changes needed — not more resilience from individuals.';
+  } else {
+    scoreEl.style.color = '#c44';
+    scoreDesc = 'Very high system pressure. Almost all these behaviours are present often or always. This is a service under serious strain.';
+    titleText = 'Urgent structural change needed';
+    subtitleText = 'When nearly every persona is active, the system is generating harm. This isn\'t a staffing problem — it\'s a design problem.';
+  }
+  document.getElementById('heat-score-desc').textContent = scoreDesc;
+  document.getElementById('results-title').textContent = titleText;
+  document.getElementById('results-subtitle').textContent = subtitleText;
+
+  // Sort by score descending
+  var indexed = scores.map(function(s,i){ return {i:i, s:s}; });
+  indexed.sort(function(a,b){ return b.s - a.s; });
+
+  var rowsEl = document.getElementById('results-rows');
+  rowsEl.innerHTML = '';
+  indexed.forEach(function(item) {
+    var p = PERSONAS[item.i];
+    var s = item.s || 0;
+    var row = document.createElement('div');
+    row.className = 'result-row';
+    row.innerHTML =
+      '<span class="result-icon" aria-hidden="true">' + p.icon + '</span>' +
+      '<span class="result-name">' + p.name + '</span>' +
+      '<div class="result-bar-wrap" aria-hidden="true"><div class="result-bar ' + BAR_CLASSES[s] + '"></div></div>' +
+      '<span class="result-label ' + LABEL_CLASSES[s] + '">' + (s > 0 ? LABELS[s] : '—') + '</span>';
+    rowsEl.appendChild(row);
+  });
+
+  // Talking points — top 3 most severe
+  var top3 = indexed.slice(0,3).filter(function(x){ return x.s >= 2; });
+  var tpEl = document.getElementById('talking-points');
+  tpEl.innerHTML = '';
+
+  if(top3.length === 0) {
+    tpEl.innerHTML = '<p style="font-size:0.88rem;color:rgba(255,255,255,0.45);">No strong patterns identified — your service seems to be managing well against these pressures.</p>';
+    return;
+  }
+
+  var prompts = {
+    0: ['What do families hear from us between referral and their first appointment?', 'When did we last ask a family what waiting felt like?'],
+    1: ['How many systems does a clinician need to check before one appointment?', 'What information should just be there automatically?'],
+    2: ['What are clinicians unable to notice because they\'re typing?', 'When did we last observe a session rather than just read a report?'],
+    3: ['What would need to change for clinicians to write notes the same day?', 'How are we managing safeguarding risk when reports are written from memory?'],
+    4: ['What happens to the service if your key admin person is off sick for a month?', 'Is admin workload visible to leadership?'],
+    5: ['How often do we reject referrals where parents and schools disagree?', 'What support exists for children not on the pathway?'],
+    6: ['What reporting do we do that nobody reads?', 'When did we last push back on a reporting request?'],
+    7: ['How many people have personal spreadsheets tracking things the system should track?', 'What information would be lost if a clinician left tomorrow?'],
+    8: ['What feedback do referrers get when a referral is rejected?', 'Have we ever looked at referrals with a GP or school to understand what they need?'],
+    9: ['Are there children in our system who clearly need support but are waiting for a panel decision to confirm it?', 'What would a fast-track look like?'],
+    10: ['Who are we writing reports for — the family or the file?', 'When did we last check whether families can understand our letters?']
+  };
+
+  top3.forEach(function(item) {
+    var p = PERSONAS[item.i];
+    var ps = prompts[item.i] || [];
+    var card = document.createElement('div');
+    card.className = 'talking-card';
+    card.innerHTML =
+      '<div class="talking-card-title"><span aria-hidden="true">' + p.icon + '</span> ' + p.name + '</div>' +
+      '<div class="talking-card-body">' +
+        ps.map(function(q){ return '&#8220;' + q + '&#8221;'; }).join('<br><br>') +
+      '</div>';
+    tpEl.appendChild(card);
+  });
+}
+</script>
+</body>
+</html>
