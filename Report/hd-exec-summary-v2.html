@@ -401,19 +401,32 @@ body {
 .footer-links a:hover { color: var(--teal2); }
 
 @media (max-width: 860px) {
-  .story-grid [style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-  .cover-right { grid-template-columns: 1fr 1fr; }
   .cover-bottom { padding: 1rem 28px; }
   .section { padding: 56px 28px; }
-  .voice-grid { grid-template-columns: 1fr; }
-  .voice-card.featured { grid-column: 1; }
-  .data-grid { grid-template-columns: 1fr 1fr; }
-  .band-dust .insight-grid { grid-template-columns: 1fr; }
-  .adoption-steps { grid-template-columns: 1fr; }
-  .story-grid { grid-template-columns: 1fr; }
-  .story-card.span2 { grid-column: 1; }
+  .cover-right,
+  .voice-grid,
+  .data-grid,
+  .band-dust .insight-grid,
+  .adoption-steps,
+  .story-grid,
   .what-next-grid { grid-template-columns: 1fr; }
+  .voice-card.featured,
+  .story-card.span2 { grid-column: 1; }
   .exec-footer { padding: 1.5rem 28px; }
+
+  /* Force all inline multi-column grids to single column */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reset any spanning grid items */
+  [style*="grid-column:1/-1"],
+  [style*="grid-column: 1 / -1"] {
+    grid-column: 1 !important;
+  }
 }
 
 <style>
@@ -542,29 +555,21 @@ body {
       </p>
 
 
-    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:2rem;padding-top:2rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;">
-      <div style="display:flex;flex-direction:column;gap:.5rem;">
-        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal2);">ADHD pathway</div>
-        <div style="font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:#fff;line-height:1;">64%</div>
-        <div style="font-size:.8rem;color:rgba(255,255,255,0.5);">time reduction</div>
-        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);margin-top:.3rem;">→ 80 minutes saved per patient</div>
-        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">→ 106 min → 27 min</div>
+    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:2rem;padding-top:2rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
+      <div style="border-left:3px solid var(--teal2);padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal2);margin-bottom:.4rem;">ADHD pathway</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">64%</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">time reduction · 80 min saved per patient</div>
       </div>
-
-      <div style="display:flex;flex-direction:column;gap:.5rem;border-left:1px solid rgba(255,255,255,0.08);padding-left:1.5rem;">
-        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#a78bfa;">Autism pathway</div>
-        <div style="font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:#fff;line-height:1;">30–35%</div>
-        <div style="font-size:.8rem;color:rgba(255,255,255,0.5);">time reduction</div>
-        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);margin-top:.3rem;">→ 80–95 minutes saved per patient</div>
-        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">→ 267 min → 172 min</div>
+      <div style="border-left:3px solid #a78bfa;padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:.4rem;">Autism pathway</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">30–35%</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">time reduction · 80–95 min saved per patient</div>
       </div>
-
-      <div style="display:flex;flex-direction:column;gap:.5rem;border-left:1px solid rgba(255,255,255,0.08);padding-left:1.5rem;">
-        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fbbf24;">Clinician feedback</div>
-        <div style="font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:#fff;line-height:1;">4.9/5</div>
-        <div style="font-size:.8rem;color:rgba(255,255,255,0.5);">ease of use</div>
-        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);margin-top:.3rem;">→ 81–100% rated quality as improved</div>
-        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">→ Across ADHD and Autism teams</div>
+      <div style="border-left:3px solid #fbbf24;padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fbbf24;margin-bottom:.4rem;">Clinician feedback</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">4.9/5</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">ease of use · 81–100% rated quality improved</div>
       </div>
     </div>
 
