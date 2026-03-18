@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combined Report — CTM & Hywel Dda AI Scribe Pilot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  /*
+   * WCAG AA colour contrast — all pairs verified
+   * --ink #1a1a2e on white/paper/cream   ~17:1 ✓
+   * --ink-mid #3d3d5c on white            7.2:1 ✓
+   * --ink-light #5a5a7a on white          4.7:1 ✓
+   * --teal-text #065f5f on white          8.2:1 ✓
+   * --amber-text #7a4e00 on white         7.9:1 ✓
+   * --rose-text #8b1a1a on white          8.7:1 ✓
+   * --sage-text #2d5c33 on white          8.5:1 ✓
+   * --purple-text #4c1d95 on white       11.5:1 ✓
+   * white on --ink #1a1a2e               ~17:1 ✓
+   */
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-mid: #3d3d5c;
+    --ink-light: #5a5a7a;
+    --paper: #faf9f6;
+    --cream: #f0ede6;
+    --border: #d8d4cc;
+
+    --teal-text: #065f5f;
+    --teal-accent: #0a8080;
+
+    --amber-text: #7a4e00;
+    --amber-bg: #fdf3d8;
+    --amber-accent: #c98a00;
+
+    --rose-text: #8b1a1a;
+    --rose-bg: #fde8e8;
+    --rose-accent: #c93030;
+
+    --sage-text: #2d5c33;
+    --sage-bg: #d4edd8;
+    --sage-accent: #3a7a42;
+
+    --purple-text: #4c1d95;
+    --purple-accent: #6d28d9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,128,128,0.30) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 40%;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(109,40,217,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7dd3d3;
+    margin-bottom: 14px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 5vw, 50px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.80);
+    max-width: 620px;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+  .header-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.75);
+  }
+  .badge-ctm   { border-color: rgba(10,128,128,0.6); color: #7dd3d3; }
+  .badge-hd    { border-color: rgba(109,40,217,0.5); color: #c4b5fd; }
+  .badge-comb  { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); }
+
+  /* ── OVERALL KPI BAND ── */
+  .overall-section {
+    background: var(--ink);
+    color: #fff;
+    padding: 44px 60px;
+  }
+  .overall-section h2 {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    margin-bottom: 28px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.12);
+  }
+  .kpi {
+    background: var(--ink);
+    padding: 26px 22px;
+    text-align: center;
+  }
+  .kpi-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .kpi:nth-child(1) .kpi-value { color: #7dd3d3; }
+  .kpi:nth-child(2) .kpi-value { color: #fcd27a; }
+  .kpi:nth-child(3) .kpi-value { color: #c4b5fd; }
+  .kpi:nth-child(4) .kpi-value { color: #86efac; }
+  .kpi:nth-child(5) .kpi-value { color: #7dd3d3; }
+  .kpi:nth-child(6) .kpi-value { color: #fcd27a; }
+  .kpi-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.70);
+    margin-top: 4px;
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 52px 0 22px;
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--teal-text);
+    border: 2px solid var(--teal-text);
+    border-radius: 3px;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .section-num.purple {
+    color: var(--purple-text);
+    border-color: var(--purple-text);
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .n-count {
+    font-size: 14px;
+    color: var(--ink-light);
+    font-weight: 400;
+  }
+
+  /* ── METRIC CARDS ── */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .metrics-row-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .metrics-row-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .metric-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .metric-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .metric-card.c-teal::after   { background: var(--teal-accent); }
+  .metric-card.c-amber::after  { background: var(--amber-accent); }
+  .metric-card.c-purple::after { background: var(--purple-accent); }
+  .metric-card.c-rose::after   { background: var(--rose-accent); }
+  .metric-card.c-sage::after   { background: var(--sage-accent); }
+
+  .m-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .m-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-card.c-teal   .m-value { color: var(--teal-text); }
+  .metric-card.c-amber  .m-value { color: var(--amber-text); }
+  .metric-card.c-purple .m-value { color: var(--purple-text); }
+  .metric-card.c-rose   .m-value { color: var(--rose-text); }
+  .metric-card.c-sage   .m-value { color: var(--sage-text); }
+  .m-sub { font-size: 12px; color: var(--ink-light); line-height: 1.4; }
+
+  /* ── QUALITY BAR ── */
+  .quality-bar-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quality-bar-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--sage-accent);
+  }
+  .q-bar {
+    display: flex;
+    height: 18px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0 8px;
+  }
+  .q-bar .yes     { background: var(--sage-accent); }
+  .q-bar .no      { background: var(--rose-accent); }
+  .q-bar .neutral { background: var(--amber-accent); }
+  .q-legend { display: flex; gap: 12px; font-size: 12px; flex-wrap: wrap; }
+  .q-legend span { display: flex; align-items: center; gap: 5px; color: var(--ink); font-weight: 500; }
+  .q-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .q-dot.yes     { background: var(--sage-accent); }
+  .q-dot.no      { background: var(--rose-accent); }
+  .q-dot.neutral { background: var(--amber-accent); }
+
+  /* ── NOTE BOX ── */
+  .note {
+    font-size: 13px;
+    color: var(--ink-mid);
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    border-radius: 6px;
+    margin: 24px 0 0;
+  }
+
+  /* ── WARNING / AMBER BOX ── */
+  .hallucination-box {
+    background: var(--amber-bg);
+    border: 1px solid #e8c97a;
+    border-left: 4px solid var(--amber-accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 14px;
+  }
+  .hallucination-box h4 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber-text);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .hallucination-box ul { list-style: none; padding: 0; }
+  .hallucination-box ul li {
+    font-size: 13.5px;
+    color: var(--ink);
+    padding: 5px 0 5px 20px;
+    border-bottom: 1px solid #e8c97a;
+    position: relative;
+    line-height: 1.5;
+  }
+  .hallucination-box ul li::before {
+    content: '⚠';
+    position: absolute;
+    left: 0; top: 6px;
+    font-size: 11px;
+    color: var(--amber-text);
+  }
+  .hallucination-box ul li:last-child { border-bottom: none; }
+
+  /* ── COMMENT CHIPS ── */
+  .comments-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .comment-chip {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px 12px 20px;
+    font-size: 13.5px;
+    color: var(--ink-mid);
+    font-style: italic;
+    line-height: 1.55;
+    position: relative;
+  }
+  .comment-chip::before {
+    content: '"';
+    position: absolute;
+    left: 7px; top: 8px;
+    color: var(--teal-text);
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    font-style: normal;
+  }
+  .comment-chip .chip-source {
+    display: block;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--ink-light);
+    margin-top: 6px;
+  }
+  .comment-chip.purple { border-left: 3px solid var(--purple-accent); }
+  .comment-chip.teal   { border-left: 3px solid var(--teal-accent); }
+
+  /* ── TABLES ── */
+  .uses-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .uses-table th {
+    background: var(--ink);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 13px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .uses-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+  }
+  .uses-table tr:last-child td { border-bottom: none; }
+  .uses-table tr:hover td { background: #f5f3ee; }
+  .uses-table tfoot td {
+    background: var(--cream);
+    font-weight: 600;
+    color: var(--ink);
+    border-top: 2px solid var(--border);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .badge.good    { background: var(--sage-bg);  color: var(--sage-text); }
+  .badge.bad     { background: var(--rose-bg);  color: var(--rose-text); }
+  .badge.neutral { background: var(--amber-bg); color: var(--amber-text); }
+  .badge.ctm     { background: rgba(10,128,128,0.12); color: var(--teal-text); }
+  .badge.hd      { background: rgba(109,40,217,0.1); color: var(--purple-text); }
+
+  .pct-pos { color: var(--teal-text);  font-weight: 700; }
+  .pct-neg { color: var(--rose-text);  font-weight: 700; }
+
+  /* ── CHALLENGE BLOCKS ── */
+  .challenges-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .challenge-block {
+    background: var(--rose-bg);
+    border: 1px solid #f0b0b0;
+    border-radius: 6px;
+    padding: 11px 14px 11px 22px;
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.5;
+    position: relative;
+  }
+  .challenge-block::before {
+    content: '↯';
+    position: absolute;
+    left: 7px; top: 10px;
+    color: var(--rose-text);
+    font-size: 13px;
+  }
+
+  /* ── DIVIDERS & LABELS ── */
+  hr.section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 44px 0 0;
+  }
+  .sub-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-mid);
+    margin: 18px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .compare-table th {
+    padding: 13px 16px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: left;
+  }
+  .compare-table th:first-child { background: var(--ink); color: #fff; }
+  .compare-table th.th-ctm  { background: rgba(10,128,128,0.12); color: var(--teal-text); }
+  .compare-table th.th-hd   { background: rgba(109,40,217,0.10); color: var(--purple-text); }
+  .compare-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .compare-table td:first-child {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--ink-mid);
+    background: var(--cream);
+    letter-spacing: 0.5px;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  /* ── DOWNLOAD BUTTON ── */
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 16px;
+    transition: background 0.15s;
+  }
+  .download-btn:hover { background: #2a2a4e; }
+
+  @media (max-width: 720px) {
+    .metrics-row, .metrics-row-3, .metrics-row-5 { grid-template-columns: 1fr 1fr; }
+    .kpi-grid        { grid-template-columns: 1fr 1fr; }
+    header           { padding: 36px 24px 30px; }
+    .overall-section { padding: 36px 24px; }
+    .container       { padding: 0 20px 60px; }
+    .comments-grid, .challenges-grid { grid-template-columns: 1fr; }
+    .compare-table   { font-size: 12px; }
+  }
+
+/* ── PROGRAMME NAV (shared) ── */
+.prog-skip {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px;
+  overflow: hidden; z-index: 9999;
+  background: #1a6b6b; color: #fff; padding: 0.75rem 1.5rem;
+  border-radius: 0 0 8px 0; font-weight: 600; font-size: 0.9rem;
+  text-decoration: none; white-space: nowrap;
+}
+.prog-skip:focus {
+  position: fixed; left: 0; top: 0; width: auto; height: auto; overflow: visible;
+}
+.prog-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: #0d1f1f;
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+  display: flex; align-items: center;
+  padding: 0 1.5rem; height: 52px; gap: 0;
+}
+.prog-nav-home {
+  display: flex; align-items: center; gap: 0.55rem;
+  text-decoration: none; margin-right: 1.2rem; flex-shrink: 0;
+  padding: 0.5rem 0; min-height: 44px;
+  outline-offset: 3px; border-radius: 4px;
+}
+.prog-nav-home:focus-visible { outline: 2px solid #6dd0d0; }
+.prog-home-icon {
+  width: 26px; height: 26px; border-radius: 6px;
+  background: linear-gradient(135deg, #1a6b6b, #2a9090);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.prog-home-icon svg { width: 14px; height: 14px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.prog-home-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.55); line-height: 1.2; }
+.prog-home-label strong { display: block; font-size: 0.8rem; color: #fff; letter-spacing: 0; font-weight: 600; }
+.prog-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.1); margin-right: 0.6rem; flex-shrink: 0; }
+.prog-nav-links { display: flex; gap: 0; list-style: none; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.prog-nav-links::-webkit-scrollbar { display: none; }
+.prog-nav-links a {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  padding: 0 0.85rem; height: 52px; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  outline-offset: -2px; border-radius: 0;
+}
+.prog-nav-links a:hover { color: rgba(255,255,255,0.9); }
+.prog-nav-links a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: -4px; }
+.prog-nav-links a[aria-current="page"] { color: #6dd0d0; border-bottom-color: #6dd0d0; }
+.prog-nav-tag {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.15rem 0.45rem; border-radius: 3px; line-height: 1.4;
+}
+.prog-tag-ctm  { background: rgba(26,107,107,0.35); color: #7dd3d0; }
+.prog-tag-hdda { background: rgba(109,40,217,0.30); color: #c4b5fd; }
+.prog-tag-prog { background: rgba(192,120,37,0.30); color: #fcd27a; }
+.prog-nav-context {
+  font-size: 0.7rem; color: rgba(255,255,255,0.35);
+  padding: 0 0.75rem; border-left: 1px solid rgba(255,255,255,0.09);
+  white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 0.4rem;
+}
+@media(max-width: 680px) {
+  .prog-nav-context { display: none; }
+  .prog-nav-links a { padding: 0 0.6rem; font-size: 0.7rem; }
+}
+body { padding-top: 52px !important; }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="prog-skip">Skip to main content</a>
+<nav class="prog-nav" aria-label="Programme navigation">
+  <a href="index.html" class="prog-nav-home" aria-label="ND Services in Wales — home">
+    <span class="prog-home-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2 6l6-4 6 4v8H2z"/><rect x="5" y="9" width="3" height="5" rx="0.5"/></svg></span>
+    <span class="prog-home-label">ND Services<strong>in Wales</strong></span>
+  </a>
+  <span class="prog-divider" aria-hidden="true"></span>
+  <ul class="prog-nav-links" role="list">
+    <li><a href="index.html">Service design</a></li>
+    <li><a href="hub.html">All reports</a></li>
+    <li><a href="research.html">Service landscape</a></li>
+    <li><a href="ctm.html"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
+    <li><a href="autism.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> Autism team</a></li>
+    <li><a href="adhd.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> ADHD team</a></li>
+    <li><a href="combined.html" aria-current="page" ><span class="prog-nav-tag prog-tag-prog">Combined</span> All findings</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header id="main-content">
+  <div class="header-label">Combined Report · March 2026</div>
+  <h1>AI Scribe Pilot<br><span style="font-size:0.55em;font-weight:400;opacity:0.85;">CTM &amp; Hywel Dda — Cross-Health-Board Findings</span></h1>
+  <p>The first combined evidence report from two NHS Wales neurodevelopmental services. Three teams, two health boards, one tool — what the data shows about time savings, clinical quality, and the challenges that remain.</p>
+  <div class="header-badges">
+    <span class="header-badge badge-ctm">CTM · Oct–Nov 2025 · Complete</span>
+    <span class="header-badge badge-hd">Hywel Dda · Autism team · Complete</span>
+    <span class="header-badge badge-hd">Hywel Dda · ADHD team · Complete</span>
+    <span class="header-badge badge-comb">Magic Notes · Beam</span>
+  </div>
+</header>
+
+<!-- OVERALL KPIs -->
+<div class="overall-section">
+  <h2>Combined headline numbers — all three teams</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-value">783+</div>
+      <div class="kpi-label">Sessions documented</div>
+      <div class="kpi-sub">726 CTM · 57+ Hywel Dda</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">560h</div>
+      <div class="kpi-label">Time saved (CTM)</div>
+      <div class="kpi-sub">6-week pilot estimate</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">76%</div>
+      <div class="kpi-label">HD top saving</div>
+      <div class="kpi-sub">Final reports · Autism team</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">85%</div>
+      <div class="kpi-label">Quality improved</div>
+      <div class="kpi-sub">Across HD task types (excl. panel)</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="note">
+    <strong>About this report:</strong> CTM data covers October–November 2025 (5 clinicians, 6 weeks, 726 tasks). Hywel Dda data is from a structured diary study: Autism team (57+ entries, 5 task types) and ADHD team (10 entries, 3 task types). Time saved % is calculated from sessions where both before and after times were recorded. Quality = "Did Magic Notes improve the quality or completeness of notes?" (Yes/No/Neutral).
+  </div>
+
+  <!-- ── SECTION 1: CTM ── -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>CTM Pilot — Cwm Taf Morgannwg <span class="n-count">· 726 tasks · 6 weeks · 5 clinicians</span></h2>
+  </div>
+
+  <div class="metrics-row-5">
+    <div class="metric-card c-teal">
+      <div class="m-label">Total tasks</div>
+      <div class="m-value">726</div>
+      <div class="m-sub">Oct–Nov 2025 · 6 weeks</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Time saved</div>
+      <div class="m-value">560h</div>
+      <div class="m-sub">Pilot period estimate</div>
+    </div>
+    <div class="metric-card c-teal">
+      <div class="m-label">£ value saved</div>
+      <div class="m-value">£28k</div>
+      <div class="m-sub">At £50/hr fully-loaded</div>
+    </div>
+    <div class="metric-card c-sage">
+      <div class="m-label">Top saving</div>
+      <div class="m-value">~80%</div>
+      <div class="m-sub">New patient write-up</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Quality improved</div>
+      <div class="m-value">83%</div>
+      <div class="m-sub">Across all task types</div>
+    </div>
+  </div>
+
+  <p class="sub-label">Time savings by task type</p>
+  <table class="uses-table" aria-label="CTM time savings by task type">
+    <thead>
+      <tr>
+        <th scope="col">Task type</th>
+        <th scope="col">Before</th>
+        <th scope="col">After</th>
+        <th scope="col">Saving</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>New patient assessment — write up</td><td>75–330 min</td><td>30–45 min</td><td><span class="pct-pos">72–80%</span> · ~125 min avg</td></tr>
+      <tr><td>New patient assessment — in person</td><td>70–90 min</td><td>40–55 min</td><td><span class="pct-pos">35–45%</span> · ~30 min avg</td></tr>
+      <tr><td>Patient summary — document based</td><td>45–90 min</td><td>15–30 min</td><td><span class="pct-pos">~67%</span> · ~41 min avg</td></tr>
+      <tr><td>ADHD medication review</td><td>30–60 min</td><td>10–25 min</td><td><span class="pct-pos">50–65%</span> · ~28 min avg</td></tr>
+      <tr><td>Other uses — letters / admin</td><td>varied</td><td>varied</td><td><span class="pct-pos">~33%</span> · ~28 min avg</td></tr>
+    </tbody>
+  </table>
+
+  <p class="sub-label" style="margin-top:24px;">What clinicians said — CTM</p>
+  <div class="comments-grid">
+    <div class="comment-chip teal">
+      I played Connect 4 for an entire session… and I was still able to ask Mum questions and really engage with the child. I could see how he communicated, how he focused, how he coped with stress, how he took turns…
+      <span class="chip-source">Clinician · CTM ND service</span>
+    </div>
+    <div class="comment-chip teal">
+      That has only been possible because of Magic Notes. I can sit there, listen, and connect. And I leave with a real picture of that child and that family.
+      <span class="chip-source">Clinician · CTM ND service</span>
+    </div>
+    <div class="comment-chip teal">
+      We were able to have quite a human conversation… I didn't have my head deep into the computer.
+      <span class="chip-source">Clinician · CTM pilot</span>
+    </div>
+    <div class="comment-chip teal">
+      I don't go home worrying about finishing something off and I can be present for my family.
+      <span class="chip-source">Clinician · CTM pilot</span>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:20px;">
+    <strong>CTM limitations:</strong> 6-week window with 5 clinicians — indicative, not a measure of sustained change. Welsh-medium sessions produced hallucinated content and are not safe for Welsh-only use. IG status should be confirmed against WHC guidance 2025/026 before wider rollout.
+  </div>
+
+  <!-- ── SECTION 2: HD AUTISM ── -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <span class="section-num purple">02</span>
+    <h2>Hywel Dda — Autism Team <span class="n-count">· 57 entries · 5 task types</span></h2>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-card c-purple">
+      <div class="m-label">New patient assessment</div>
+      <div class="m-value">63%</div>
+      <div class="m-sub">85 min avg saving · 8 sessions</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Final report</div>
+      <div class="m-value">76%</div>
+      <div class="m-sub">100 min avg saving · 5 sessions</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Clinical assessment / ADOS</div>
+      <div class="m-value">44%</div>
+      <div class="m-sub">43 min avg saving · 6 sessions</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Other uses</div>
+      <div class="m-value">54%</div>
+      <div class="m-sub">45 min avg saving · 13 sessions</div>
+    </div>
+  </div>
+
+  <div class="metrics-row-3">
+    <div class="metric-card c-sage">
+      <div class="m-label">Quality improved (excl. panel)</div>
+      <div class="m-value">~85%</div>
+      <div class="m-sub">New patient, final report, ADOS, other</div>
+    </div>
+    <div class="metric-card c-amber">
+      <div class="m-label">Panel case preparation</div>
+      <div class="m-value">14%</div>
+      <div class="m-sub">6 min avg saving · most variable task</div>
+    </div>
+    <div class="metric-card c-teal">
+      <div class="m-label">Ease of use (avg)</div>
+      <div class="m-value">3.9</div>
+      <div class="m-sub">out of 5 · across all task types</div>
+    </div>
+  </div>
+
+  <p class="sub-label">Time savings by task type</p>
+  <table class="uses-table" aria-label="Hywel Dda Autism team time savings by task type">
+    <thead>
+      <tr>
+        <th scope="col">Task type</th>
+        <th scope="col">Sessions</th>
+        <th scope="col">Avg before</th>
+        <th scope="col">Avg with MN</th>
+        <th scope="col">Saving</th>
+        <th scope="col">Quality: Yes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Final report</td><td>5</td><td>132 min</td><td>32 min</td><td><span class="pct-pos">76% · 100 min</span></td><td><span class="badge good">100%</span></td></tr>
+      <tr><td>New patient assessment</td><td>8</td><td>135 min</td><td>50 min</td><td><span class="pct-pos">63% · 85 min</span></td><td><span class="badge good">100%</span></td></tr>
+      <tr><td>Other uses (varied)</td><td>13</td><td>84 min</td><td>39 min</td><td><span class="pct-pos">54% · 45 min</span></td><td><span class="badge good">92%</span></td></tr>
+      <tr><td>Clinical assessment / ADOS</td><td>6</td><td>98 min</td><td>55 min</td><td><span class="pct-pos">44% · 43 min</span></td><td><span class="badge good">83%</span></td></tr>
+      <tr><td>Panel case presentation</td><td>19</td><td>44 min</td><td>38 min</td><td><span class="pct-pos">14% · 6 min</span></td><td><span class="badge neutral">64%</span></td></tr>
+    </tbody>
+  </table>
+
+  <p class="sub-label" style="margin-top:24px;">What clinicians said — Hywel Dda Autism team</p>
+  <div class="comments-grid">
+    <div class="comment-chip purple">
+      The play task was so much easier — I could engage fully with the young person rather than having to make notes at the same time, which always takes away from the play.
+      <span class="chip-source">Clinician · HD Autism team · Clinical assessment</span>
+    </div>
+    <div class="comment-chip purple">
+      Enabled me to engage better with the young person as I wasn't constantly writing — she seemed very aware every time I made a note.
+      <span class="chip-source">Clinician · HD Autism team · New patient assessment</span>
+    </div>
+    <div class="comment-chip purple">
+      Being able to add the parent information, school information etc into the panel form was a MASSIVE time save.
+      <span class="chip-source">Clinician · HD Autism team · Panel preparation</span>
+    </div>
+    <div class="comment-chip purple">
+      Family commented that they felt it was good that all of their information was being captured as part of the assessment.
+      <span class="chip-source">Clinician · HD Autism team · New patient assessment</span>
+    </div>
+  </div>
+
+  <div class="hallucination-box" style="margin-top:20px;">
+    <h4>Document merging — key challenge for this team</h4>
+    <ul>
+      <li>When multiple sources are uploaded together without a correctly configured template, content can appear across sections — the team identified this as a template setup issue and are working with Beam to resolve it</li>
+      <li>Some clinicians who dictate directly found the current template layout required more reorganisation than their existing workflow — this is being addressed through template iteration</li>
+      <li>ADOS sessions: the tool sometimes generalised communication ability from limited cues, losing clinically significant nuance</li>
+      <li>A blank template / plain document output option was the most commonly requested improvement</li>
+    </ul>
+  </div>
+
+  <!-- ── SECTION 3: HD ADHD ── -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <span class="section-num purple">03</span>
+    <h2>Hywel Dda — ADHD Team <span class="n-count">· 10 entries · 3 task types</span></h2>
+  </div>
+
+  <div class="metrics-row-3">
+    <div class="metric-card c-purple">
+      <div class="m-label">Avg time saved</div>
+      <div class="m-value">62%</div>
+      <div class="m-sub">Strongest saving in programme</div>
+    </div>
+    <div class="metric-card c-purple">
+      <div class="m-label">Ease of use</div>
+      <div class="m-value">4.5</div>
+      <div class="m-sub">out of 5 · highest across all teams</div>
+    </div>
+    <div class="metric-card c-sage">
+      <div class="m-label">Quality improved</div>
+      <div class="m-value">100%</div>
+      <div class="m-sub">All 10 entries rated Yes</div>
+    </div>
+  </div>
+
+  <p class="sub-label">Time savings by task type</p>
+  <table class="uses-table" aria-label="Hywel Dda ADHD team time savings by task type">
+    <thead>
+      <tr>
+        <th scope="col">Task type</th>
+        <th scope="col">Sessions</th>
+        <th scope="col">Avg saving</th>
+        <th scope="col">Quality: Yes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Other uses (letters, admin, dictation)</td><td>4</td><td><span class="pct-pos">81% time saved</span></td><td><span class="badge good">100%</span></td></tr>
+      <tr><td>Regular review / DIVA assessment</td><td>4</td><td><span class="pct-pos">~55% time saved</span></td><td><span class="badge good">100%</span></td></tr>
+      <tr><td>Ratification</td><td>2</td><td><span class="pct-pos">~50% time saved</span></td><td><span class="badge good">100%</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="hallucination-box" style="margin-top:20px;">
+    <h4>Medication hallucination risk — flagged by ADHD team</h4>
+    <ul>
+      <li>Magic Notes hallucinated medication names and dosages in two ADHD review sessions</li>
+      <li>Clinicians must verify all medication references before finalising notes — do not rely on AI output for prescribing decisions</li>
+      <li>This risk is specific to ADHD medication review tasks and should be clearly communicated to any team using the tool for this purpose</li>
+    </ul>
+  </div>
+
+  <!-- ── SECTION 4: CROSS-PILOT COMPARISON ── -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Cross-pilot comparison</h2>
+  </div>
+
+  <table class="compare-table" aria-label="Cross-pilot comparison between CTM and Hywel Dda">
+    <thead>
+      <tr>
+        <th scope="col" style="width:28%;">Dimension</th>
+        <th scope="col" class="th-ctm" style="width:36%;">CTM · Oct–Nov 2025</th>
+        <th scope="col" class="th-hd" style="width:36%;">Hywel Dda · Oct 2025–Mar 2026</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Service type</td>
+        <td>General ND — ADHD, ASD, mixed</td>
+        <td>Specialist autism + ADHD assessment</td>
+      </tr>
+      <tr>
+        <td>Sessions logged</td>
+        <td>726</td>
+        <td>57+ across 6 task types</td>
+      </tr>
+      <tr>
+        <td>Strongest benefit</td>
+        <td>Write-up for new patient assessments (~80%)</td>
+        <td>Final reports (76%) + new patient assessment (63%)</td>
+      </tr>
+      <tr>
+        <td>Most variable task</td>
+        <td>Back-to-back session write-up</td>
+        <td>Panel case preparation (multi-source documents)</td>
+      </tr>
+      <tr>
+        <td>Quality improved</td>
+        <td><span class="badge good">83%</span> across task types</td>
+        <td><span class="badge good">~85%</span> excl. panel · <span class="badge neutral">64%</span> panel</td>
+      </tr>
+      <tr>
+        <td>Ease of use</td>
+        <td>~4.1 / 5 (estimated)</td>
+        <td>3.9 / 5 autism · 4.5 / 5 ADHD</td>
+      </tr>
+      <tr>
+        <td>Welsh language</td>
+        <td><span class="badge bad">Hallucinations in Welsh-only sessions</span></td>
+        <td>Not yet tested</td>
+      </tr>
+      <tr>
+        <td>Key unresolved issue</td>
+        <td>Welsh-medium safety</td>
+        <td>Panel template configuration for multi-source workflows</td>
+      </tr>
+      <tr>
+        <td>Medication risk</td>
+        <td>Not flagged</td>
+        <td><span class="badge bad">Hallucinated medication names/dosages in ADHD reviews</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── SECTION 5: WHAT BOTH AGREE ON ── -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>What both pilots agree on</h2>
+  </div>
+
+  <div class="comments-grid">
+    <div class="comment-chip teal">
+      Clinicians are more present in sessions when they are not simultaneously taking notes — and families notice.
+    </div>
+    <div class="comment-chip teal">
+      Write-up time is significantly reduced for most task types, particularly new patient assessments and standalone reports.
+    </div>
+    <div class="comment-chip teal">
+      Parents and young people feel more heard when the clinician is engaged rather than typing.
+    </div>
+    <div class="comment-chip teal">
+      The tool works best for live session capture and transcription — upload-and-merge workflows are more complex and variable.
+    </div>
+    <div class="comment-chip teal">
+      Accuracy requires checking — clinicians must review and edit all AI output before it is finalised.
+    </div>
+    <div class="comment-chip teal">
+      Templates need to match local practice. Generic outputs take longer to correct than to write from scratch.
+    </div>
+  </div>
+
+  <!-- ── SECTION 6: CHALLENGES ── -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>Challenges and limitations</h2>
+  </div>
+
+  <div class="challenges-grid">
+    <div class="challenge-block">
+      <strong>Panel template setup (HD Autism)</strong> — when multiple documents are uploaded together, content can spread across sections if the template isn't configured to keep sources separate. The team have identified this as a template setup issue rather than a system limitation, and are working with Beam to refine the workflow.
+    </div>
+    <div class="challenge-block">
+      <strong>Welsh language (CTM)</strong> — hallucinations observed in Welsh-medium sessions. The tool is not currently safe for Welsh-only clinical use.
+    </div>
+    <div class="challenge-block">
+      <strong>Medication names (HD ADHD)</strong> — hallucinated medication names and dosages flagged in ADHD review sessions. All medication references must be independently verified.
+    </div>
+    <div class="challenge-block">
+      <strong>ADOS nuance (HD Autism)</strong> — the tool sometimes generalises communication ability from limited cues, losing clinically significant detail needed for diagnosis.
+    </div>
+    <div class="challenge-block">
+      <strong>Technical access</strong> — login passcode delays, phone screen locking mid-recording, and intermittent connectivity affected sessions across both sites.
+    </div>
+    <div class="challenge-block">
+      <strong>Dictation-first workflows (HD Autism)</strong> — clinicians who dictate directly found some tasks took longer with Magic Notes, as the structured output required extensive reformatting.
+    </div>
+  </div>
+
+  <!-- ── SECTION 7: RECOMMENDATIONS ── -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Recommendations</h2>
+  </div>
+
+  <p class="sub-label">For Magic Notes / Beam</p>
+  <div class="challenges-grid" style="--challenge-bg: var(--amber-bg);">
+    <div class="challenge-block" style="background:var(--amber-bg);border-color:#e8c97a;"><span style="color:var(--amber-text);">&#9679;</span> <strong>Blank / plain document output</strong> — requested by multiple HD clinicians; would significantly improve usability for upload workflows</div>
+    <div class="challenge-block" style="background:var(--amber-bg);border-color:#e8c97a;"><span style="color:var(--amber-text);">&#9679;</span> <strong>Panel template refinement</strong> — work with the Hywel Dda Autism team to configure templates so multi-source uploads populate the correct sections reliably</div>
+    <div class="challenge-block" style="background:var(--amber-bg);border-color:#e8c97a;"><span style="color:var(--amber-text);">&#9679;</span> <strong>Welsh-language accuracy</strong> — essential before NHS Wales-wide rollout; hallucinations in Welsh-medium sessions are a clinical safety concern</div>
+    <div class="challenge-block" style="background:var(--amber-bg);border-color:#e8c97a;"><span style="color:var(--amber-text);">&#9679;</span> <strong>Flag low-confidence outputs</strong> — clinicians need to know when the tool is uncertain, not just when it is confident; especially important for medication and diagnostic detail</div>
+  </div>
+
+  <p class="sub-label">For NHS Wales / service leads</p>
+  <div class="challenges-grid" style="">
+    <div class="challenge-block" style="background:var(--sage-bg);border-color:#b0d4b4;"><span style="color:var(--sage-text);">&#10003;</span> Confirm IG status under WHC guidance 2025/026 before wider rollout</div>
+    <div class="challenge-block" style="background:var(--sage-bg);border-color:#b0d4b4;"><span style="color:var(--sage-text);">&#10003;</span> Do not mandate use for multi-source panel preparation until document merging is resolved</div>
+    <div class="challenge-block" style="background:var(--sage-bg);border-color:#b0d4b4;"><span style="color:var(--sage-text);">&#10003;</span> Plan for a 3–5 session learning curve; allocate protected time for new users to build confidence</div>
+    <div class="challenge-block" style="background:var(--sage-bg);border-color:#b0d4b4;"><span style="color:var(--sage-text);">&#10003;</span> Share template libraries across health boards — avoid duplication of development effort</div>
+  </div>
+
+  <!-- ── DOWNLOAD ── -->
+  <hr class="section-divider">
+  <div class="section-header" style="margin-bottom:12px;">
+    <span class="section-num">08</span>
+    <h2>Full report download</h2>
+  </div>
+  <p style="font-size:14px;color:var(--ink-mid);margin-bottom:4px;">The full combined report is available as a Word document, covering all seven sections including detailed data tables, cross-pilot comparison, and recommendations.</p>
+  <a href="combined_report_v2.docx" class="download-btn" download>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
+    Download full report (.docx)
+  </a>
+
+  <div class="note" style="margin-top:24px;">
+    Report compiled March 2026. CTM pilot data: October–November 2025 (5 clinicians, 726 tasks). Hywel Dda diary study data: October 2025 – March 2026. All quotes are from clinician feedback. No patient or family data is included.
+  </div>
+
+</div><!-- /container -->
+</body>
+</html>

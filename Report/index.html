@@ -82,6 +82,7 @@ nav {
 .band-dust { background: var(--dust); }
 .band-white { background: var(--white); }
 .band-ink { background: var(--ink); }
+.band-ink2 { background: #162020; }
 
 .eyebrow { display: block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #9a5e00; margin-bottom: 0.6rem; }
 h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 2.8vw, 2.4rem); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 1rem; }
@@ -286,7 +287,7 @@ body { padding-top: 52px !important; }
 <nav>
   <a href="#" class="nav-brand">Designing Better ND Services <span>in Wales</span></a>
   <ul class="nav-links">
-    <li><a href="#the-problem">The Problem</a></li>
+    <li><a href="#the-system-problem">The Problem</a></li>
     <li><a href="#the-pilot">AI Scribe Pilot</a></li>
     <li><a href="#evidence">Evidence</a></li>
     <li><a href="#beyond">Beyond the Pilot</a></li>
@@ -381,98 +382,7 @@ body { padding-top: 52px !important; }
 .pw-canvas img { position:absolute; top:0; left:0; transform-origin:0 0; max-width:none; will-change:transform; }
 </style>
 
-<script>
-// Pathway tab switching
-document.querySelectorAll('.pwtab').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    document.querySelectorAll('.pwtab').forEach(function(b){ b.classList.remove('pwtab-on'); b.setAttribute('aria-selected','false'); });
-    btn.classList.add('pwtab-on'); btn.setAttribute('aria-selected','true');
-    ['simple','full','admin','clinician'].forEach(function(id){
-      var el = document.getElementById('pw-'+id);
-      if(el) el.style.display = (id===btn.dataset.pw) ? '' : 'none';
-    });
-    var pw = btn.dataset.pw;
-    if(pw !== 'simple') setTimeout(function(){ pwInit('pz-'+pw); }, 30);
-  });
-});
 
-var _pws = {};
-function pwInit(id) {
-  if(_pws[id] && _pws[id].ready) return;
-  var canvas = document.getElementById(id+'-canvas');
-  if(!canvas) return;
-  var img = canvas.querySelector('img');
-  _pws[id] = { scale:1, ox:0, oy:0, drag:false, sx:0, sy:0, lox:0, loy:0, ready:false };
-
-  function fit() {
-    var s = canvas.clientWidth / img.naturalWidth;
-    _pws[id].scale = s; _pws[id].ox = 0; _pws[id].oy = 0;
-    _pws[id].ready = true;
-    _pwApply(id);
-  }
-  if(img.complete && img.naturalWidth > 0) { fit(); }
-  else { img.onload = fit; }
-
-  canvas.addEventListener('mousedown', function(e){
-    e.preventDefault();
-    var st=_pws[id]; st.drag=true; st.sx=e.clientX; st.sy=e.clientY; st.lox=st.ox; st.loy=st.oy;
-    canvas.classList.add('pw-grabbing');
-  });
-  document.addEventListener('mousemove', function(e){
-    var st=_pws[id]; if(!st||!st.drag) return;
-    st.ox=st.lox+(e.clientX-st.sx); st.oy=st.loy+(e.clientY-st.sy); _pwApply(id);
-  });
-  document.addEventListener('mouseup', function(){
-    if(_pws[id]) _pws[id].drag=false; canvas.classList.remove('pw-grabbing');
-  });
-  canvas.addEventListener('touchstart',function(e){
-    if(e.touches.length!==1) return;
-    var st=_pws[id]; st.drag=true; st.sx=e.touches[0].clientX; st.sy=e.touches[0].clientY; st.lox=st.ox; st.loy=st.oy;
-  },{passive:true});
-  canvas.addEventListener('touchmove',function(e){
-    if(e.touches.length!==1||!_pws[id].drag) return;
-    e.preventDefault();
-    var st=_pws[id]; st.ox=st.lox+(e.touches[0].clientX-st.sx); st.oy=st.loy+(e.touches[0].clientY-st.sy); _pwApply(id);
-  },{passive:false});
-  canvas.addEventListener('touchend',function(){ if(_pws[id]) _pws[id].drag=false; });
-  canvas.addEventListener('wheel',function(e){
-    e.preventDefault();
-    var st=_pws[id]; var rect=canvas.getBoundingClientRect();
-    var mx=e.clientX-rect.left, my=e.clientY-rect.top;
-    var d=e.deltaY>0?-0.08:0.08;
-    var old=st.scale; st.scale=Math.max(0.05,Math.min(8,st.scale+d));
-    st.ox=mx-(mx-st.ox)*(st.scale/old); st.oy=my-(my-st.oy)*(st.scale/old);
-    _pwApply(id);
-  },{passive:false});
-}
-
-function _pwApply(id) {
-  var st=_pws[id]; if(!st) return;
-  var canvas=document.getElementById(id+'-canvas');
-  if(!canvas) return;
-  canvas.querySelector('img').style.transform='translate('+st.ox+'px,'+st.oy+'px) scale('+st.scale+')';
-  var lvl=document.getElementById(id+'-level');
-  if(lvl) lvl.textContent=Math.round(st.scale*100)+'%';
-}
-
-function pwZoom(id,delta) {
-  if(!_pws[id]) pwInit(id);
-  var st=_pws[id]; if(!st) return;
-  var canvas=document.getElementById(id+'-canvas');
-  var cx=canvas.clientWidth/2, cy=canvas.clientHeight/2;
-  var old=st.scale; st.scale=Math.max(0.05,Math.min(8,st.scale+delta));
-  st.ox=cx-(cx-st.ox)*(st.scale/old); st.oy=cy-(cy-st.oy)*(st.scale/old);
-  _pwApply(id);
-}
-
-function pwReset(id) {
-  var st=_pws[id]; if(!st) return;
-  var canvas=document.getElementById(id+'-canvas');
-  var img=canvas.querySelector('img');
-  st.scale=canvas.clientWidth/img.naturalWidth; st.ox=0; st.oy=0;
-  _pwApply(id);
-}
-</script>
 
 <!-- SAVINGS CALCULATOR + TOOL COMPARISON -->
 <div style="background:var(--ink);" id="calculator">
@@ -503,57 +413,11 @@ function pwReset(id) {
             </div>
           </div>
           <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.08);">
-            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.6rem;">Tasks per week across your whole team</p><p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-bottom:0.8rem;line-height:1.5;">Edit the numbers to match your service. CTM pilot defaults shown — change any figure or add your own tasks.</p>
+            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Tasks per week across your whole team</p><p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-bottom:0.8rem;line-height:1.5;">Edit the numbers to match your service. CTM pilot defaults shown — change any figure or add your own tasks.</p>
             <div id="calc-tasks" style="display:flex;flex-direction:column;gap:0;"></div>
-<script>
-function addTask(){
-  var name=document.getElementById('new-task-name').value.trim();
-  var tpw=parseInt(document.getElementById('new-task-tpw').value)||0;
-  var min=parseFloat(document.getElementById('new-task-min').value)||0;
-  var err=document.getElementById('new-task-err');
-  if(!name||tpw<=0||min<=0){err.style.display='block';return;}
-  err.style.display='none';
-  var TASKS=window._calcTasks;
-  if(!TASKS){err.textContent='Calculator not ready yet.';err.style.display='block';return;}
-  var t={label:name,tpw:tpw,min:min,on:true};
-  TASKS.push(t);
-  var row=document.createElement('div');
-  row.style.cssText='display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);';
-  var chk=document.createElement('input');
-  chk.type='checkbox';chk.checked=true;
-  chk.style.cssText='accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;';
-  chk.setAttribute('aria-label','Include '+name);
-  var lbl=document.createElement('span');
-  lbl.style.cssText='flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;';
-  lbl.textContent=name;
-  var inp=document.createElement('input');
-  inp.type='number';inp.value=tpw;inp.min=0;inp.max=999;
-  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;flex-shrink:0;";
-  inp.setAttribute('aria-label','Tasks per week for '+name);
-  var minSpan=document.createElement('span');
-  minSpan.style.cssText='font-size:0.72rem;color:rgba(255,255,255,0.3);flex-shrink:0;width:54px;text-align:right;';
-  minSpan.textContent='~'+min+' min';
-  var del=document.createElement('button');
-  del.type='button';
-  del.textContent='×';
-  del.setAttribute('aria-label','Remove '+name);
-  del.style.cssText='background:none;border:none;color:rgba(255,255,255,0.3);font-size:1rem;cursor:pointer;padding:0;width:18px;text-align:center;line-height:1;flex-shrink:0;';
-  del.addEventListener('click',function(){row.remove();window.recS();});
-  chk.addEventListener('change',function(){window.recS();});
-  inp.addEventListener('input',function(){window.recS();});
-  row.setAttribute('data-task-idx',TASKS.length-1);
-  row.setAttribute('data-task-min',min);
-  row.appendChild(chk);row.appendChild(lbl);row.appendChild(inp);row.appendChild(minSpan);row.appendChild(del);
-  document.getElementById('calc-tasks').appendChild(row);
-  document.getElementById('new-task-name').value='';
-  document.getElementById('new-task-tpw').value='';
-  document.getElementById('new-task-min').value='';
-  document.getElementById('new-task-name').focus();
-  window.recS();
-}
-</script>
+
             <div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.08);">
-              <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.6rem;">Add a task</p>
+              <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Add a task</p>
               <div style="display:flex;gap:0.5rem;align-items:flex-start;flex-wrap:wrap;">
                 <input type="text" id="new-task-name" placeholder="Task name" aria-label="New task name"
                   style="flex:1;min-width:120px;padding:0.35rem 0.6rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;font-family:'DM Sans',sans-serif;"
@@ -562,13 +426,13 @@ function addTask(){
                   <input type="number" id="new-task-tpw" placeholder="0" min="0" max="999" aria-label="Tasks per week"
                     style="width:60px;padding:0.35rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;text-align:center;font-family:'DM Sans',sans-serif;"
                     onkeydown="if(event.key==='Enter')addTask();">
-                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.3);text-align:center;">per week</span>
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);text-align:center;">per week</span>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:2px;">
                   <input type="number" id="new-task-min" placeholder="0" min="0" max="600" aria-label="Minutes saved per task"
                     style="width:60px;padding:0.35rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;text-align:center;font-family:'DM Sans',sans-serif;"
                     onkeydown="if(event.key==='Enter')addTask();">
-                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.3);text-align:center;">min saved</span>
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);text-align:center;">min saved</span>
                 </div>
                 <button onclick="addTask()" aria-label="Add task"
                   style="padding:0.35rem 0.9rem;background:#6dd0d0;border:none;border-radius:6px;color:#1e2c2c;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;align-self:flex-start;">
@@ -589,11 +453,11 @@ function addTask(){
             <p id="calc-wte" style="font-size:0.85rem;color:rgba(255,255,255,0.55);margin-bottom:1.4rem;"></p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.15);">
               <div><div id="calc-value" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;"></div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">value of time saved</div></div>
-              <div><div id="calc-children" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;"></div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">more children could be assessed</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:0.2rem;">based on 3.5–6 hrs per full assessment</div></div>
+              <div><div id="calc-children" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;"></div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">more children could be assessed</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.5);margin-top:0.2rem;">based on 3.5–6 hrs per full assessment</div></div>
             </div>
           </div>
           <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.2rem;">
-            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.7rem;">Weekly breakdown</p>
+            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.7rem;">Weekly breakdown</p>
             <div id="calc-breakdown"></div>
           </div>
           <div style="background:rgba(192,120,37,0.1);border:1px solid rgba(192,120,37,0.2);border-radius:10px;padding:1.2rem;">
@@ -637,6 +501,78 @@ children = total hours ÷ 3.5  →  upper estimate (straightforward cases)</p>
         </div>
       </div>
     </div>
+
+    <div id="tab-compare" style="display:none;">
+
+      <!-- Sticky inputs bar -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Clinicians:</label>
+          <input type="range" id="cmp-clin" min="1" max="50" value="5" style="width:100px;accent-color:#6dd0d0;cursor:pointer;">
+          <span id="cmp-clin-val" style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#6dd0d0;min-width:1.5rem;">5</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Tasks/clinician/week:</label>
+          <input type="range" id="cmp-tasks" min="5" max="60" value="21" style="width:100px;accent-color:#6dd0d0;cursor:pointer;">
+          <span id="cmp-tasks-val" style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#6dd0d0;min-width:1.5rem;">21</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Over:</label>
+          <div style="display:flex;gap:0.4rem;">
+            <button class="pcalc-btn" data-cmpmonths="1">1mo</button>
+            <button class="pcalc-btn" data-cmpmonths="3">3mo</button>
+            <button class="pcalc-btn pcalc-active" data-cmpmonths="12">1yr</button>
+            <button class="pcalc-btn" data-cmpmonths="24">2yr</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem;" id="tool-cards"></div>
+
+      <!-- Needs comparison table -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+        <div style="padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);">How each tool maps to the ND service user needs from this research</p>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.82rem;" id="needs-cmp-tbl">
+            <thead id="ncmp-head"></thead>
+            <tbody id="ncmp-body"></tbody>
+          </table>
+        </div>
+        <div style="padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.08);">
+          <p style="font-size:0.76rem;color:rgba(255,255,255,0.35);line-height:1.55;">
+            \u2713 Confirmed by evidence &nbsp;\u00b7&nbsp; ~ Plausible based on product description &nbsp;\u00b7&nbsp; ? Not verified &nbsp;\u00b7&nbsp; \u2717 Known gap &nbsp;\u00b7&nbsp; \u2014 Not applicable<br>
+            Only Magic Notes has been tested against these specific needs in a Welsh ND service. All other assessments are based on publicly available product information and should be verified through your own evaluation.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+<style>
+.ctab { padding:0.6rem 1.2rem; background:transparent; border:none; border-bottom:2px solid transparent; color:rgba(255,255,255,0.45); font-size:0.82rem; font-weight:500; cursor:pointer; transition:all 0.15s; margin-bottom:-1px; }
+.ctab:hover { color:rgba(255,255,255,0.7); }
+.ctab.ctab-on { color:#6dd0d0; border-bottom-color:#6dd0d0; }
+.pcalc-btn { padding:0.32rem 0.75rem; border-radius:2rem; border:1px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.55); font-size:0.78rem; font-weight:500; cursor:pointer; transition:all 0.15s; }
+.pcalc-btn:hover { border-color:#6dd0d0; color:#6dd0d0; }
+.pcalc-btn.pcalc-active { background:#6dd0d0; color:#1e2c2c; border-color:#6dd0d0; font-weight:600; }
+.ctask-row { display:flex; align-items:center; justify-content:space-between; font-size:0.8rem; cursor:pointer; }
+.ctask-label { color:rgba(255,255,255,0.6); display:flex; align-items:center; gap:0.45rem; }
+.ctask-min { color:rgba(255,255,255,0.5); font-size:0.74rem; white-space:nowrap; }
+.cbreak-row { display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; padding:0.28rem 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+.cbreak-row:last-child { border-bottom:none; padding-top:0.4rem; margin-top:0.1rem; border-top:1px solid rgba(255,255,255,0.1); }
+.cbreak-lbl { color:rgba(255,255,255,0.45); }
+.cbreak-val { color:rgba(255,255,255,0.75); font-weight:500; }
+.tool-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:1.3rem; }
+.tool-card-tested { border-color:rgba(109,208,
+
+
   </div>
 </div>
 
@@ -649,7 +585,7 @@ children = total hours ÷ 3.5  →  upper estimate (straightforward cases)</p>
 .pcalc-btn.pcalc-active{background:#6dd0d0;color:#1e2c2c;border-color:#6dd0d0;font-weight:600;}
 .ctask-row{display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;cursor:pointer;}
 .ctask-label{color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:0.45rem;}
-.ctask-min{color:rgba(255,255,255,0.3);font-size:0.74rem;white-space:nowrap;}
+.ctask-min{color:rgba(255,255,255,0.5);font-size:0.74rem;white-space:nowrap;}
 .cbreak-row{display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
 .cbreak-row:last-child{border-bottom:none;padding-top:0.4rem;margin-top:0.1rem;border-top:1px solid rgba(255,255,255,0.1);}
 .cbreak-lbl{color:rgba(255,255,255,0.62);}
@@ -676,255 +612,52 @@ children = total hours ÷ 3.5  →  upper estimate (straightforward cases)</p>
 .c-yes{color:#6dd0d0;} .c-maybe{color:#cc8020;} .c-unk{color:rgba(255,255,255,0.25);} .c-no{color:#9e3a47;}
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-(function(){
-var TASKS=[
-  {label:"New patient assessment (in-person)",tpw:20,min:30,on:true},
-  {label:"Assessment write-up",tpw:20,min:124.5,on:true},
-  {label:"Patient summary",tpw:20,min:41,on:true},
-  {label:"ADHD medication review",tpw:20,min:27.5,on:true},
-  {label:"Letters & admin",tpw:40,min:28,on:true},
-  {label:"Meetings & coordination",tpw:1,min:20,on:false}
-];
-window._calcTasks=TASKS;
-var PC=5, WPM=4.345;
-var TOOLS=[
-  {id:"mn",name:"Magic Notes",tested:true,perUse:5,mpu:null,editable:false,
-   note:"£5 per use. Pilot data from CTM: 5 clinicians, 6 weeks, 726 tasks.",
-   facts:[
-     {i:"✓",t:"Tested in CTM ND service — 6 weeks, 5 clinicians, 726 tasks"},
-     {i:"✓",t:"GDPR compliant. 7-day auto-deletion (30–60 days recommended)"},
-     {i:"✓",t:"110+ languages; bilingual sessions tested in pilot"},
-     {i:"✗",t:"Welsh-only sessions: hallucinations observed — not safe for Welsh-medium use yet"},
-     {i:"?",t:"NHS Wales / WHC IG status: verify against WHC 2025/026"},
-     {i:"✓",t:"Neuro-affirming report templates; customisable"}
-   ],
-   needs:{present:"✓",transcription:"✓",backlog:"✓",bilingual:"~",welsh:"✗",templates:"✓",panel:"✓",referral:"✓"}
-  },
-  {id:"hh",name:"Heidi Health",tested:false,perUse:null,mpu:79,editable:true,
-   note:"Free tier (limited). Paid plan ~$99/month per clinician (UK £ price: contact sales). Enterprise via sales.",
-   facts:[
-     {i:"✓",t:"GDPR, SOC2, ISO27001; meets NHS standards"},
-     {i:"✓",t:"110+ languages; used in 116 countries"},
-     {i:"?",t:"Welsh-language support: not confirmed"},
-     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
-     {i:"~",t:"Primarily GP/primary care; ND specialist templates not confirmed"},
-     {i:"!",t:"UK/EU: clinical evidence feature unavailable during live sessions"}
-   ],
-   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"~",welsh:"?",templates:"~",panel:"?",referral:"~"}
-  },
-  {id:"to",name:"TORTUS",tested:false,perUse:null,mpu:44,editable:true,
-   note:"Pilot pricing £44/mo/licence (expired Mar 2025). Enterprise: £200K per 100K audio hours. Current pricing: contact sales.",
-   facts:[
-     {i:"✓",t:"DTAC assured, MHRA Class I, UK GDPR compliant"},
-     {i:"✓",t:"Led 9-site NHS England trial (17,000+ encounters, GOSH 2025)"},
-     {i:"✓",t:"23.5% increase in patient interaction time (GOSH trial)"},
-     {i:"?",t:"Welsh-language support: not confirmed"},
-     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
-     {i:"~",t:"Primarily acute/ED/GP setting; ND-specific evidence limited"}
-   ],
-   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"~",panel:"?",referral:"?"}
-  },
-  {id:"ax",name:"Accurx Scribe (Tandem)",tested:false,perUse:null,mpu:null,editable:true,
-   note:"NHS pricing not public. Integrated into Accurx platform (98% of GP practices). Contact sales.",
-   facts:[
-     {i:"✓",t:"MHRA Class I, NHS DTAC compliant"},
-     {i:"✓",t:"EMIS/SystmOne write-back; 97% clinical accuracy (independent audit)"},
-     {i:"~",t:"Primarily GP/primary care — ND specialist fit unclear"},
-     {i:"?",t:"Welsh-language support: not confirmed"},
-     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
-     {i:"✗",t:"No ND-specific evidence; no specialist pathway data"}
-   ],
-   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"?",panel:"?",referral:"?"}
-  }
-];
-var DIMS=[
-  {k:"present",    l:"Clinician fully present in session (not typing)"},
-  {k:"transcription",l:"Accurate transcription in ND sessions (echolalia, accents, noise, overlapping speech)"},
-  {k:"backlog",    l:"Near-final report draft shortly after appointment"},
-  {k:"bilingual",  l:"Bilingual and multilingual sessions"},
-  {k:"welsh",      l:"Welsh-only sessions without hallucinations"},
-  {k:"templates",  l:"Customisable neuro-affirming report templates"},
-  {k:"panel",      l:"MDT / panel summary support"},
-  {k:"referral",   l:"Referral document upload and summarisation"}
-];
 
-// Tab switching
-document.querySelectorAll(".ctab").forEach(function(b){
-  b.addEventListener("click",function(){
-    document.querySelectorAll(".ctab").forEach(function(x){x.classList.remove("ctab-on");x.setAttribute("aria-selected","false");});
-    b.classList.add("ctab-on");
-    b.setAttribute("aria-selected","true");
-    document.getElementById("tab-savings").style.display=b.dataset.tab==="savings"?"":"none";
-    document.getElementById("tab-compare").style.display=b.dataset.tab==="compare"?"":"none";
-  });
-});
 
-// Savings calculator — editable task volumes
-var tc=document.getElementById("calc-tasks");
-// Header row
-var hdr=document.createElement("div");
-hdr.style.cssText="display:flex;gap:0.6rem;padding-bottom:0.5rem;margin-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.1);";
-hdr.innerHTML='<span style="flex:1;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Task</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.3);flex-shrink:0;width:60px;text-align:center;">Per week</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.3);flex-shrink:0;width:54px;text-align:right;">Min saved</span>';
-tc.appendChild(hdr);
-// Task rows
-TASKS.forEach(function(t,i){
-  var row=document.createElement("div");
-  row.style.cssText="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);";
-  var chk=document.createElement("input");
-  chk.type="checkbox"; chk.checked=t.on; chk.style.cssText="accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;";
-  chk.setAttribute("aria-label","Include "+t.label);
-  var lbl=document.createElement("span");
-  lbl.style.cssText="flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;cursor:pointer;";
-  lbl.textContent=t.label;
-  lbl.addEventListener("click",function(){chk.checked=!chk.checked;t.on=chk.checked;recS();});
-  var inp=document.createElement("input");
-  inp.type="number"; inp.value=t.tpw; inp.min=0; inp.max=999;
-  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;";
-  inp.setAttribute("aria-label","Tasks per week for "+t.label);
-  var minSpan=document.createElement("span");
-  minSpan.style.cssText="font-size:0.72rem;color:rgba(255,255,255,0.3);flex-shrink:0;width:54px;text-align:right;";
-  minSpan.textContent="~"+t.min+" min";
-  chk.addEventListener("change",function(){t.on=chk.checked;recS();});
-  inp.addEventListener("input",function(){t.tpw=Math.max(0,parseInt(inp.value)||0);recS();});
-  row.setAttribute("data-task-idx", i);
-  row.setAttribute("data-task-min", t.min);
-  row.appendChild(chk); row.appendChild(lbl); row.appendChild(inp); row.appendChild(minSpan);
-  tc.appendChild(row);
-});
-// addTask defined as global below
-function fN(n){return Math.round(n).toLocaleString("en-GB");}
-function fH(n){return (Math.round(n*10)/10).toLocaleString("en-GB",{maximumFractionDigits:1});}
-function recS(){
-  var rate=parseInt(document.getElementById("calc-rate").value,10);
-  var ab=document.querySelector("[data-smonths].pcalc-active");
-  var mo=ab?parseInt(ab.dataset.smonths,10):12;
-  var wk=mo*WPM, wH=0, bd=[];
-  // Read live values straight from the DOM checkboxes and inputs
-  var rows=document.getElementById("calc-tasks").querySelectorAll("div[data-task-idx]");
-  rows.forEach(function(row){
-    var chk=row.querySelector("input[type=checkbox]");
-    var inp=row.querySelector("input[type=number]");
-    if(!chk||!chk.checked)return;
-    var tpw=inp?Math.max(0,parseInt(inp.value)||0):0;
-    var taskMin=parseFloat(row.dataset.taskMin)||1;
-    var taskLabel=row.querySelector("span")?row.querySelector("span").textContent:"Task";
-    var h=(tpw*taskMin/60);
-    if(h>0){wH+=h; bd.push({l:taskLabel,h:h,min:taskMin});}
-  });
-  var tH=wH*wk, tV=tH*rate, wte=tH/1650;
-  document.getElementById("calc-hours").textContent=fH(tH);
-  document.getElementById("calc-value").textContent="£"+fN(tV);
-  document.getElementById("calc-children").textContent=fN(tH/6)+"–"+fN(tH/3.5);
-  document.getElementById("calc-wte").textContent=wte.toFixed(1)+" WTE equivalent over "+mo+(mo===1?" month":" months");
-  // Update maths panel
-  var taskLines=bd.map(function(item){
-    return "("+Math.round(item.h*60/item.min)+" tasks/wk × "+item.min+" min ÷ 60) = "+fH(item.h)+" hrs/wk  ["+item.l+"]";
-  }).join("\n");
-  var mTasks=document.getElementById("calc-maths-tasks");
-  if(mTasks)mTasks.textContent=taskLines;
-  var mHours=document.getElementById("calc-maths-hours");
-  if(mHours)mHours.textContent=fH(wH)+" hrs/wk × ("+mo+" months × 4.345 wks/month) = "+fH(wH)+" × "+fH(wk)+" = "+fH(tH)+" total hours";
-  var mValue=document.getElementById("calc-maths-value");
-  if(mValue)mValue.textContent=fH(tH)+" hrs × £"+rate+"/hr = £"+fN(tV);
-  var mWte=document.getElementById("calc-maths-wte");
-  if(mWte)mWte.textContent=fH(tH)+" hrs ÷ 1,650 = "+wte.toFixed(2)+" WTE";
-  var mChild=document.getElementById("calc-maths-children");
-  if(mChild)mChild.textContent=fH(tH)+" ÷ 6 = "+fN(tH/6)+" (lower)   |   "+fH(tH)+" ÷ 3.5 = "+fN(tH/3.5)+" (upper)";
+<!-- ═══ THE PROBLEM ═══ -->
+<div id="the-system-problem">
+  <div class="band-ink2">
+    <div class="section reveal">
 
-  var bdEl=document.getElementById("calc-breakdown"); bdEl.innerHTML="";
-  bd.sort(function(a,b){return b.h-a.h;}).forEach(function(t){
-    var r=document.createElement("div");r.className="cbreak-row";
-    r.innerHTML='<span class="cbreak-lbl">'+t.l+'</span><span class="cbreak-val">'+fH(t.h)+" hrs/wk</span>";
-    bdEl.appendChild(r);
-  });
-  var tot=document.createElement("div");tot.className="cbreak-row";
-  tot.innerHTML='<span style="color:rgba(255,255,255,0.7);font-weight:500;">Total per week</span><span style="color:#6dd0d0;font-weight:600;">'+fH(wH)+" hrs/wk</span>";
-  bdEl.appendChild(tot);
-}
-document.getElementById("calc-rate").addEventListener("input",function(){document.getElementById("calc-rate-val").textContent=this.value;recS();});
-document.querySelectorAll("[data-smonths]").forEach(function(b){
-  b.addEventListener("click",function(){
-    document.querySelectorAll("[data-smonths]").forEach(function(x){x.classList.remove("pcalc-active");});
-    b.classList.add("pcalc-active"); recS();
-  });
-});
+      <span class="eyebrow">The context</span>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:1.5rem;">This system<br>cannot catch up.</h2>
 
-// Tool comparison
-var cc=document.getElementById("tool-cards");
-TOOLS.forEach(function(tool){
-  var card=document.createElement("div");
-  card.className="tool-card"+(tool.tested?" tool-card-tested":"");
-  card.id="card-"+tool.id;
-  var inputHtml=tool.editable?'<div class="tool-input-row"><span>£</span><input type="number" id="inp-'+tool.id+'" value="'+(tool.mpu||"")+'" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.35);">/user/month</span></div>':"";
-  var fHtml=tool.facts.map(function(f){
-    var c=f.i==="✓"?"#6dd0d0":f.i==="✗"?"#9e3a47":f.i==="!"?"#c07825":"rgba(255,255,255,0.35)";
-    return '<div class="tool-fact"><span style="color:'+c+';flex-shrink:0;">'+f.i+"</span><span>"+f.t+"</span></div>";
-  }).join("");
-  card.innerHTML='<div class="tool-name">'+tool.name+'</div><span class="tool-tag '+(tool.tested?"tool-tag-tested":"tool-tag-other")+'">'+(tool.tested?"Tested in CTM pilot":"Not tested in ND service")+'</span><div class="tool-cost-big" id="tcost-'+tool.id+'">—</div><div class="tool-cost-sub">estimated cost over period</div>'+inputHtml+'<div style="font-size:0.73rem;color:rgba(255,255,255,0.28);margin-bottom:0.8rem;line-height:1.4;">'+tool.note+"</div>"+fHtml;
-  cc.appendChild(card);
-  if(tool.editable){
-    var inp=card.querySelector("input[type=number]");
-    if(inp)inp.addEventListener("input",function(){tool.mpu=parseFloat(this.value)||null;recC();});
-  }
-});
+      <p style="font-size:1.15rem;font-weight:500;line-height:1.5;color:rgba(255,255,255,0.85);max-width:640px;margin-bottom:.75rem;">More children are being referred than seen. Every year, the gap widens.</p>
+      <p style="font-size:.88rem;line-height:1.6;color:rgba(255,255,255,0.45);max-width:600px;margin-bottom:2.5rem;">Welsh Government modelling predicts that if nothing changes, the number of children waiting will continue to rise. The 2027 figure is a projection based on current referral and capacity trends.</p>
 
-// Needs table
-var th=document.getElementById("ncmp-head");
-var hr=document.createElement("tr");
-hr.innerHTML='<th scope="col" class="ncmp-th" style="min-width:240px;">User need (from ND pathway research)</th>';
-TOOLS.forEach(function(t){hr.innerHTML+='<th scope="col" class="ncmp-th" style="text-align:center;">'+t.name+"</th>";});
-th.appendChild(hr);
-var tb=document.getElementById("ncmp-body");
-DIMS.forEach(function(d){
-  var tr=document.createElement("tr");tr.className="ncmp-tr";
-  var td=document.createElement("td");td.className="ncmp-td";
-  td.innerHTML='<div class="ncmp-need">'+d.l+"</div>";tr.appendChild(td);
-  TOOLS.forEach(function(tool){
-    var v=tool.needs[d.k]||"?";
-    var c=v==="✓"?"c-yes":v==="~"?"c-maybe":v==="✗"?"c-no":"c-unk";
-    var ntd=document.createElement("td");ntd.className="ncmp-td";
-    ntd.innerHTML='<span class="ncmp-conf '+c+'">'+v+"</span>";tr.appendChild(ntd);
-  });
-  tb.appendChild(tr);
-});
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:3rem;flex-wrap:wrap;">
+        <div style="text-align:center;padding:2rem 2.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px 0 0 16px;">
+          <div style="font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1;">4,100</div>
+          <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:.5rem;">2021</div>
+        </div>
+        <div style="font-size:1.5rem;color:rgba(255,255,255,0.15);padding:0 .5rem;">→</div>
+        <div style="text-align:center;padding:2rem 2.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07);border-left:none;border-right:none;">
+          <div style="font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#cc8020;line-height:1;">20,770</div>
+          <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:.5rem;">2024</div>
+        </div>
+        <div style="font-size:1.5rem;color:rgba(255,255,255,0.15);padding:0 .5rem;">→</div>
+        <div style="text-align:center;padding:2rem 2.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(248,113,113,0.2);border-radius:0 16px 16px 0;">
+          <div style="font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#f87171;line-height:1;">61,000</div>
+          <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:.5rem;">2027 (projected)</div>
+        </div>
+      </div>
 
-function recC(){
-  var clin=parseInt(document.getElementById("cmp-clin").value,10);
-  var tpw=parseInt(document.getElementById("cmp-tasks").value,10);
-  var ab=document.querySelector("[data-cmonths].pcalc-active");
-  var mo=ab?parseInt(ab.dataset.cmonths,10):12;
-  var wk=mo*WPM;
-  TOOLS.forEach(function(tool){
-    var cost=null;
-    if(tool.perUse!=null) cost=tool.perUse*tpw*clin*wk;
-    else if(tool.mpu!=null) cost=tool.mpu*clin*mo;
-    var el=document.getElementById("tcost-"+tool.id);
-    if(el){el.textContent=cost!=null?"£"+fN(cost):"—";el.style.color=cost!=null?"#6dd0d0":"rgba(255,255,255,0.25)";}
-  });
-}
-document.getElementById("cmp-clin").addEventListener("input",function(){document.getElementById("cmp-clin-val").textContent=this.value;recC();});
-document.getElementById("cmp-tasks").addEventListener("input",function(){document.getElementById("cmp-tasks-val").textContent=this.value;recC();});
-document.querySelectorAll("[data-cmonths]").forEach(function(b){
-  b.addEventListener("click",function(){
-    document.querySelectorAll("[data-cmonths]").forEach(function(x){x.classList.remove("pcalc-active");});
-    b.classList.add("pcalc-active");recC();
-  });
-});
+      <p style="font-size:1.1rem;font-style:italic;font-weight:600;line-height:1.5;color:rgba(255,255,255,0.7);max-width:600px;margin-bottom:2rem;border-left:3px solid rgba(248,113,113,0.5);padding-left:1.2rem;">This is not a waiting list. It is a backlog that is accelerating.</p>
 
-recS(); recC();
-window.recS=recS;
-})();
-}); // DOMContentLoaded
-</script>
+      <p style="font-size:1rem;line-height:1.65;color:rgba(255,255,255,0.5);max-width:580px;margin-bottom:1.5rem;">Time to assessment is measured in years, not months.</p>
+
+      <p style="font-size:1.05rem;line-height:1.65;color:rgba(255,255,255,0.65);max-width:580px;padding:1.2rem 1.5rem;background:rgba(255,255,255,0.03);border-radius:12px;border-left:3px solid rgba(255,255,255,0.1);">An 8-year-old referred today could be starting secondary school before they are seen.</p>
+
+    </div>
+  </div>
+</div>
 
 <!-- ═══ CHAPTER 1 ═══ -->
 <div id="the-problem">
   <div class="chapter">
     <span class="chapter-num">Chapter 01</span>
     <div class="chapter-line"></div>
-    <span class="chapter-title">The problem — what the system was forcing clinicians to become</span>
+    <span class="chapter-title">What the system was forcing clinicians to become</span>
     <div class="chapter-line"></div>
   </div>
   <div class="band-dust">
@@ -1175,7 +908,7 @@ window.recS=recS;
       <p class="lead">AI scribe addressed three acute pain points. But the ND pathway has structural problems that no single tool can fix. These anti-personas show what the system is producing — and what needs to change beyond documentation.</p>
       <p style="margin-bottom:1.8rem;"><a href="personas.html" style="display:inline-flex;align-items:center;gap:0.45rem;font-size:0.85rem;font-weight:600;color:var(--teal);text-decoration:none;padding:0.5rem 1rem;border:1.5px solid var(--teal);border-radius:2rem;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='var(--teal)';this.style.color='#fff';" onmouseout="this.style.background='transparent';this.style.color='var(--teal)';">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
-        Do these behaviours exist in your team?
+        Do you recognise these behaviours?
       </a></p>
       <div class="personas-grid reveal" id="pg"></div>
     </div>
@@ -1208,34 +941,7 @@ window.recS=recS;
       <div class="land-grid reveal" id="lg"></div>
     </div>
   </div>
-  <div class="band-white">
-    <div class="section">
-      <span class="eyebrow">Pathway value stream</span>
-      <h2>The full pathway — where value is, and where it isn't</h2>
-      <p class="lead">A lean value stream analysis of the ND pathway end-to-end, showing process time, lead time, and where redesign effort should focus.</p>
-      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-        <div class="vs-row"><span></span><span>Value</span><span>Step</span><span>Process time</span><span>Lead time</span></div>
-        <div class="vs-row"><span class="vs-n">1</span><span class="dg">●</span><span>Receive referral</span><span>5 min</span><span>0 days</span></div>
-        <div class="vs-row"><span class="vs-n">2</span><span class="dg">●</span><span>Triage referral</span><span>15 min</span><span>2–4 weeks</span></div>
-        <div class="vs-row"><span class="vs-n">3</span><span class="dg">●</span><span>Review evidence</span><span>20 min</span><span>—</span></div>
-        <div class="vs-row"><span class="vs-n">4</span><span class="da">●</span><span>Reject referral (if needed)</span><span>10 min</span><span>+1–2 wks</span></div>
-        <div class="vs-row"><span class="vs-n">5</span><span class="da">●</span><span>List child on waiting list</span><span>5 min</span><span>0–2 wks</span></div>
-        <div class="vs-row"><span class="vs-n">6</span><span class="da">●</span><span>Book appointment</span><span>10 min</span><span>4–12 wks</span></div>
-        <div class="vs-row"><span class="vs-n">7</span><span class="dr">●</span><span>Discharge if no response</span><span>5 min</span><span>6–10 wks</span></div>
-        <div class="vs-row"><span class="vs-n">8</span><span class="dg">●</span><span>Take developmental history</span><span>60–90 min</span><span>4–12 months ⚠</span></div>
-        <div class="vs-row"><span class="vs-n">9</span><span class="da">●</span><span>Gather further information</span><span>30–60 min</span><span>6–12 wks</span></div>
-        <div class="vs-row"><span class="vs-n">10</span><span class="dg">●</span><span>Medical assessment</span><span>45–75 min</span><span>9–18 months ⚠</span></div>
-        <div class="vs-row"><span class="vs-n">11</span><span class="da">●</span><span>Consolidate findings (panel)</span><span>45 min</span><span>2–4 wks</span></div>
-        <div class="vs-row"><span class="vs-n">12</span><span class="dg">●</span><span>Feedback decision</span><span>20–30 min</span><span>2–6 wks</span></div>
-        <div class="vs-row"><span class="vs-n">13</span><span class="dg">●</span><span>Signpost support</span><span>20 min</span><span>0–2 wks</span></div>
-        <div class="vs-row"><span class="vs-n">15</span><span class="dg">●</span><span>Titrate medication (ADHD)</span><span>20 min/review</span><span>Monthly × 3–5</span></div>
-        <div class="vs-row"><span class="vs-n">16</span><span class="dg">●</span><span>Monitor progress (stable cases)</span><span>15–20 min</span><span>Every 4–6 mo</span></div>
-        <div class="vs-row"><span class="vs-n">18</span><span class="dg">●</span><span>Discharge with advice</span><span>10 min</span><span>0</span></div>
-        <div class="vs-row"><span class="vs-n">19</span><span class="dg">●</span><span>Follow-up review</span><span>30 min</span><span>3–6 months</span></div>
-      </div>
-      <p style="font-size:0.76rem;color:var(--mid);margin-top:0.7rem;">● Green: direct clinical value — protect and prioritise. &nbsp; ● Amber: necessary but streamlinable — automate or shorten. &nbsp; ● Red: no clinical value — challenge or remove. &nbsp; ⚠ Major bottleneck.</p>
-    </div>
-  </div>
+  
 </div>
 
 </main>
@@ -1258,7 +964,384 @@ window.recS=recS;
   </div>
 </footer>
 
+
+
+
+
 <script>
+// Pathway tab switching
+document.querySelectorAll('.pwtab').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.pwtab').forEach(function(b){ b.classList.remove('pwtab-on'); b.setAttribute('aria-selected','false'); });
+    btn.classList.add('pwtab-on'); btn.setAttribute('aria-selected','true');
+    ['simple','full','admin','clinician'].forEach(function(id){
+      var el = document.getElementById('pw-'+id);
+      if(el) el.style.display = (id===btn.dataset.pw) ? '' : 'none';
+    });
+    var pw = btn.dataset.pw;
+    if(pw !== 'simple') setTimeout(function(){ pwInit('pz-'+pw); }, 30);
+  });
+});
+
+var _pws = {};
+function pwInit(id) {
+  if(_pws[id] && _pws[id].ready) return;
+  var canvas = document.getElementById(id+'-canvas');
+  if(!canvas) return;
+  var img = canvas.querySelector('img');
+  _pws[id] = { scale:1, ox:0, oy:0, drag:false, sx:0, sy:0, lox:0, loy:0, ready:false };
+
+  function fit() {
+    var s = canvas.clientWidth / img.naturalWidth;
+    _pws[id].scale = s; _pws[id].ox = 0; _pws[id].oy = 0;
+    _pws[id].ready = true;
+    _pwApply(id);
+  }
+  if(img.complete && img.naturalWidth > 0) { fit(); }
+  else { img.onload = fit; }
+
+  canvas.addEventListener('mousedown', function(e){
+    e.preventDefault();
+    var st=_pws[id]; st.drag=true; st.sx=e.clientX; st.sy=e.clientY; st.lox=st.ox; st.loy=st.oy;
+    canvas.classList.add('pw-grabbing');
+  });
+  document.addEventListener('mousemove', function(e){
+    var st=_pws[id]; if(!st||!st.drag) return;
+    st.ox=st.lox+(e.clientX-st.sx); st.oy=st.loy+(e.clientY-st.sy); _pwApply(id);
+  });
+  document.addEventListener('mouseup', function(){
+    if(_pws[id]) _pws[id].drag=false; canvas.classList.remove('pw-grabbing');
+  });
+  canvas.addEventListener('touchstart',function(e){
+    if(e.touches.length!==1) return;
+    var st=_pws[id]; st.drag=true; st.sx=e.touches[0].clientX; st.sy=e.touches[0].clientY; st.lox=st.ox; st.loy=st.oy;
+  },{passive:true});
+  canvas.addEventListener('touchmove',function(e){
+    if(e.touches.length!==1||!_pws[id].drag) return;
+    e.preventDefault();
+    var st=_pws[id]; st.ox=st.lox+(e.touches[0].clientX-st.sx); st.oy=st.loy+(e.touches[0].clientY-st.sy); _pwApply(id);
+  },{passive:false});
+  canvas.addEventListener('touchend',function(){ if(_pws[id]) _pws[id].drag=false; });
+  canvas.addEventListener('wheel',function(e){
+    e.preventDefault();
+    var st=_pws[id]; var rect=canvas.getBoundingClientRect();
+    var mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    var d=e.deltaY>0?-0.08:0.08;
+    var old=st.scale; st.scale=Math.max(0.05,Math.min(8,st.scale+d));
+    st.ox=mx-(mx-st.ox)*(st.scale/old); st.oy=my-(my-st.oy)*(st.scale/old);
+    _pwApply(id);
+  },{passive:false});
+}
+
+function _pwApply(id) {
+  var st=_pws[id]; if(!st) return;
+  var canvas=document.getElementById(id+'-canvas');
+  if(!canvas) return;
+  canvas.querySelector('img').style.transform='translate('+st.ox+'px,'+st.oy+'px) scale('+st.scale+')';
+  var lvl=document.getElementById(id+'-level');
+  if(lvl) lvl.textContent=Math.round(st.scale*100)+'%';
+}
+
+function pwZoom(id,delta) {
+  if(!_pws[id]) pwInit(id);
+  var st=_pws[id]; if(!st) return;
+  var canvas=document.getElementById(id+'-canvas');
+  var cx=canvas.clientWidth/2, cy=canvas.clientHeight/2;
+  var old=st.scale; st.scale=Math.max(0.05,Math.min(8,st.scale+delta));
+  st.ox=cx-(cx-st.ox)*(st.scale/old); st.oy=cy-(cy-st.oy)*(st.scale/old);
+  _pwApply(id);
+}
+
+function pwReset(id) {
+  var st=_pws[id]; if(!st) return;
+  var canvas=document.getElementById(id+'-canvas');
+  var img=canvas.querySelector('img');
+  st.scale=canvas.clientWidth/img.naturalWidth; st.ox=0; st.oy=0;
+  _pwApply(id);
+}
+
+function addTask(){
+  var name=document.getElementById('new-task-name').value.trim();
+  var tpw=parseInt(document.getElementById('new-task-tpw').value)||0;
+  var min=parseFloat(document.getElementById('new-task-min').value)||0;
+  var err=document.getElementById('new-task-err');
+  if(!name||tpw<=0||min<=0){err.style.display='block';return;}
+  err.style.display='none';
+  // TASKS is in shared script scope — accessible directly
+  var t={label:name,tpw:tpw,min:min,on:true};
+  TASKS.push(t);
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);';
+  var chk=document.createElement('input');
+  chk.type='checkbox';chk.checked=true;
+  chk.style.cssText='accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;';
+  chk.setAttribute('aria-label','Include '+name);
+  var lbl=document.createElement('span');
+  lbl.style.cssText='flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;';
+  lbl.textContent=name;
+  var inp=document.createElement('input');
+  inp.type='number';inp.value=tpw;inp.min=0;inp.max=999;
+  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;flex-shrink:0;";
+  inp.setAttribute('aria-label','Tasks per week for '+name);
+  var minSpan=document.createElement('span');
+  minSpan.style.cssText='font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;';
+  minSpan.textContent='~'+min+' min';
+  var del=document.createElement('button');
+  del.type='button';
+  del.textContent='×';
+  del.setAttribute('aria-label','Remove '+name);
+  del.style.cssText='background:none;border:none;color:rgba(255,255,255,0.5);font-size:1rem;cursor:pointer;padding:0;width:18px;text-align:center;line-height:1;flex-shrink:0;';
+  del.addEventListener('click',function(){row.remove();recS();});
+  chk.addEventListener('change',function(){recS();});
+  inp.addEventListener('input',function(){recS();});
+  row.setAttribute('data-task-idx',TASKS.length-1);
+  row.setAttribute('data-task-min',min);
+  row.appendChild(chk);row.appendChild(lbl);row.appendChild(inp);row.appendChild(minSpan);row.appendChild(del);
+  var ct=document.getElementById('calc-tasks'); if(ct){ct.appendChild(row);}
+  document.getElementById('new-task-name').value='';
+  document.getElementById('new-task-tpw').value='';
+  document.getElementById('new-task-min').value='';
+  document.getElementById('new-task-name').focus();
+  recS();
+}
+
+var TASKS=[
+  {label:"New patient assessment (in-person)",tpw:20,min:30,on:true},
+  {label:"Assessment write-up",tpw:20,min:124.5,on:true},
+  {label:"Patient summary",tpw:20,min:41,on:true},
+  {label:"ADHD medication review",tpw:20,min:27.5,on:true},
+  {label:"Letters & admin",tpw:40,min:28,on:true},
+  {label:"Meetings & coordination",tpw:1,min:20,on:false}
+];
+
+var PC=5, WPM=4.345;
+var TOOLS=[
+  {id:"mn",name:"Magic Notes",tested:true,perUse:5,mpu:null,editable:false,
+   note:"£5 per use. Pilot data from CTM: 5 clinicians, 6 weeks, 726 tasks.",
+   facts:[
+     {i:"✓",t:"Tested in CTM ND service — 6 weeks, 5 clinicians, 726 tasks"},
+     {i:"✓",t:"GDPR compliant. 7-day auto-deletion (30–60 days recommended)"},
+     {i:"✓",t:"110+ languages; bilingual sessions tested in pilot"},
+     {i:"✗",t:"Welsh-only sessions: hallucinations observed — not safe for Welsh-medium use yet"},
+     {i:"?",t:"NHS Wales / WHC IG status: verify against WHC 2025/026"},
+     {i:"✓",t:"Neuro-affirming report templates; customisable"}
+   ],
+   needs:{present:"✓",transcription:"✓",backlog:"✓",bilingual:"~",welsh:"✗",templates:"✓",panel:"✓",referral:"✓"}
+  },
+  {id:"hh",name:"Heidi Health",tested:false,perUse:null,mpu:79,editable:true,
+   note:"Free tier (limited). Paid plan ~$99/month per clinician (UK £ price: contact sales). Enterprise via sales.",
+   facts:[
+     {i:"✓",t:"GDPR, SOC2, ISO27001; meets NHS standards"},
+     {i:"✓",t:"110+ languages; used in 116 countries"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily GP/primary care; ND specialist templates not confirmed"},
+     {i:"!",t:"UK/EU: clinical evidence feature unavailable during live sessions"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"~",welsh:"?",templates:"~",panel:"?",referral:"~"}
+  },
+  {id:"to",name:"TORTUS",tested:false,perUse:null,mpu:44,editable:true,
+   note:"Pilot pricing £44/mo/licence (expired Mar 2025). Enterprise: £200K per 100K audio hours. Current pricing: contact sales.",
+   facts:[
+     {i:"✓",t:"DTAC assured, MHRA Class I, UK GDPR compliant"},
+     {i:"✓",t:"Led 9-site NHS England trial (17,000+ encounters, GOSH 2025)"},
+     {i:"✓",t:"23.5% increase in patient interaction time (GOSH trial)"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily acute/ED/GP setting; ND-specific evidence limited"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"~",panel:"?",referral:"?"}
+  },
+  {id:"ax",name:"Accurx Scribe (Tandem)",tested:false,perUse:null,mpu:null,editable:true,
+   note:"NHS pricing not public. Integrated into Accurx platform (98% of GP practices). Contact sales.",
+   facts:[
+     {i:"✓",t:"MHRA Class I, NHS DTAC compliant"},
+     {i:"✓",t:"EMIS/SystmOne write-back; 97% clinical accuracy (independent audit)"},
+     {i:"~",t:"Primarily GP/primary care — ND specialist fit unclear"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"✗",t:"No ND-specific evidence; no specialist pathway data"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"?",panel:"?",referral:"?"}
+  }
+];
+var DIMS=[
+  {k:"present",    l:"Clinician fully present in session (not typing)"},
+  {k:"transcription",l:"Accurate transcription in ND sessions (echolalia, accents, noise, overlapping speech)"},
+  {k:"backlog",    l:"Near-final report draft shortly after appointment"},
+  {k:"bilingual",  l:"Bilingual and multilingual sessions"},
+  {k:"welsh",      l:"Welsh-only sessions without hallucinations"},
+  {k:"templates",  l:"Customisable neuro-affirming report templates"},
+  {k:"panel",      l:"MDT / panel summary support"},
+  {k:"referral",   l:"Referral document upload and summarisation"}
+];
+
+// Tab switching
+document.querySelectorAll(".ctab").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll(".ctab").forEach(function(x){x.classList.remove("ctab-on");x.setAttribute("aria-selected","false");});
+    b.classList.add("ctab-on");
+    b.setAttribute("aria-selected","true");
+    document.getElementById("tab-savings").style.display=b.dataset.tab==="savings"?"":"none";
+    document.getElementById("tab-compare").style.display=b.dataset.tab==="compare"?"":"none";
+  });
+});
+
+// Savings calculator — editable task volumes
+var tc=document.getElementById("calc-tasks");
+// Header row
+var hdr=document.createElement("div");
+hdr.style.cssText="display:flex;gap:0.6rem;padding-bottom:0.5rem;margin-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.1);";
+hdr.innerHTML='<span style="flex:1;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Task</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:60px;text-align:center;">Per week</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;">Min saved</span>';
+if(tc){tc.appendChild(hdr);}
+// Task rows
+TASKS.forEach(function(t,i){
+  var row=document.createElement("div");
+  row.style.cssText="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);";
+  var chk=document.createElement("input");
+  chk.type="checkbox"; chk.checked=t.on; chk.style.cssText="accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;";
+  chk.setAttribute("aria-label","Include "+t.label);
+  var lbl=document.createElement("span");
+  lbl.style.cssText="flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;cursor:pointer;";
+  lbl.textContent=t.label;
+  lbl.addEventListener("click",function(){chk.checked=!chk.checked;t.on=chk.checked;recS();});
+  var inp=document.createElement("input");
+  inp.type="number"; inp.value=t.tpw; inp.min=0; inp.max=999;
+  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;";
+  inp.setAttribute("aria-label","Tasks per week for "+t.label);
+  var minSpan=document.createElement("span");
+  minSpan.style.cssText="font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;margin-right:22px;";
+  minSpan.textContent="~"+t.min+" min";
+  chk.addEventListener("change",function(){t.on=chk.checked;recS();});
+  inp.addEventListener("input",function(){t.tpw=Math.max(0,parseInt(inp.value)||0);recS();});
+  row.setAttribute("data-task-idx", i);
+  row.setAttribute("data-task-min", t.min);
+  row.appendChild(chk); row.appendChild(lbl); row.appendChild(inp); row.appendChild(minSpan);
+  if(tc){tc.appendChild(row);}
+});
+// addTask defined as global below
+function fN(n){return Math.round(n).toLocaleString("en-GB");}
+function fH(n){return (Math.round(n*10)/10).toLocaleString("en-GB",{maximumFractionDigits:1});}
+function recS(){
+  var rate=parseInt(document.getElementById("calc-rate").value,10);
+  var ab=document.querySelector("[data-smonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.smonths,10):12;
+  var wk=mo*WPM, wH=0, bd=[];
+  // Read live values straight from the DOM checkboxes and inputs
+  var rows=document.getElementById("calc-tasks").querySelectorAll("div[data-task-idx]");
+  rows.forEach(function(row){
+    var chk=row.querySelector("input[type=checkbox]");
+    var inp=row.querySelector("input[type=number]");
+    if(!chk||!chk.checked)return;
+    var tpw=inp?Math.max(0,parseInt(inp.value)||0):0;
+    var taskMin=parseFloat(row.dataset.taskMin)||1;
+    var taskLabel=row.querySelector("span")?row.querySelector("span").textContent:"Task";
+    var h=(tpw*taskMin/60);
+    if(h>0){wH+=h; bd.push({l:taskLabel,h:h,min:taskMin});}
+  });
+  var tH=wH*wk, tV=tH*rate, wte=tH/1650;
+  document.getElementById("calc-hours").textContent=fH(tH);
+  document.getElementById("calc-value").textContent="£"+fN(tV);
+  document.getElementById("calc-children").textContent=fN(tH/6)+"–"+fN(tH/3.5);
+  document.getElementById("calc-wte").textContent=wte.toFixed(1)+" WTE equivalent over "+mo+(mo===1?" month":" months");
+  // Update maths panel
+  var taskLines=bd.map(function(item){
+    return "("+Math.round(item.h*60/item.min)+" tasks/wk × "+item.min+" min ÷ 60) = "+fH(item.h)+" hrs/wk  ["+item.l+"]";
+  }).join("\n");
+  var mTasks=document.getElementById("calc-maths-tasks");
+  if(mTasks)mTasks.textContent=taskLines;
+  var mHours=document.getElementById("calc-maths-hours");
+  if(mHours)mHours.textContent=fH(wH)+" hrs/wk × ("+mo+" months × 4.345 wks/month) = "+fH(wH)+" × "+fH(wk)+" = "+fH(tH)+" total hours";
+  var mValue=document.getElementById("calc-maths-value");
+  if(mValue)mValue.textContent=fH(tH)+" hrs × £"+rate+"/hr = £"+fN(tV);
+  var mWte=document.getElementById("calc-maths-wte");
+  if(mWte)mWte.textContent=fH(tH)+" hrs ÷ 1,650 = "+wte.toFixed(2)+" WTE";
+  var mChild=document.getElementById("calc-maths-children");
+  if(mChild)mChild.textContent=fH(tH)+" ÷ 6 = "+fN(tH/6)+" (lower)   |   "+fH(tH)+" ÷ 3.5 = "+fN(tH/3.5)+" (upper)";
+
+  var bdEl=document.getElementById("calc-breakdown"); bdEl.innerHTML="";
+  bd.sort(function(a,b){return b.h-a.h;}).forEach(function(t){
+    var r=document.createElement("div");r.className="cbreak-row";
+    r.innerHTML='<span class="cbreak-lbl">'+t.l+'</span><span class="cbreak-val">'+fH(t.h)+" hrs/wk</span>";
+    if(bdEl){bdEl.appendChild(r);}
+  });
+  var tot=document.createElement("div");tot.className="cbreak-row";
+  tot.innerHTML='<span style="color:rgba(255,255,255,0.7);font-weight:500;">Total per week</span><span style="color:#6dd0d0;font-weight:600;">'+fH(wH)+" hrs/wk</span>";
+  if(bdEl){bdEl.appendChild(tot);}
+}
+document.getElementById("calc-rate").addEventListener("input",function(){document.getElementById("calc-rate-val").textContent=this.value;recS();});
+document.querySelectorAll("[data-smonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-smonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active"); recS();
+  });
+});
+
+// Tool comparison
+var cc=document.getElementById("tool-cards");
+TOOLS.forEach(function(tool){
+  var card=document.createElement("div");
+  card.className="tool-card"+(tool.tested?" tool-card-tested":"");
+  card.id="card-"+tool.id;
+  var inputHtml=tool.editable?'<div class="tool-input-row"><span>£</span><input type="number" id="inp-'+tool.id+'" value="'+(tool.mpu||"")+'" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.35);">/user/month</span></div>':"";
+  var fHtml=tool.facts.map(function(f){
+    var c=f.i==="✓"?"#6dd0d0":f.i==="✗"?"#9e3a47":f.i==="!"?"#c07825":"rgba(255,255,255,0.35)";
+    return '<div class="tool-fact"><span style="color:'+c+';flex-shrink:0;">'+f.i+"</span><span>"+f.t+"</span></div>";
+  }).join("");
+  card.innerHTML='<div class="tool-name">'+tool.name+'</div><span class="tool-tag '+(tool.tested?"tool-tag-tested":"tool-tag-other")+'">'+(tool.tested?"Tested in CTM pilot":"Not tested in ND service")+'</span><div class="tool-cost-big" id="tcost-'+tool.id+'">—</div><div class="tool-cost-sub">estimated cost over period</div>'+inputHtml+'<div style="font-size:0.73rem;color:rgba(255,255,255,0.28);margin-bottom:0.8rem;line-height:1.4;">'+tool.note+"</div>"+fHtml;
+  if(cc){cc.appendChild(card);}
+  if(tool.editable){
+    var inp=card.querySelector("input[type=number]");
+    if(inp)inp.addEventListener("input",function(){tool.mpu=parseFloat(this.value)||null;recC();});
+  }
+});
+
+// Needs table
+var th=document.getElementById("ncmp-head");
+var hr=document.createElement("tr");
+hr.innerHTML='<th scope="col" class="ncmp-th" style="min-width:240px;">User need (from ND pathway research)</th>';
+TOOLS.forEach(function(t){hr.innerHTML+='<th scope="col" class="ncmp-th" style="text-align:center;">'+t.name+"</th>";});
+if(th){th.appendChild(hr);}
+var tb=document.getElementById("ncmp-body");
+DIMS.forEach(function(d){
+  var tr=document.createElement("tr");tr.className="ncmp-tr";
+  var td=document.createElement("td");td.className="ncmp-td";
+  td.innerHTML='<div class="ncmp-need">'+d.l+"</div>";tr.appendChild(td);
+  TOOLS.forEach(function(tool){
+    var v=tool.needs[d.k]||"?";
+    var c=v==="✓"?"c-yes":v==="~"?"c-maybe":v==="✗"?"c-no":"c-unk";
+    var ntd=document.createElement("td");ntd.className="ncmp-td";
+    ntd.innerHTML='<span class="ncmp-conf '+c+'">'+v+"</span>";tr.appendChild(ntd);
+  });
+  if(tb){tb.appendChild(tr);}
+});
+
+function recC(){
+  var clin=parseInt(document.getElementById("cmp-clin").value,10);
+  var tpw=parseInt(document.getElementById("cmp-tasks").value,10);
+  var ab=document.querySelector("[data-cmonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.cmonths,10):12;
+  var wk=mo*WPM;
+  TOOLS.forEach(function(tool){
+    var cost=null;
+    if(tool.perUse!=null) cost=tool.perUse*tpw*clin*wk;
+    else if(tool.mpu!=null) cost=tool.mpu*clin*mo;
+    var el=document.getElementById("tcost-"+tool.id);
+    if(el){el.textContent=cost!=null?"£"+fN(cost):"—";el.style.color=cost!=null?"#6dd0d0":"rgba(255,255,255,0.25)";}
+  });
+}
+document.getElementById("cmp-clin").addEventListener("input",function(){document.getElementById("cmp-clin-val").textContent=this.value;recC();});
+document.getElementById("cmp-tasks").addEventListener("input",function(){document.getElementById("cmp-tasks-val").textContent=this.value;recC();});
+document.querySelectorAll("[data-cmonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-cmonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active");recC();
+  });
+});
+
+recS(); recC();
+
+
 const personas = [
   { name:"Anxious Waiting Family", icon:"👨‍👩‍👧", who:"Family waiting long periods with little clarity or support", reality:"Diagnosis-led pathway; poor communication; long waits", needs:"Clear timelines; early support; reassurance", behaviour:"Repeated contact; distress; loss of trust", risk:"Complaints; disengagement; escalation", quote:'"They\'re desperate… they need to talk."' },
   { name:"Data Detective Clinician", icon:"🔍", who:"Clinician manually hunting for missing or scattered information", reality:"Information spread across WelshPAS, CarePartner, emails, OneDrive, paper", needs:"One-view access to information; automated retrieval", behaviour:"Spends hours searching, chasing and copying", risk:"Delays; rework; clinician time lost to admin", quote:'"I\'ve got to pull all those pieces of jigsaw together from lots of different places."' },
@@ -1343,7 +1426,7 @@ personas.forEach(p => {
   const el = document.createElement('div'); el.className = 'pc';
   el.innerHTML = `<div class="pc-head"><span class="pc-icon">${p.icon}</span><div><div class="pc-name">${p.name}</div><div class="pc-who">${p.who}</div></div></div><span class="pc-toggle">▸ Show details</span><div class="pc-body"><div class="pc-row"><strong>System reality</strong>${p.reality}</div><div class="pc-row"><strong>Violated needs</strong>${p.needs}</div><div class="pc-row"><strong>Resulting behaviour</strong>${p.behaviour}</div><div class="pc-row"><strong>System risk</strong>${p.risk}</div><div class="pc-q">${p.quote}</div></div>`;
   el.addEventListener('click', () => { const o = el.classList.toggle('open'); el.querySelector('.pc-toggle').textContent = o ? '▾ Hide' : '▸ Show details'; });
-  pg.appendChild(el);
+  if(pg){pg.appendChild(el);}
 });
 
 // Render user needs with filter
@@ -1353,30 +1436,27 @@ const stageLabels = { "Identification and referral":"Referral", "Screening and t
 [{l:'All',v:'all'}, ...stages.map(s => ({l:stageLabels[s]||s, v:s}))].forEach(({l,v}) => {
   const b = document.createElement('button'); b.className = 'filt'+(v==='all'?' on':''); b.textContent = l; b.dataset.v = v;
   b.addEventListener('click', () => { document.querySelectorAll('.filt').forEach(x=>x.classList.remove('on')); b.classList.add('on'); document.querySelectorAll('#ntbody tr').forEach(tr=>tr.classList.toggle('hide', v!=='all' && tr.dataset.stage!==v)); });
-  nf.appendChild(b);
+  if(nf){nf.appendChild(b);}
 });
 const ntb = document.getElementById('ntbody');
 needs.forEach(n => {
   const tr = document.createElement('tr'); tr.dataset.stage = n.stage;
   tr.innerHTML = `<td style="font-size:0.76rem;color:var(--teal);font-weight:500;white-space:nowrap;">${n.stage}</td><td style="white-space:nowrap;font-size:0.8rem;">${n.persona}</td><td>${n.need}</td><td><span class="pill ${statusCls[n.status]}">${statusLbl[n.status]}</span></td><td style="font-size:0.78rem;color:var(--mid);">${n.measures}</td>`;
-  ntb.appendChild(tr);
+  if(ntb){ntb.appendChild(tr);}
 });
 
 // Render OM table
 const omtb = document.getElementById('omtb');
-om.forEach(([t,f,to]) => { const tr = document.createElement('tr'); tr.innerHTML = `<td style="font-weight:500;white-space:nowrap;">${t}</td><td style="color:var(--mid);">${f}</td><td style="color:var(--teal);font-weight:500;">${to}</td>`; omtb.appendChild(tr); });
+if(omtb){om.forEach(([t,f,to]) => { const tr = document.createElement('tr'); tr.innerHTML = `<td style="font-weight:500;white-space:nowrap;">${t}</td><td style="color:var(--mid);">${f}</td><td style="color:var(--teal);font-weight:500;">${to}</td>`; omtb.appendChild(tr); });}
 
 // Render landscape
 const lg = document.getElementById('lg');
-landscape.forEach(([a,w,why]) => { const el = document.createElement('div'); el.className = 'land-card'; el.innerHTML = `<div class="land-area">${a}</div><div class="land-what">${w}</div><div class="land-why">${why}</div>`; lg.appendChild(el); });
+if(lg){landscape.forEach(([a,w,why]) => { const el = document.createElement('div'); el.className = 'land-card'; el.innerHTML = `<div class="land-area">${a}</div><div class="land-what">${w}</div><div class="land-why">${why}</div>`; lg.appendChild(el); });}
 
 // Scroll reveal
 const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
 (function(){
   var links = document.querySelectorAll('.nav-links a[href^="#"]');
   var sections = Array.from(links).map(function(l){ return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
@@ -1391,7 +1471,6 @@ document.addEventListener('DOMContentLoaded', function(){
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 })();
-});
 </script>
 </body>
 </html>

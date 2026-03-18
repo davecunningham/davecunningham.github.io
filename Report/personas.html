@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Is this your team? — ND Service Reflection</title>
+<title>Do you recognise these behaviours? — ND Service Reflection</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -230,11 +230,11 @@ body {
   margin-bottom: 1.2rem;
 }
 .card-section-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(255,255,255,0.9);
   margin-bottom: 0.35rem;
 }
 .card-who {
@@ -262,11 +262,11 @@ body {
 
 /* Rating buttons */
 .rating-label {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(255,255,255,0.9);
   margin-bottom: 0.75rem;
   text-align: center;
 }
@@ -594,17 +594,19 @@ body { padding-top: 52px !important; }
 
 <a href="#intro" class="prog-skip">Skip to main content</a>
 <nav class="prog-nav" aria-label="Programme navigation">
-  <a href="hub.html" class="prog-nav-home" aria-label="All reports — ND Services in Wales home">
+  <a href="index.html" class="prog-nav-home" aria-label="All reports — ND Services in Wales home">
     <span class="prog-home-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l6-4 6 4v8H2z"/><rect x="5" y="9" width="3" height="5" rx="0.5"/></svg></span>
     <span class="prog-home-label">ND Services<strong>in Wales</strong></span>
   </a>
   <span class="prog-divider" aria-hidden="true"></span>
   <ul class="prog-nav-links" role="list">
+    <li><a href="index.html">Service design</a></li>
     <li><a href="hub.html">All reports</a></li>
     <li><a href="research.html">Service landscape</a></li>
     <li><a href="ctm.html"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
     <li><a href="autism.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> Autism team</a></li>
     <li><a href="adhd.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> ADHD team</a></li>
+    <li><a href="combined.html"><span class="prog-nav-tag prog-tag-prog">Combined</span> All findings</a></li>
   </ul>
   <span class="prog-nav-context" aria-hidden="true">Trial ongoing · Hywel Dda</span>
 </nav>
@@ -613,7 +615,7 @@ body { padding-top: 52px !important; }
 <section id="intro" role="main">
   <div>
     <p class="intro-kicker">ND Service Reflection</p>
-    <h1 class="intro-title">Do you<br><em>recognise this?</em></h1>
+    <h1 class="intro-title">Do you<br><em>recognise these<br>behaviours?</em></h1>
     <p class="intro-body">
       When services are under pressure, they create behaviours nobody intended.<br><br>
       These 12 patterns describe behaviours that show up in ND services when things aren't working — not because of individual failure, but because of how the service is set up. <strong>Rate how often you recognise each one in your own team.</strong>
@@ -677,7 +679,7 @@ body { padding-top: 52px !important; }
 <script>
 var PERSONAS = [
   {
-    name: "Anxious Waiting Family",
+    name: "Anxious Waiting Family", question: "Do you have Anxious Waiting Families?",
     icon: "👨‍👩‍👧",
     who: "Family waiting long periods with little clarity or support",
     reality: "Pathway focused on diagnosis rather than early support; no capacity to proactively update families during long waits",
@@ -686,7 +688,7 @@ var PERSONAS = [
     risk: "Complaints; disengagement; safeguarding escalation"
   },
   {
-    name: "Data Detective Clinician",
+    name: "Data Detective Clinician", question: "Do you have Data Detective Clinicians?",
     icon: "🔍",
     who: "Clinician spending significant time searching for patient information across multiple systems before they can begin clinical work",
     reality: "Patient data spread across WelshPAS, emails, OneDrive and paper — no single place to look",
@@ -695,7 +697,7 @@ var PERSONAS = [
     risk: "Delays; rework; clinician time lost entirely to admin"
   },
   {
-    name: "Divided-Attention Clinician",
+    name: "Divided-Attention Clinician", question: "Do you have Divided-Attention Clinicians?",
     icon: "💻",
     who: "Clinician forced to split attention between observing a child and typing notes simultaneously",
     reality: "Live documentation expectations combined with fragmented tools and systems",
@@ -705,7 +707,7 @@ var PERSONAS = [
     risk: "Distorted diagnostic evidence; reduced confidence in outcomes"
   },
   {
-    name: "Memory-Overloaded Clinician",
+    name: "Memory-Overloaded Clinician", question: "Do you have Memory-Overloaded Clinicians?",
     icon: "🧠",
     who: "Clinician reconstructing session details from memory — sometimes days later",
     reality: "Back-to-back appointments with no protected time to document",
@@ -715,16 +717,16 @@ var PERSONAS = [
     risk: "Inaccurate reports; safeguarding risk; fragile continuity of care"
   },
   {
-    name: "Invisible Administrator",
+    name: "Invisible Administrator", question: "Do you have Invisible Administrators?",
     icon: "🗂️",
-    who: "Admin staff holding the whole system together through personal effort and workarounds",
-    reality: "Heavy spreadsheet use; manual duplication; limited tooling; invisible workload",
+    who: "Clinicians and non-admin staff holding the whole system together through personal effort and workarounds",
+    reality: "Heavy spreadsheet use; manual duplication; tooling not set up to support our workflow; invisible workload",
     quote: "(Implicit across admin task mapping — the system depends on individuals no-one can see)",
     behaviour: "Manually tracks, copies, scans and updates to fill gaps in digital systems",
     risk: "Single points of failure; untracked risk if key people leave"
   },
   {
-    name: "Masked & Missed Child",
+    name: "Masked & Missed Child", question: "Do you have Masked & Missed Children?",
     icon: "🎭",
     who: "Child whose difficulties are hidden, inconsistent or unrecognised across settings",
     reality: "Screening relies on forms; limited direct observation; long waits distort the picture",
@@ -733,7 +735,7 @@ var PERSONAS = [
     risk: "Late intervention; crisis presentations; preventable harm"
   },
   {
-    name: "Reporting-Pressured Service",
+    name: "Reporting-Pressured Service", question: "Is your service Reporting-Pressured?",
     icon: "📊",
     who: "Service stretched by growing demand for granular performance data",
     reality: "Reporting demands have grown without clear guidance on what's enough; data has to be extracted manually each time",
@@ -742,7 +744,7 @@ var PERSONAS = [
     risk: "Reduced capacity for families; burnout; distorted clinical priorities"
   },
   {
-    name: "Workaround-Dependent Clinician",
+    name: "Workaround-Dependent Clinician", question: "Do you have Workaround-Dependent Clinicians?",
     icon: "🔧",
     who: "Clinician managing their caseload through personal spreadsheets, folders and workarounds",
     reality: "Core systems don't support day-to-day case management; gaps are filled individually",
@@ -751,7 +753,7 @@ var PERSONAS = [
     risk: "Hidden workload; loss of continuity when staff leave or are absent"
   },
   {
-    name: "Over-Burdened Referrer",
+    name: "Over-Burdened Referrer", question: "Do you have Over-Burdened Referrers?",
     icon: "📝",
     who: "GP, school or professional completing referrals with little guidance or feedback",
     reality: "Long PDF forms; no validation; no feedback loop to learn what works",
@@ -760,7 +762,7 @@ var PERSONAS = [
     risk: "Delays; rejections; families re-enter the system with worse information"
   },
   {
-    name: "Clear-Cut Case (Delayed)",
+    name: "Clear-Cut Case (Delayed)", question: "Do you have Clear-Cut Cases being delayed?",
     icon: "⏳",
     who: "Child with evident needs still routed through the full assessment process",
     reality: "Panel-heavy assurance model; no fast-track or proportionate pathway",
@@ -769,7 +771,7 @@ var PERSONAS = [
     risk: "Backlogs; delayed support for all children; clinician demoralisation"
   },
   {
-    name: "Compliance-Trained User",
+    name: "Compliance-Trained User", question: "Do you have Compliance-Trained Users?",
     icon: "📋",
     who: "Clinician who has learned to document for the system rather than for families",
     reality: "No shared clarity on what a 'good enough' report looks like; concern about scrutiny leads to longer, more defensive writing over time",
@@ -814,14 +816,13 @@ function buildCards() {
     card.setAttribute('aria-label', 'Persona ' + (i+1) + ': ' + p.name);
     card.innerHTML =
       '<span class="card-icon" aria-hidden="true">' + p.icon + '</span>' +
-      '<p class="card-persona-label">Pattern ' + (i+1) + ' of ' + PERSONAS.length + '</p>' +
-      '<h2 class="card-name">' + p.name + '</h2>' +
+      '<p class="card-persona-label">' + (i+1) + ' of ' + PERSONAS.length + '</p>' +
+      '<h2 class="card-name">' + (p.question || 'Do you have ' + p.name + 's?') + '</h2>' +
       '<div class="card-divider"></div>' +
-      '<p class="card-section-label">What this looks like</p>' +
+      '<p class="card-section-label">What you will notice</p>' +
       '<p class="card-who">' + p.who + '</p>' +
-      '<p class="card-section-label">Why it happens</p>' +
+      '<p class="card-section-label">What can cause this</p>' +
       '<p class="card-reality">' + p.reality + '</p>' +
-      '<blockquote class="card-quote">' + p.quote + '<cite style="display:block;font-size:0.7rem;font-style:normal;font-family:DM Sans,sans-serif;color:rgba(109,208,208,0.6);margin-top:0.5rem;letter-spacing:0.04em;">— ' + (p.source || 'Clinician or family, Welsh ND pathway research') + '</cite></blockquote>' +
       '<p class="rating-label">How often do you see this in your team?</p>' +
       '<div class="rating-grid" role="group" aria-label="Rate how often this occurs">' +
         [1,2,3,4,5].map(function(s){

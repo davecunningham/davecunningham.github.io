@@ -184,7 +184,7 @@ body {
 .eyebrow {
   display: block; font-size: 0.72rem; font-weight: 500;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--amber); margin-bottom: 0.5rem;
+  color: #9a5e00; margin-bottom: 0.5rem;
 }
 h2 {
   font-family: 'Fraunces', serif;
@@ -411,7 +411,7 @@ footer a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 2px; border
 <a href="#main-content" class="prog-skip">Skip to main content</a>
 
 <nav class="prog-nav" aria-label="Programme navigation">
-  <a href="hub.html" class="prog-nav-home" aria-label="All reports — ND Services in Wales home" aria-current="page">
+  <a href="index.html" class="prog-nav-home" aria-label="ND Services in Wales — home">
     <span class="prog-home-icon" aria-hidden="true">
       <svg viewBox="0 0 16 16"><path d="M2 6l6-4 6 4v8H2z"/><rect x="5" y="9" width="3" height="5" rx="0.5"/></svg>
     </span>
@@ -419,20 +419,21 @@ footer a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 2px; border
   </a>
   <span class="prog-divider" aria-hidden="true"></span>
   <ul class="prog-nav-links" role="list">
-    <li><a href="hub.html">All reports</a></li>
+    <li><a href="index.html">Service design</a></li>
+    <li><a href="hub.html" aria-current="page">All reports</a></li>
     <li><a href="research.html">Service landscape</a></li>
     <li><a href="ctm.html"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
     <li><a href="autism.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> Autism team</a></li>
     <li><a href="adhd.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> ADHD team</a></li>
+    <li><a href="combined.html"><span class="prog-nav-tag prog-tag-prog">Combined</span> All findings</a></li>
   </ul>
-  <span class="prog-nav-context" aria-hidden="true">Trial ongoing · Hywel Dda</span>
 </nav>
 
 <!-- STATUS BANNER -->
 <div class="status-banner" role="status" aria-live="polite">
   <div class="status-inner">
     <span class="status-dot" aria-hidden="true"></span>
-    <span class="status-text">Trial in progress — <span>Hywel Dda University Health Board diary study ongoing. Combined findings report will be published on trial completion.</span></span>
+    <span class="status-text">Reports now published — <span>Combined findings, Hywel Dda, CTM and pathway research all available. <a href="combined.html" style="color:inherit;font-weight:600;text-decoration:underline;">Read the combined report →</a></span></span>
   </div>
 </div>
 
@@ -479,17 +480,17 @@ footer a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 2px; border
         <div class="tl-detail">5 clinicians · 6 weeks · 726 tasks<br>Cwm Taf Morgannwg UHB<br>Children's ND Service</div>
         <div class="tl-status" aria-label="Status: Complete">✓ Complete</div>
       </div>
-      <div class="tl-active timeline-step" role="listitem">
+      <div class="tl-done timeline-step" role="listitem">
         <div class="tl-num" aria-hidden="true">2</div>
-        <div class="tl-label">Hywel Dda Diary Study</div>
-        <div class="tl-detail">Autism team · ADHD team<br>Hywel Dda University Health Board<br>Diary study format</div>
-        <div class="tl-status" aria-label="Status: In progress">● In progress</div>
+        <div class="tl-label">Hywel Dda Pilot</div>
+        <div class="tl-detail">Autism team · ADHD team<br>Hywel Dda University Health Board<br>57+ diary entries</div>
+        <div class="tl-status" aria-label="Status: Complete">✓ Complete</div>
       </div>
-      <div class="tl-pending timeline-step" role="listitem">
+      <div class="tl-done timeline-step" role="listitem">
         <div class="tl-num" aria-hidden="true">3</div>
         <div class="tl-label">Combined findings report</div>
-        <div class="tl-detail">Cross-LHB synthesis<br>Both health boards · All three teams<br>Recommendations for Wales-wide adoption</div>
-        <div class="tl-status" aria-label="Status: Pending trial completion">Pending trial completion</div>
+        <div class="tl-detail">CTM + Hywel Dda · Both health boards<br>All three teams · March 2026</div>
+        <div class="tl-status" aria-label="Status: Complete">✓ Complete</div>
       </div>
     </div>
   </section>
@@ -498,9 +499,31 @@ footer a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 2px; border
   <section aria-labelledby="reports-heading" style="margin-bottom:3.5rem;">
     <span class="eyebrow">Reports</span>
     <h2 id="reports-heading">All evidence reports</h2>
-    <p class="lead">Each report covers a different team or phase. The combined report will bring all findings together when the Hywel Dda trial concludes.</p>
+    <p class="lead">Each report covers a different team or phase. The combined report brings all findings together across both health boards and all three teams.</p>
 
     <div class="reports-grid">
+
+      <!-- Service design narrative -->
+      <a href="index.html" class="report-card" aria-label="Read the service design narrative">
+        <div class="report-card-stripe stripe-ctm" aria-hidden="true"></div>
+        <div class="report-card-body">
+          <span class="report-card-tag tag-ctm" aria-label="Scope: Wales-wide">Wales-wide · Service Design</span>
+          <h3>Service Design Narrative</h3>
+          <p class="report-card-sub">The full story — from the pressures on Welsh ND services, through the AI scribe pilot, to the evidence and what comes next. Includes pathway maps, personas, savings calculator and tool comparison.</p>
+          <div class="report-card-stats" aria-label="Key statistics">
+            <span class="stat-chip">Pathway maps</span>
+            <span class="stat-chip">11 patterns</span>
+            <span class="stat-chip">Tool comparison</span>
+          </div>
+        </div>
+        <div class="report-card-footer">
+          <span class="report-card-date">2024–2026 · Service design research</span>
+          <span class="report-card-cta" aria-hidden="true">
+            Explore
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </span>
+        </div>
+      </a>
 
       <!-- CTM Research -->
       <a href="research.html" class="report-card" aria-label="Read the Wales-wide ND pathway research">
@@ -551,12 +574,12 @@ footer a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 2px; border
         <div class="report-card-stripe stripe-hdda" aria-hidden="true"></div>
         <div class="report-card-body">
           <span class="report-card-tag tag-hdda" aria-label="Organisation: Hywel Dda University Health Board">HDDA · Hywel Dda</span>
-          <h3>Autism Team Diary Study</h3>
+          <h3>HD Autism Pilot Report</h3>
           <p class="report-card-sub">57 diary entries across clinical assessments, panel presentations, new patient assessments, and final reports. Includes detailed hallucination and quality findings.</p>
           <div class="report-card-stats" aria-label="Key statistics">
             <span class="stat-chip purple">40–65% time saved</span>
             <span class="stat-chip purple">81% quality Yes</span>
-            <span class="stat-chip purple">57 entries</span>
+            
           </div>
         </div>
         <div class="report-card-footer">
@@ -573,7 +596,7 @@ footer a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 2px; border
         <div class="report-card-stripe stripe-hdda" aria-hidden="true"></div>
         <div class="report-card-body">
           <span class="report-card-tag tag-hdda" aria-label="Organisation: Hywel Dda University Health Board">HDDA · Hywel Dda</span>
-          <h3>ADHD Team Diary Study</h3>
+          <h3>HD ADHD Pilot Report</h3>
           <p class="report-card-sub">10 diary entries across regular reviews, ratification and DIVA assessments. Strongest time savings in the programme to date — 81% on Other Uses. Medication hallucinations flagged in reviews.</p>
           <div class="report-card-stats" aria-label="Key statistics">
             <span class="stat-chip purple">62.4% time saved</span>
@@ -590,27 +613,27 @@ footer a:focus-visible { outline: 2px solid #6dd0d0; outline-offset: 2px; border
         </div>
       </a>
 
-      <!-- Combined — coming soon -->
-      <div class="report-card report-card-soon" aria-label="Combined findings report — coming after trial completion" role="article">
+      <!-- Combined report -->
+      <a href="combined.html" class="report-card" aria-label="Read the combined findings report">
         <div class="report-card-stripe stripe-combined" aria-hidden="true"></div>
         <div class="report-card-body">
-          <span class="coming-badge" aria-label="Status: Coming soon">
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
-            Coming after trial completion
-          </span>
+          <span class="report-card-tag tag-combined" aria-label="Scope: Cross-health-board">Combined · CTM + Hywel Dda</span>
           <h3>Combined Findings Report</h3>
-          <p class="report-card-sub">A synthesis of all three teams across both health boards — quantitative comparison, cross-LHB patterns, hallucination analysis, and recommendations for Wales-wide adoption of AI scribes in ND services.</p>
-          <div class="report-card-stats" aria-label="What will be covered">
-            <span class="stat-chip muted">CTM + HDDA combined</span>
-            <span class="stat-chip muted">Cross-LHB comparison</span>
-            <span class="stat-chip muted">Adoption recommendations</span>
+          <p class="report-card-sub">The first cross-health-board report. Three teams, two health boards — time savings, quality outcomes, shared findings and recommendations for Wales-wide adoption.</p>
+          <div class="report-card-stats" aria-label="Key statistics">
+            <span class="stat-chip">783+ sessions</span>
+            <span class="stat-chip">560h saved (CTM)</span>
+            <span class="stat-chip amber">76% top saving (HD)</span>
           </div>
         </div>
         <div class="report-card-footer">
-          <span class="report-card-date">Pending · Hywel Dda trial completion</span>
-          <span class="report-card-cta" aria-hidden="true">Not yet available</span>
+          <span class="report-card-date">March 2026 · CTM + Hywel Dda</span>
+          <span class="report-card-cta" aria-hidden="true" style="color:#065f5f;">
+            Read report
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </span>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>

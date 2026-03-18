@@ -83,7 +83,7 @@ nav {
 .band-white { background: var(--white); }
 .band-ink { background: var(--ink); }
 
-.eyebrow { display: block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.6rem; }
+.eyebrow { display: block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #9a5e00; margin-bottom: 0.6rem; }
 h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 2.8vw, 2.4rem); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 1rem; }
 h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.3; }
 .lead { font-size: 1.05rem; color: var(--mid); max-width: 640px; line-height: 1.7; margin-bottom: 2.5rem; }
@@ -175,7 +175,7 @@ h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 600; color:
 .vs-row:not(:first-child) { background: var(--white); }
 .vs-row:not(:first-child):hover { background: var(--teal-lt); }
 .vs-n { font-family: 'Fraunces', serif; font-weight: 700; color: var(--teal); }
-.dg { color: #22a55e; } .da { color: var(--amber); } .dr { color: var(--rose); }
+.dg { color: #22a55e; } .da { color: #9a5e00; } .dr { color: var(--rose); }
 
 .om-tbl { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
 .om-tbl th { text-align: left; padding: 0.75rem 1rem; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); background: var(--dust); border-bottom: 1px solid var(--border); }
@@ -263,70 +263,26 @@ footer a:hover { color: #fff; }
 body { padding-top: 52px !important; }
 
 </style>
-<script>
-(function(){
-  var PW = 'ndservice26';
-  var KEY = 'nd_auth';
-  if(sessionStorage.getItem(KEY) === '1') return;
-  document.documentElement.style.visibility = 'hidden';
-  function showGate(){
-    document.documentElement.style.visibility = '';
-    var ov = document.createElement('div');
-    ov.id = 'pw-gate';
-    ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#0f1a1a;display:flex;align-items:center;justify-content:center;font-family:sans-serif;';
-    ov.innerHTML = '<div style="background:#1a2e2e;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2.5rem 2.5rem 2rem;max-width:380px;width:90%;text-align:center;">'
-      + '<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a6b6b,#2a9090);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;">'
-      + '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="14" height="10" rx="2"/><path d="M7 9V6a3 3 0 016 0v3"/></svg>'
-      + '</div>'
-      + '<p style="font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6dd0d0;margin-bottom:.5rem;">ND Services in Wales</p>'
-      + '<h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.4rem;">Restricted access</h1>'
-      + '<p style="font-size:.85rem;color:rgba(255,255,255,0.45);margin-bottom:1.6rem;line-height:1.6;">This site contains draft research and pilot data. Please enter the access password to continue.</p>'
-      + '<input id="pw-input" type="password" placeholder="Enter password" autocomplete="current-password" style="width:100%;padding:.75rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:.95rem;outline:none;margin-bottom:.75rem;box-sizing:border-box;" />'
-      + '<div id="pw-err" style="font-size:.78rem;color:#f87171;margin-bottom:.6rem;min-height:1.2em;"></div>'
-      + '<button id="pw-btn" style="width:100%;padding:.8rem;background:#1a6b6b;color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;">Continue</button>'
-      + '</div>';
-    document.body.prepend(ov);
-    document.body.style.overflow = 'hidden';
-    function attempt(){
-      if(document.getElementById('pw-input').value === PW){
-        sessionStorage.setItem(KEY,'1');
-        ov.style.transition = 'opacity .3s';
-        ov.style.opacity = '0';
-        setTimeout(function(){ ov.remove(); document.body.style.overflow = ''; }, 320);
-      } else {
-        document.getElementById('pw-err').textContent = 'Incorrect password — please try again.';
-        document.getElementById('pw-input').value = '';
-        document.getElementById('pw-input').focus();
-      }
-    }
-    document.getElementById('pw-btn').addEventListener('click', attempt);
-    document.getElementById('pw-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') attempt(); });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', showGate);
-  } else {
-    showGate();
-  }
-})();
-</script>
+
 </head>
 <body>
 
 <a href="#main-content" class="prog-skip">Skip to main content</a>
 <nav class="prog-nav" aria-label="Programme navigation">
-  <a href="hub.html" class="prog-nav-home" aria-label="All reports — ND Services in Wales home">
+  <a href="index.html" class="prog-nav-home" aria-label="ND Services in Wales — home">
     <span class="prog-home-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l6-4 6 4v8H2z"/><rect x="5" y="9" width="3" height="5" rx="0.5"/></svg></span>
     <span class="prog-home-label">ND Services<strong>in Wales</strong></span>
   </a>
   <span class="prog-divider" aria-hidden="true"></span>
   <ul class="prog-nav-links" role="list">
+    <li><a href="index.html">Service design</a></li>
     <li><a href="hub.html">All reports</a></li>
     <li><a href="research.html">Service landscape</a></li>
-    <li><a href="ctm.html" aria-current="page"><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
+    <li><a href="ctm.html" aria-current="page" ><span class="prog-nav-tag prog-tag-ctm">CTM</span> Pilot data</a></li>
     <li><a href="autism.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> Autism team</a></li>
     <li><a href="adhd.html"><span class="prog-nav-tag prog-tag-hdda">HD</span> ADHD team</a></li>
+    <li><a href="combined.html"><span class="prog-nav-tag prog-tag-prog">Combined</span> All findings</a></li>
   </ul>
-  <span class="prog-nav-context" aria-hidden="true">Trial ongoing · Hywel Dda</span>
 </nav>
 
 <!-- HERO -->
@@ -371,13 +327,6 @@ body { padding-top: 52px !important; }
         <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:1.8rem;">
           <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-bottom:1.2rem;">Your team</p>
           <div style="margin-bottom:1.4rem;">
-            <label style="display:block;font-size:0.85rem;color:rgba(255,255,255,0.7);margin-bottom:0.5rem;">Number of clinicians using AI scribe</label>
-            <div style="display:flex;align-items:center;gap:0.8rem;">
-              <input type="range" id="calc-clinicians" aria-label="Number of clinicians" min="1" max="50" value="5" style="flex:1;accent-color:#6dd0d0;cursor:pointer;">
-              <span id="calc-clinicians-val" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;min-width:2.5rem;text-align:right;">5</span>
-            </div>
-          </div>
-          <div style="margin-bottom:1.4rem;">
             <label style="display:block;font-size:0.85rem;color:rgba(255,255,255,0.7);margin-bottom:0.5rem;">Time period</label>
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;" id="savings-period-btns">
               <button class="pcalc-btn" data-smonths="6">6 months</button>
@@ -395,8 +344,34 @@ body { padding-top: 52px !important; }
             </div>
           </div>
           <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.08);">
-            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.8rem;">Toggle tasks to include</p>
-            <div id="calc-tasks" style="display:flex;flex-direction:column;gap:0.55rem;"></div>
+            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Tasks per week across your whole team</p><p style="font-size:0.75rem;color:rgba(255,255,255,0.35);margin-bottom:0.8rem;line-height:1.5;">Edit the numbers to match your service. CTM pilot defaults shown — change any figure or add your own tasks.</p>
+            <div id="calc-tasks" style="display:flex;flex-direction:column;gap:0;"></div>
+
+            <div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.08);">
+              <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Add a task</p>
+              <div style="display:flex;gap:0.5rem;align-items:flex-start;flex-wrap:wrap;">
+                <input type="text" id="new-task-name" placeholder="Task name" aria-label="New task name"
+                  style="flex:1;min-width:120px;padding:0.35rem 0.6rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;font-family:'DM Sans',sans-serif;"
+                  onkeydown="if(event.key==='Enter')addTask();">
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <input type="number" id="new-task-tpw" placeholder="0" min="0" max="999" aria-label="Tasks per week"
+                    style="width:60px;padding:0.35rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;text-align:center;font-family:'DM Sans',sans-serif;"
+                    onkeydown="if(event.key==='Enter')addTask();">
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);text-align:center;">per week</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <input type="number" id="new-task-min" placeholder="0" min="0" max="600" aria-label="Minutes saved per task"
+                    style="width:60px;padding:0.35rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;text-align:center;font-family:'DM Sans',sans-serif;"
+                    onkeydown="if(event.key==='Enter')addTask();">
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);text-align:center;">min saved</span>
+                </div>
+                <button onclick="addTask()" aria-label="Add task"
+                  style="padding:0.35rem 0.9rem;background:#6dd0d0;border:none;border-radius:6px;color:#1e2c2c;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;align-self:flex-start;">
+                  + Add
+                </button>
+              </div>
+              <p id="new-task-err" style="font-size:0.72rem;color:#e06060;margin-top:0.4rem;display:none;">Please enter a task name, tasks per week, and minutes saved.</p>
+            </div>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:1rem;">
@@ -409,19 +384,126 @@ body { padding-top: 52px !important; }
             <p id="calc-wte" style="font-size:0.85rem;color:rgba(255,255,255,0.55);margin-bottom:1.4rem;"></p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.15);">
               <div><div id="calc-value" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;"></div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">value of time saved</div></div>
-              <div><div id="calc-children" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;"></div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">more children could be assessed</div></div>
+              <div><div id="calc-children" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;"></div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">more children could be assessed</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.5);margin-top:0.2rem;">based on 3.5–6 hrs per full assessment</div></div>
             </div>
           </div>
           <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.2rem;">
-            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.7rem;">Weekly breakdown</p>
+            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.7rem;">Weekly breakdown</p>
             <div id="calc-breakdown"></div>
           </div>
           <div style="background:rgba(192,120,37,0.1);border:1px solid rgba(192,120,37,0.2);border-radius:10px;padding:1.2rem;">
-            <p style="font-size:0.8rem;color:rgba(255,255,255,0.62);line-height:1.6;"><span style="color:#c07825;font-weight:500;">About these estimates. </span>Based on average task times from a 6-week pilot with 5 clinicians in CTM (Oct&ndash;Nov 2025). Results varied by clinician, case complexity and task type. The &pound;50/hr default is the fully-loaded cost assumption from the pilot report. &ldquo;Children assessed&rdquo; assumes 3.5&ndash;6 hrs per full assessment. Indicative only.</p>
+            <p style="font-size:0.8rem;color:rgba(255,255,255,0.62);line-height:1.6;"><span style="color:#e09020;font-weight:500;">About these estimates. </span>Based on average task times from a 6-week pilot with 5 clinicians in CTM (Oct&ndash;Nov 2025). Results varied by clinician, case complexity and task type. The &pound;50/hr default is the fully-loaded cost assumption from the pilot report. &ldquo;Children assessed&rdquo; assumes 3.5&ndash;6 hrs per full assessment. Indicative only.</p>
+          </div>
+
+          <!-- SHOW THE MATHS -->
+          <div style="margin-top:0.8rem;">
+            <button onclick="var p=document.getElementById('calc-maths');var open=p.style.display!=='none';p.style.display=open?'none':'block';this.textContent=open?'Show the maths ↓':'Hide the maths ↑';"
+              style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:0.78rem;font-weight:500;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;letter-spacing:0.03em;">
+              Show the maths ↓
+            </button>
+            <div id="calc-maths" style="display:none;margin-top:0.8rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.2rem;font-size:0.8rem;line-height:1.7;color:rgba(255,255,255,0.55);">
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.6rem;font-size:0.82rem;">Step 1 — Hours saved per task, per week</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">hours/week = (tasks per week × minutes saved) ÷ 60</p>
+              <p style="margin-bottom:0.8rem;">You enter how many times each task type happens across your whole team per week. This is multiplied by the average minutes Magic Notes saves per task (from the CTM pilot), then divided by 60 to convert to hours. It doesn't matter which clinician does which task — you're entering the team total.</p>
+              <p id="calc-maths-tasks" style="font-family:monospace;font-size:0.75rem;color:rgba(255,255,255,0.45);white-space:pre-line;margin-bottom:0.8rem;"></p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 2 — Total hours over the period</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">total hours = hours/week × (months × 4.345)</p>
+              <p id="calc-maths-hours" style="margin-bottom:0.8rem;"></p>
+              <p style="margin-bottom:0.8rem;">4.345 is the average number of weeks in a month (52 ÷ 12).</p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 3 — £ value of time saved</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">£ value = total hours × hourly rate</p>
+              <p id="calc-maths-value" style="margin-bottom:0.8rem;"></p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 4 — WTE equivalent</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">WTE = total hours ÷ 1,650</p>
+              <p id="calc-maths-wte" style="margin-bottom:0.8rem;"></p>
+              <p style="margin-bottom:0.8rem;">1,650 is a standard NHS full-time equivalent annual hours figure (37.5 hrs/wk × 44 working weeks).</p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 5 — Children who could be assessed</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">children = total hours ÷ 6  →  lower estimate (complex cases)
+children = total hours ÷ 3.5  →  upper estimate (straightforward cases)</p>
+              <p style="margin-bottom:0.4rem;">A full ND assessment typically takes between 3.5 and 6 hours of clinical time, depending on complexity. These are the bounds used to give a range rather than a single figure. This is a rough indicator — not a capacity plan.</p>
+              <p id="calc-maths-children" style="margin-bottom:0;"></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div id="tab-compare" style="display:none;">
+
+      <!-- Sticky inputs bar -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Clinicians:</label>
+          <input type="range" id="cmp-clin" min="1" max="50" value="5" style="width:100px;accent-color:#6dd0d0;cursor:pointer;">
+          <span id="cmp-clin-val" style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#6dd0d0;min-width:1.5rem;">5</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Tasks/clinician/week:</label>
+          <input type="range" id="cmp-tasks" min="5" max="60" value="21" style="width:100px;accent-color:#6dd0d0;cursor:pointer;">
+          <span id="cmp-tasks-val" style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#6dd0d0;min-width:1.5rem;">21</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Over:</label>
+          <div style="display:flex;gap:0.4rem;">
+            <button class="pcalc-btn" data-cmpmonths="1">1mo</button>
+            <button class="pcalc-btn" data-cmpmonths="3">3mo</button>
+            <button class="pcalc-btn pcalc-active" data-cmpmonths="12">1yr</button>
+            <button class="pcalc-btn" data-cmpmonths="24">2yr</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem;" id="tool-cards"></div>
+
+      <!-- Needs comparison table -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+        <div style="padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);">How each tool maps to the ND service user needs from this research</p>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.82rem;" id="needs-cmp-tbl">
+            <thead id="ncmp-head"></thead>
+            <tbody id="ncmp-body"></tbody>
+          </table>
+        </div>
+        <div style="padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.08);">
+          <p style="font-size:0.76rem;color:rgba(255,255,255,0.35);line-height:1.55;">
+            \u2713 Confirmed by evidence &nbsp;\u00b7&nbsp; ~ Plausible based on product description &nbsp;\u00b7&nbsp; ? Not verified &nbsp;\u00b7&nbsp; \u2717 Known gap &nbsp;\u00b7&nbsp; \u2014 Not applicable<br>
+            Only Magic Notes has been tested against these specific needs in a Welsh ND service. All other assessments are based on publicly available product information and should be verified through your own evaluation.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+<style>
+.ctab { padding:0.6rem 1.2rem; background:transparent; border:none; border-bottom:2px solid transparent; color:rgba(255,255,255,0.45); font-size:0.82rem; font-weight:500; cursor:pointer; transition:all 0.15s; margin-bottom:-1px; }
+.ctab:hover { color:rgba(255,255,255,0.7); }
+.ctab.ctab-on { color:#6dd0d0; border-bottom-color:#6dd0d0; }
+.pcalc-btn { padding:0.32rem 0.75rem; border-radius:2rem; border:1px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.55); font-size:0.78rem; font-weight:500; cursor:pointer; transition:all 0.15s; }
+.pcalc-btn:hover { border-color:#6dd0d0; color:#6dd0d0; }
+.pcalc-btn.pcalc-active { background:#6dd0d0; color:#1e2c2c; border-color:#6dd0d0; font-weight:600; }
+.ctask-row { display:flex; align-items:center; justify-content:space-between; font-size:0.8rem; cursor:pointer; }
+.ctask-label { color:rgba(255,255,255,0.6); display:flex; align-items:center; gap:0.45rem; }
+.ctask-min { color:rgba(255,255,255,0.5); font-size:0.74rem; white-space:nowrap; }
+.cbreak-row { display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; padding:0.28rem 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+.cbreak-row:last-child { border-bottom:none; padding-top:0.4rem; margin-top:0.1rem; border-top:1px solid rgba(255,255,255,0.1); }
+.cbreak-lbl { color:rgba(255,255,255,0.45); }
+.cbreak-val { color:rgba(255,255,255,0.75); font-weight:500; }
+.tool-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:1.3rem; }
+.tool-card-tested { border-color:rgba(109,208,
+
+
   </div>
 </div>
 
@@ -434,7 +516,7 @@ body { padding-top: 52px !important; }
 .pcalc-btn.pcalc-active{background:#6dd0d0;color:#1e2c2c;border-color:#6dd0d0;font-weight:600;}
 .ctask-row{display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;cursor:pointer;}
 .ctask-label{color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:0.45rem;}
-.ctask-min{color:rgba(255,255,255,0.3);font-size:0.74rem;white-space:nowrap;}
+.ctask-min{color:rgba(255,255,255,0.5);font-size:0.74rem;white-space:nowrap;}
 .cbreak-row{display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
 .cbreak-row:last-child{border-bottom:none;padding-top:0.4rem;margin-top:0.1rem;border-top:1px solid rgba(255,255,255,0.1);}
 .cbreak-lbl{color:rgba(255,255,255,0.62);}
@@ -458,137 +540,10 @@ body { padding-top: 52px !important; }
 .ncmp-tr:hover .ncmp-td{background:rgba(255,255,255,0.03);}
 .ncmp-need{font-size:0.8rem;color:rgba(255,255,255,0.62);line-height:1.35;max-width:270px;}
 .ncmp-conf{font-size:0.95rem;display:block;text-align:center;}
-.c-yes{color:#6dd0d0;} .c-maybe{color:#c07825;} .c-unk{color:rgba(255,255,255,0.25);} .c-no{color:#9e3a47;}
+.c-yes{color:#6dd0d0;} .c-maybe{color:#cc8020;} .c-unk{color:rgba(255,255,255,0.25);} .c-no{color:#9e3a47;}
 </style>
 
-<script>
-(function(){
-var TASKS=[
-  {label:"New patient assessment (in-person)",tpw:20,min:30,on:true},
-  {label:"Assessment write-up",tpw:20,min:124.5,on:true},
-  {label:"Patient summary",tpw:20,min:41,on:true},
-  {label:"ADHD medication review",tpw:20,min:27.5,on:true},
-  {label:"Letters & admin",tpw:40,min:28,on:true},
-  {label:"Meetings & coordination",tpw:1,min:20,on:false}
-];
-var PC=5, WPM=4.345;
-var TOOLS=[
-  {id:"mn",name:"Magic Notes",tested:true,perUse:5,mpu:null,editable:false,
-   note:"£5 per use. Pilot data from CTM: 5 clinicians, 6 weeks, 726 tasks.",
-   facts:[
-     {i:"✓",t:"Tested in CTM ND service — 6 weeks, 5 clinicians, 726 tasks"},
-     {i:"✓",t:"GDPR compliant. 7-day auto-deletion (30–60 days recommended)"},
-     {i:"✓",t:"110+ languages; bilingual sessions tested in pilot"},
-     {i:"✗",t:"Welsh-only sessions: hallucinations observed — not safe for Welsh-medium use yet"},
-     {i:"?",t:"NHS Wales / WHC IG status: verify against WHC 2025/026"},
-     {i:"✓",t:"Neuro-affirming report templates; customisable"}
-   ],
-   needs:{present:"✓",transcription:"✓",backlog:"✓",bilingual:"~",welsh:"✗",templates:"✓",panel:"✓",referral:"✓"}
-  },
-  {id:"hh",name:"Heidi Health",tested:false,perUse:null,mpu:79,editable:true,
-   note:"Free tier (limited). Paid plan ~$99/month per clinician (UK £ price: contact sales). Enterprise via sales.",
-   facts:[
-     {i:"✓",t:"GDPR, SOC2, ISO27001; meets NHS standards"},
-     {i:"✓",t:"110+ languages; used in 116 countries"},
-     {i:"?",t:"Welsh-language support: not confirmed"},
-     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
-     {i:"~",t:"Primarily GP/primary care; ND specialist templates not confirmed"},
-     {i:"!",t:"UK/EU: clinical evidence feature unavailable during live sessions"}
-   ],
-   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"~",welsh:"?",templates:"~",panel:"?",referral:"~"}
-  },
-  {id:"to",name:"TORTUS",tested:false,perUse:null,mpu:44,editable:true,
-   note:"Pilot pricing £44/mo/licence (expired Mar 2025). Enterprise: £200K per 100K audio hours. Current pricing: contact sales.",
-   facts:[
-     {i:"✓",t:"DTAC assured, MHRA Class I, UK GDPR compliant"},
-     {i:"✓",t:"Led 9-site NHS England trial (17,000+ encounters, GOSH 2025)"},
-     {i:"✓",t:"23.5% increase in patient interaction time (GOSH trial)"},
-     {i:"?",t:"Welsh-language support: not confirmed"},
-     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
-     {i:"~",t:"Primarily acute/ED/GP setting; ND-specific evidence limited"}
-   ],
-   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"~",panel:"?",referral:"?"}
-  },
-  {id:"ax",name:"Accurx Scribe (Tandem)",tested:false,perUse:null,mpu:null,editable:true,
-   note:"NHS pricing not public. Integrated into Accurx platform (98% of GP practices). Contact sales.",
-   facts:[
-     {i:"✓",t:"MHRA Class I, NHS DTAC compliant"},
-     {i:"✓",t:"EMIS/SystmOne write-back; 97% clinical accuracy (independent audit)"},
-     {i:"~",t:"Primarily GP/primary care — ND specialist fit unclear"},
-     {i:"?",t:"Welsh-language support: not confirmed"},
-     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
-     {i:"✗",t:"No ND-specific evidence; no specialist pathway data"}
-   ],
-   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"?",panel:"?",referral:"?"}
-  }
-];
-var DIMS=[
-  {k:"present",    l:"Clinician fully present in session (not typing)"},
-  {k:"transcription",l:"Accurate transcription in ND sessions (echolalia, accents, noise, overlapping speech)"},
-  {k:"backlog",    l:"Near-final report draft shortly after appointment"},
-  {k:"bilingual",  l:"Bilingual and multilingual sessions"},
-  {k:"welsh",      l:"Welsh-only sessions without hallucinations"},
-  {k:"templates",  l:"Customisable neuro-affirming report templates"},
-  {k:"panel",      l:"MDT / panel summary support"},
-  {k:"referral",   l:"Referral document upload and summarisation"}
-];
 
-// Tab switching
-document.querySelectorAll(".ctab").forEach(function(b){
-  b.addEventListener("click",function(){
-    document.querySelectorAll(".ctab").forEach(function(x){x.classList.remove("ctab-on");x.setAttribute("aria-selected","false");});
-    b.classList.add("ctab-on");
-    b.setAttribute("aria-selected","true");
-    document.getElementById("tab-savings").style.display=b.dataset.tab==="savings"?"":"none";
-    document.getElementById("tab-compare").style.display=b.dataset.tab==="compare"?"":"none";
-  });
-});
-
-// Savings calculator
-var tc=document.getElementById("calc-tasks");
-if(tc) TASKS.forEach(function(t,i){
-  var row=document.createElement("label");
-  row.className="ctask-row";
-  row.innerHTML='<span class="ctask-label"><input type="checkbox" '+(t.on?"checked":"")+'style="accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;"> '+t.label+'</span><span class="ctask-min">~'+t.min+' min</span>';
-  row.querySelector("input").addEventListener("change",function(e){t.on=e.target.checked;recS();});
-  tc&&tc.appendChild(row);
-});
-function fN(n){return Math.round(n).toLocaleString("en-GB");}
-function fH(n){return (Math.round(n*10)/10).toLocaleString("en-GB",{maximumFractionDigits:1});}
-function recS(){
-  var clin=parseInt(document.getElementById("calc-clinicians").value,10);
-  var rate=parseInt(document.getElementById("calc-rate").value,10);
-  var ab=document.querySelector("[data-smonths].pcalc-active");
-  var mo=ab?parseInt(ab.dataset.smonths,10):12;
-  var sc=clin/PC, wk=mo*WPM, wH=0, bd=[];
-  TASKS.forEach(function(t){if(!t.on)return; var h=(t.tpw*t.min/60)*sc; wH+=h; bd.push({l:t.label,h:h});});
-  var tH=wH*wk, tV=tH*rate, wte=rate>0?tV/(rate*1650):0;
-  document.getElementById("calc-hours").textContent=fH(tH);
-  document.getElementById("calc-value").textContent="£"+fN(tV);
-  document.getElementById("calc-children").textContent=fN(tH/6)+"–"+fN(tH/3.5);
-  document.getElementById("calc-wte").textContent=wte.toFixed(1)+" WTE equivalent over "+mo+(mo===1?" month":" months");
-  var bdEl=document.getElementById("calc-breakdown"); bdEl.innerHTML="";
-  bd.sort(function(a,b){return b.h-a.h;}).forEach(function(t){
-    var r=document.createElement("div");r.className="cbreak-row";
-    r.innerHTML='<span class="cbreak-lbl">'+t.l+'</span><span class="cbreak-val">'+fH(t.h)+" hrs/wk</span>";
-    bdEl.appendChild(r);
-  });
-  var tot=document.createElement("div");tot.className="cbreak-row";
-  tot.innerHTML='<span style="color:rgba(255,255,255,0.7);font-weight:500;">Total per week</span><span style="color:#6dd0d0;font-weight:600;">'+fH(wH)+" hrs/wk</span>";
-  bdEl.appendChild(tot);
-}
-document.getElementById("calc-clinicians").addEventListener("input",function(){document.getElementById("calc-clinicians-val").textContent=this.value;recS();});
-document.getElementById("calc-rate").addEventListener("input",function(){document.getElementById("calc-rate-val").textContent=this.value;recS();});
-document.querySelectorAll("[data-smonths]").forEach(function(b){
-  b.addEventListener("click",function(){
-    document.querySelectorAll("[data-smonths]").forEach(function(x){x.classList.remove("pcalc-active");});
-    b.classList.add("pcalc-active"); recS();
-  });
-});
-
-recS();
-})();
-</script>
 
 
 <!-- ═══ CHAPTER 2 ═══ -->
@@ -628,8 +583,8 @@ recS();
               <div class="wer-row"><span class="wer-label">Accents</span><div class="wer-track"><div class="wer-fill" style="width:20%;background:var(--teal)"></div></div><span class="wer-val" style="color:var(--teal)">~2%</span></div>
               <div class="wer-row"><span class="wer-label">Topic switching</span><div class="wer-track"><div class="wer-fill" style="width:30%;background:var(--teal)"></div></div><span class="wer-val" style="color:var(--teal)">~3%</span></div>
               <div class="wer-row"><span class="wer-label">Non-verbal / sensitive</span><div class="wer-track"><div class="wer-fill" style="width:50%;background:var(--teal)"></div></div><span class="wer-val" style="color:var(--teal)">~5%</span></div>
-              <div class="wer-row"><span class="wer-label">Disruptive environment</span><div class="wer-track"><div class="wer-fill" style="width:70%;background:var(--amber)"></div></div><span class="wer-val" style="color:var(--amber)">~7%</span></div>
-              <div class="wer-row"><span class="wer-label">Quiet / hesitant voice</span><div class="wer-track"><div class="wer-fill" style="width:90%;background:var(--amber)"></div></div><span class="wer-val" style="color:var(--amber)">~9%</span></div>
+              <div class="wer-row"><span class="wer-label">Disruptive environment</span><div class="wer-track"><div class="wer-fill" style="width:70%;background:var(--amber)"></div></div><span class="wer-val" style="color:#cc8020">~7%</span></div>
+              <div class="wer-row"><span class="wer-label">Quiet / hesitant voice</span><div class="wer-track"><div class="wer-fill" style="width:90%;background:var(--amber)"></div></div><span class="wer-val" style="color:#cc8020">~9%</span></div>
               <div class="wer-row"><span class="wer-label">Bilingual (Welsh/Eng)</span><div class="wer-track"><div class="wer-fill" style="width:100%;background:var(--rose)"></div></div><span class="wer-val" style="color:var(--rose)">~10%</span></div>
               <div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--border);">
                 <div class="wer-row"><span class="wer-label" style="font-weight:500;">Average, all tests</span><div class="wer-track"><div class="wer-fill" style="width:66%;background:var(--ink)"></div></div><span class="wer-val" style="color:var(--ink);font-weight:500">6.6%</span></div>
@@ -704,7 +659,7 @@ recS();
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;">
         <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.4rem;border-top:3px solid var(--teal);" class="reveal"><div style="font-family:'Fraunces',serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">01</div><div style="font-weight:500;margin-bottom:0.5rem;">Scale adoption across Welsh ND services</div><p style="font-size:0.83rem;color:var(--mid);line-height:1.5;">Evidence supports expansion beyond CTM. WHC 2025/026 provides the IG basis. Each health board should not need to start from scratch.</p></div>
         <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.4rem;border-top:3px solid var(--teal);" class="reveal"><div style="font-family:'Fraunces',serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">02</div><div style="font-weight:500;margin-bottom:0.5rem;">Co-design templates with clinicians and families</div><p style="font-size:0.83rem;color:var(--mid);line-height:1.5;">Templates for school obs, ADOS, non-diagnosis letters and supervision are already requested. Families should help shape neuro-affirming report language.</p></div>
-        <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.4rem;border-top:3px solid var(--amber);" class="reveal"><div style="font-family:'Fraunces',serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-bottom:0.6rem;">03</div><div style="font-weight:500;margin-bottom:0.5rem;">Redesign the service model — not just the tools</div><p style="font-size:0.83rem;color:var(--mid);line-height:1.5;">AI scribe creates capacity. That capacity should be reinvested in family time, differentiated pathways and proportionate panel use — not absorbed back into backlogs.</p></div>
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.4rem;border-top:3px solid var(--amber);" class="reveal"><div style="font-family:'Fraunces',serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#9a5e00;margin-bottom:0.6rem;">03</div><div style="font-weight:500;margin-bottom:0.5rem;">Redesign the service model — not just the tools</div><p style="font-size:0.83rem;color:var(--mid);line-height:1.5;">AI scribe creates capacity. That capacity should be reinvested in family time, differentiated pathways and proportionate panel use — not absorbed back into backlogs.</p></div>
         <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.4rem;border-top:3px solid var(--teal);" class="reveal"><div style="font-family:'Fraunces',serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">04</div><div style="font-weight:500;margin-bottom:0.5rem;">Extend data retention to 30–60 days</div><p style="font-size:0.83rem;color:var(--mid);line-height:1.5;">The pilot's 7-day period was set for procurement speed — too short for real workflows. Standard practice in comparable services is 30–60 days.</p></div>
         <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.4rem;border-top:3px solid var(--teal);" class="reveal"><div style="font-family:'Fraunces',serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">05</div><div style="font-weight:500;margin-bottom:0.5rem;">Track and publish hallucination rates</div><p style="font-size:0.83rem;color:var(--mid);line-height:1.5;">Systematic tracking is essential for governance and for making the case to sceptical health boards. A simple tally per clinician per period is sufficient to build confidence.</p></div>
       </div>
@@ -754,7 +709,604 @@ recS();
     </div>
   </div>
 </footer>
+
+
+
+
+<div style="max-width:1100px;margin:0 auto;padding:0 40px 60px;">
+  <hr style="border:none;border-top:1px solid var(--border);margin-bottom:32px;">
+  <p style="font-size:13px;color:var(--ink-mid);margin-bottom:12px;">The full CTM pilot evaluation report is available as a Word document.</p>
+  <a href="CTM_End_of_Pilot_Report_-_public__1_.docx" style="display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:8px;text-decoration:none;" download>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
+    Download CTM pilot report (.docx)
+  </a>
+  <a href="combined_report_v2.docx" style="display:inline-flex;align-items:center;gap:8px;background:#1a6b6b;color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:8px;text-decoration:none;margin-left:12px;" download>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M3 13h10"/></svg>
+    Download combined report (.docx)
+  </a>
+</div>
 <script>
+
+(function(){
+(function(){
+  var PW = 'ndservice26';
+  var KEY = 'nd_auth';
+  if(sessionStorage.getItem(KEY) === '1') return;
+  document.documentElement.style.visibility = 'hidden';
+  function showGate(){
+    document.documentElement.style.visibility = '';
+    var ov = document.createElement('div');
+    ov.id = 'pw-gate';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#0f1a1a;display:flex;align-items:center;justify-content:center;font-family:sans-serif;';
+    ov.innerHTML = '<div style="background:#1a2e2e;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2.5rem 2.5rem 2rem;max-width:380px;width:90%;text-align:center;">'
+      + '<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a6b6b,#2a9090);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;">'
+      + '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="14" height="10" rx="2"/><path d="M7 9V6a3 3 0 016 0v3"/></svg>'
+      + '</div>'
+      + '<p style="font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6dd0d0;margin-bottom:.5rem;">ND Services in Wales</p>'
+      + '<h1 style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.4rem;">Restricted access</h1>'
+      + '<p style="font-size:.85rem;color:rgba(255,255,255,0.45);margin-bottom:1.6rem;line-height:1.6;">This site contains draft research and pilot data. Please enter the access password to continue.</p>'
+      + '<input id="pw-input" type="password" placeholder="Enter password" autocomplete="current-password" style="width:100%;padding:.75rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:.95rem;outline:none;margin-bottom:.75rem;box-sizing:border-box;" />'
+      + '<div id="pw-err" style="font-size:.78rem;color:#f87171;margin-bottom:.6rem;min-height:1.2em;"></div>'
+      + '<button id="pw-btn" style="width:100%;padding:.8rem;background:#1a6b6b;color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;">Continue</button>'
+      + '</div>';
+    document.body.prepend(ov);
+    document.body.style.overflow = 'hidden';
+    function attempt(){
+      if(document.getElementById('pw-input').value === PW){
+        sessionStorage.setItem(KEY,'1');
+        ov.style.transition = 'opacity .3s';
+        ov.style.opacity = '0';
+        setTimeout(function(){ ov.remove(); document.body.style.overflow = ''; }, 320);
+      } else {
+        document.getElementById('pw-err').textContent = 'Incorrect password — please try again.';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('pw-input').focus();
+      }
+    }
+    document.getElementById('pw-btn').addEventListener('click', attempt);
+    document.getElementById('pw-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') attempt(); });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', showGate);
+  } else {
+    showGate();
+  }
+})();
+
+// ── SAVINGS CALCULATOR ──
+function addTask(){
+  var name=document.getElementById('new-task-name').value.trim();
+  var tpw=parseInt(document.getElementById('new-task-tpw').value)||0;
+  var min=parseFloat(document.getElementById('new-task-min').value)||0;
+  var err=document.getElementById('new-task-err');
+  if(!name||tpw<=0||min<=0){err.style.display='block';return;}
+  err.style.display='none';
+  // TASKS is in shared script scope — accessible directly
+  var t={label:name,tpw:tpw,min:min,on:true};
+  TASKS.push(t);
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);';
+  var chk=document.createElement('input');
+  chk.type='checkbox';chk.checked=true;
+  chk.style.cssText='accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;';
+  chk.setAttribute('aria-label','Include '+name);
+  var lbl=document.createElement('span');
+  lbl.style.cssText='flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;';
+  lbl.textContent=name;
+  var inp=document.createElement('input');
+  inp.type='number';inp.value=tpw;inp.min=0;inp.max=999;
+  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;flex-shrink:0;";
+  inp.setAttribute('aria-label','Tasks per week for '+name);
+  var minSpan=document.createElement('span');
+  minSpan.style.cssText='font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;';
+  minSpan.textContent='~'+min+' min';
+  var del=document.createElement('button');
+  del.type='button';
+  del.textContent='×';
+  del.setAttribute('aria-label','Remove '+name);
+  del.style.cssText='background:none;border:none;color:rgba(255,255,255,0.5);font-size:1rem;cursor:pointer;padding:0;width:18px;text-align:center;line-height:1;flex-shrink:0;';
+  del.addEventListener('click',function(){row.remove();recS();});
+  chk.addEventListener('change',function(){recS();});
+  inp.addEventListener('input',function(){recS();});
+  row.setAttribute('data-task-idx',TASKS.length-1);
+  row.setAttribute('data-task-min',min);
+  row.appendChild(chk);row.appendChild(lbl);row.appendChild(inp);row.appendChild(minSpan);row.appendChild(del);
+  var ct=document.getElementById('calc-tasks'); if(ct){ct.appendChild(row);}
+  document.getElementById('new-task-name').value='';
+  document.getElementById('new-task-tpw').value='';
+  document.getElementById('new-task-min').value='';
+  document.getElementById('new-task-name').focus();
+  recS();
+}
+
+var TASKS=[
+  {label:"New patient assessment (in-person)",tpw:20,min:30,on:true},
+  {label:"Assessment write-up",tpw:20,min:124.5,on:true},
+  {label:"Patient summary",tpw:20,min:41,on:true},
+  {label:"ADHD medication review",tpw:20,min:27.5,on:true},
+  {label:"Letters & admin",tpw:40,min:28,on:true},
+  {label:"Meetings & coordination",tpw:1,min:20,on:false}
+];
+
+var PC=5, WPM=4.345;
+var TOOLS=[
+  {id:"mn",name:"Magic Notes",tested:true,perUse:5,mpu:null,editable:false,
+   note:"£5 per use. Pilot data from CTM: 5 clinicians, 6 weeks, 726 tasks.",
+   facts:[
+     {i:"✓",t:"Tested in CTM ND service — 6 weeks, 5 clinicians, 726 tasks"},
+     {i:"✓",t:"GDPR compliant. 7-day auto-deletion (30–60 days recommended)"},
+     {i:"✓",t:"110+ languages; bilingual sessions tested in pilot"},
+     {i:"✗",t:"Welsh-only sessions: hallucinations observed — not safe for Welsh-medium use yet"},
+     {i:"?",t:"NHS Wales / WHC IG status: verify against WHC 2025/026"},
+     {i:"✓",t:"Neuro-affirming report templates; customisable"}
+   ],
+   needs:{present:"✓",transcription:"✓",backlog:"✓",bilingual:"~",welsh:"✗",templates:"✓",panel:"✓",referral:"✓"}
+  },
+  {id:"hh",name:"Heidi Health",tested:false,perUse:null,mpu:79,editable:true,
+   note:"Free tier (limited). Paid plan ~$99/month per clinician (UK £ price: contact sales). Enterprise via sales.",
+   facts:[
+     {i:"✓",t:"GDPR, SOC2, ISO27001; meets NHS standards"},
+     {i:"✓",t:"110+ languages; used in 116 countries"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily GP/primary care; ND specialist templates not confirmed"},
+     {i:"!",t:"UK/EU: clinical evidence feature unavailable during live sessions"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"~",welsh:"?",templates:"~",panel:"?",referral:"~"}
+  },
+  {id:"to",name:"TORTUS",tested:false,perUse:null,mpu:44,editable:true,
+   note:"Pilot pricing £44/mo/licence (expired Mar 2025). Enterprise: £200K per 100K audio hours. Current pricing: contact sales.",
+   facts:[
+     {i:"✓",t:"DTAC assured, MHRA Class I, UK GDPR compliant"},
+     {i:"✓",t:"Led 9-site NHS England trial (17,000+ encounters, GOSH 2025)"},
+     {i:"✓",t:"23.5% increase in patient interaction time (GOSH trial)"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily acute/ED/GP setting; ND-specific evidence limited"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"~",panel:"?",referral:"?"}
+  },
+  {id:"ax",name:"Accurx Scribe (Tandem)",tested:false,perUse:null,mpu:null,editable:true,
+   note:"NHS pricing not public. Integrated into Accurx platform (98% of GP practices). Contact sales.",
+   facts:[
+     {i:"✓",t:"MHRA Class I, NHS DTAC compliant"},
+     {i:"✓",t:"EMIS/SystmOne write-back; 97% clinical accuracy (independent audit)"},
+     {i:"~",t:"Primarily GP/primary care — ND specialist fit unclear"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"✗",t:"No ND-specific evidence; no specialist pathway data"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"?",panel:"?",referral:"?"}
+  }
+];
+var DIMS=[
+  {k:"present",    l:"Clinician fully present in session (not typing)"},
+  {k:"transcription",l:"Accurate transcription in ND sessions (echolalia, accents, noise, overlapping speech)"},
+  {k:"backlog",    l:"Near-final report draft shortly after appointment"},
+  {k:"bilingual",  l:"Bilingual and multilingual sessions"},
+  {k:"welsh",      l:"Welsh-only sessions without hallucinations"},
+  {k:"templates",  l:"Customisable neuro-affirming report templates"},
+  {k:"panel",      l:"MDT / panel summary support"},
+  {k:"referral",   l:"Referral document upload and summarisation"}
+];
+
+// Tab switching
+document.querySelectorAll(".ctab").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll(".ctab").forEach(function(x){x.classList.remove("ctab-on");x.setAttribute("aria-selected","false");});
+    b.classList.add("ctab-on");
+    b.setAttribute("aria-selected","true");
+    document.getElementById("tab-savings").style.display=b.dataset.tab==="savings"?"":"none";
+    document.getElementById("tab-compare").style.display=b.dataset.tab==="compare"?"":"none";
+  });
+});
+
+// Savings calculator — editable task volumes
+var tc=document.getElementById("calc-tasks");
+// addTask defined as global below
+function fN(n){return Math.round(n).toLocaleString("en-GB");}
+function fH(n){return (Math.round(n*10)/10).toLocaleString("en-GB",{maximumFractionDigits:1});}
+function recS(){
+  var rate=parseInt(document.getElementById("calc-rate").value,10);
+  var ab=document.querySelector("[data-smonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.smonths,10):12;
+  var wk=mo*WPM, wH=0, bd=[];
+  // Read live values straight from the DOM checkboxes and inputs
+  var rows=document.getElementById("calc-tasks").querySelectorAll("div[data-task-idx]");
+  rows.forEach(function(row){
+    var chk=row.querySelector("input[type=checkbox]");
+    var inp=row.querySelector("input[type=number]");
+    if(!chk||!chk.checked)return;
+    var tpw=inp?Math.max(0,parseInt(inp.value)||0):0;
+    var taskMin=parseFloat(row.dataset.taskMin)||1;
+    var taskLabel=row.querySelector("span")?row.querySelector("span").textContent:"Task";
+    var h=(tpw*taskMin/60);
+    if(h>0){wH+=h; bd.push({l:taskLabel,h:h,min:taskMin});}
+  });
+  var tH=wH*wk, tV=tH*rate, wte=tH/1650;
+  document.getElementById("calc-hours").textContent=fH(tH);
+  document.getElementById("calc-value").textContent="£"+fN(tV);
+  document.getElementById("calc-children").textContent=fN(tH/6)+"–"+fN(tH/3.5);
+  document.getElementById("calc-wte").textContent=wte.toFixed(1)+" WTE equivalent over "+mo+(mo===1?" month":" months");
+  // Update maths panel
+  var taskLines=bd.map(function(item){
+    return "("+Math.round(item.h*60/item.min)+" tasks/wk × "+item.min+" min ÷ 60) = "+fH(item.h)+" hrs/wk  ["+item.l+"]";
+  }).join("\n");
+  var mTasks=document.getElementById("calc-maths-tasks");
+  if(mTasks)mTasks.textContent=taskLines;
+  var mHours=document.getElementById("calc-maths-hours");
+  if(mHours)mHours.textContent=fH(wH)+" hrs/wk × ("+mo+" months × 4.345 wks/month) = "+fH(wH)+" × "+fH(wk)+" = "+fH(tH)+" total hours";
+  var mValue=document.getElementById("calc-maths-value");
+  if(mValue)mValue.textContent=fH(tH)+" hrs × £"+rate+"/hr = £"+fN(tV);
+  var mWte=document.getElementById("calc-maths-wte");
+  if(mWte)mWte.textContent=fH(tH)+" hrs ÷ 1,650 = "+wte.toFixed(2)+" WTE";
+  var mChild=document.getElementById("calc-maths-children");
+  if(mChild)mChild.textContent=fH(tH)+" ÷ 6 = "+fN(tH/6)+" (lower)   |   "+fH(tH)+" ÷ 3.5 = "+fN(tH/3.5)+" (upper)";
+
+  var bdEl=document.getElementById("calc-breakdown"); bdEl.innerHTML="";
+  bd.sort(function(a,b){return b.h-a.h;}).forEach(function(t){
+    var r=document.createElement("div");r.className="cbreak-row";
+    r.innerHTML='<span class="cbreak-lbl">'+t.l+'</span><span class="cbreak-val">'+fH(t.h)+" hrs/wk</span>";
+    if(bdEl){bdEl.appendChild(r);}
+  });
+  var tot=document.createElement("div");tot.className="cbreak-row";
+  tot.innerHTML='<span style="color:rgba(255,255,255,0.7);font-weight:500;">Total per week</span><span style="color:#6dd0d0;font-weight:600;">'+fH(wH)+" hrs/wk</span>";
+  if(bdEl){bdEl.appendChild(tot);}
+}
+document.getElementById("calc-rate").addEventListener("input",function(){document.getElementById("calc-rate-val").textContent=this.value;recS();});
+document.querySelectorAll("[data-smonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-smonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active"); recS();
+  });
+});
+
+// Tool comparison
+var cc=document.getElementById("tool-cards");
+TOOLS.forEach(function(tool){
+  var card=document.createElement("div");
+  card.className="tool-card"+(tool.tested?" tool-card-tested":"");
+  card.id="card-"+tool.id;
+  var inputHtml=tool.editable?'<div class="tool-input-row"><span>£</span><input type="number" id="inp-'+tool.id+'" value="'+(tool.mpu||"")+'" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.35);">/user/month</span></div>':"";
+  var fHtml=tool.facts.map(function(f){
+    var c=f.i==="✓"?"#6dd0d0":f.i==="✗"?"#9e3a47":f.i==="!"?"#c07825":"rgba(255,255,255,0.35)";
+    return '<div class="tool-fact"><span style="color:'+c+';flex-shrink:0;">'+f.i+"</span><span>"+f.t+"</span></div>";
+  }).join("");
+  card.innerHTML='<div class="tool-name">'+tool.name+'</div><span class="tool-tag '+(tool.tested?"tool-tag-tested":"tool-tag-other")+'">'+(tool.tested?"Tested in CTM pilot":"Not tested in ND service")+'</span><div class="tool-cost-big" id="tcost-'+tool.id+'">—</div><div class="tool-cost-sub">estimated cost over period</div>'+inputHtml+'<div style="font-size:0.73rem;color:rgba(255,255,255,0.28);margin-bottom:0.8rem;line-height:1.4;">'+tool.note+"</div>"+fHtml;
+  if(cc){cc.appendChild(card);}
+  if(tool.editable){
+    var inp=card.querySelector("input[type=number]");
+    if(inp)inp.addEventListener("input",function(){tool.mpu=parseFloat(this.value)||null;recC();});
+  }
+});
+
+// Needs table
+var th=document.getElementById("ncmp-head");
+var hr=document.createElement("tr");
+hr.innerHTML='<th scope="col" class="ncmp-th" style="min-width:240px;">User need (from ND pathway research)</th>';
+TOOLS.forEach(function(t){hr.innerHTML+='<th scope="col" class="ncmp-th" style="text-align:center;">'+t.name+"</th>";});
+if(th){th.appendChild(hr);}
+var tb=document.getElementById("ncmp-body");
+DIMS.forEach(function(d){
+  var tr=document.createElement("tr");tr.className="ncmp-tr";
+  var td=document.createElement("td");td.className="ncmp-td";
+  td.innerHTML='<div class="ncmp-need">'+d.l+"</div>";tr.appendChild(td);
+  TOOLS.forEach(function(tool){
+    var v=tool.needs[d.k]||"?";
+    var c=v==="✓"?"c-yes":v==="~"?"c-maybe":v==="✗"?"c-no":"c-unk";
+    var ntd=document.createElement("td");ntd.className="ncmp-td";
+    ntd.innerHTML='<span class="ncmp-conf '+c+'">'+v+"</span>";tr.appendChild(ntd);
+  });
+  if(tb){tb.appendChild(tr);}
+});
+
+function recC(){
+  var clin=parseInt(document.getElementById("cmp-clin").value,10);
+  var tpw=parseInt(document.getElementById("cmp-tasks").value,10);
+  var ab=document.querySelector("[data-cmonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.cmonths,10):12;
+  var wk=mo*WPM;
+  TOOLS.forEach(function(tool){
+    var cost=null;
+    if(tool.perUse!=null) cost=tool.perUse*tpw*clin*wk;
+    else if(tool.mpu!=null) cost=tool.mpu*clin*mo;
+    var el=document.getElementById("tcost-"+tool.id);
+    if(el){el.textContent=cost!=null?"£"+fN(cost):"—";el.style.color=cost!=null?"#6dd0d0":"rgba(255,255,255,0.25)";}
+  });
+}
+document.getElementById("cmp-clin").addEventListener("input",function(){document.getElementById("cmp-clin-val").textContent=this.value;recC();});
+document.getElementById("cmp-tasks").addEventListener("input",function(){document.getElementById("cmp-tasks-val").textContent=this.value;recC();});
+document.querySelectorAll("[data-cmonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-cmonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active");recC();
+  });
+});
+
+recS(); recC();
+})();
+
+function addTask(){
+  var name=document.getElementById('new-task-name').value.trim();
+  var tpw=parseInt(document.getElementById('new-task-tpw').value)||0;
+  var min=parseFloat(document.getElementById('new-task-min').value)||0;
+  var err=document.getElementById('new-task-err');
+  if(!name||tpw<=0||min<=0){err.style.display='block';return;}
+  err.style.display='none';
+  // TASKS is in shared script scope — accessible directly
+  var t={label:name,tpw:tpw,min:min,on:true};
+  TASKS.push(t);
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);';
+  var chk=document.createElement('input');
+  chk.type='checkbox';chk.checked=true;
+  chk.style.cssText='accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;';
+  chk.setAttribute('aria-label','Include '+name);
+  var lbl=document.createElement('span');
+  lbl.style.cssText='flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;';
+  lbl.textContent=name;
+  var inp=document.createElement('input');
+  inp.type='number';inp.value=tpw;inp.min=0;inp.max=999;
+  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;flex-shrink:0;";
+  inp.setAttribute('aria-label','Tasks per week for '+name);
+  var minSpan=document.createElement('span');
+  minSpan.style.cssText='font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;';
+  minSpan.textContent='~'+min+' min';
+  var del=document.createElement('button');
+  del.type='button';
+  del.textContent='×';
+  del.setAttribute('aria-label','Remove '+name);
+  del.style.cssText='background:none;border:none;color:rgba(255,255,255,0.5);font-size:1rem;cursor:pointer;padding:0;width:18px;text-align:center;line-height:1;flex-shrink:0;';
+  del.addEventListener('click',function(){row.remove();recS();});
+  chk.addEventListener('change',function(){recS();});
+  inp.addEventListener('input',function(){recS();});
+  row.setAttribute('data-task-idx',TASKS.length-1);
+  row.setAttribute('data-task-min',min);
+  row.appendChild(chk);row.appendChild(lbl);row.appendChild(inp);row.appendChild(minSpan);row.appendChild(del);
+  var ct=document.getElementById('calc-tasks'); if(ct){ct.appendChild(row);}
+  document.getElementById('new-task-name').value='';
+  document.getElementById('new-task-tpw').value='';
+  document.getElementById('new-task-min').value='';
+  document.getElementById('new-task-name').focus();
+  recS();
+}
+
+var TASKS=[
+  {label:"New patient assessment (in-person)",tpw:20,min:30,on:true},
+  {label:"Assessment write-up",tpw:20,min:124.5,on:true},
+  {label:"Patient summary",tpw:20,min:41,on:true},
+  {label:"ADHD medication review",tpw:20,min:27.5,on:true},
+  {label:"Letters & admin",tpw:40,min:28,on:true},
+  {label:"Meetings & coordination",tpw:1,min:20,on:false}
+];
+
+var PC=5, WPM=4.345;
+var TOOLS=[
+  {id:"mn",name:"Magic Notes",tested:true,perUse:5,mpu:null,editable:false,
+   note:"£5 per use. Pilot data from CTM: 5 clinicians, 6 weeks, 726 tasks.",
+   facts:[
+     {i:"✓",t:"Tested in CTM ND service — 6 weeks, 5 clinicians, 726 tasks"},
+     {i:"✓",t:"GDPR compliant. 7-day auto-deletion (30–60 days recommended)"},
+     {i:"✓",t:"110+ languages; bilingual sessions tested in pilot"},
+     {i:"✗",t:"Welsh-only sessions: hallucinations observed — not safe for Welsh-medium use yet"},
+     {i:"?",t:"NHS Wales / WHC IG status: verify against WHC 2025/026"},
+     {i:"✓",t:"Neuro-affirming report templates; customisable"}
+   ],
+   needs:{present:"✓",transcription:"✓",backlog:"✓",bilingual:"~",welsh:"✗",templates:"✓",panel:"✓",referral:"✓"}
+  },
+  {id:"hh",name:"Heidi Health",tested:false,perUse:null,mpu:79,editable:true,
+   note:"Free tier (limited). Paid plan ~$99/month per clinician (UK £ price: contact sales). Enterprise via sales.",
+   facts:[
+     {i:"✓",t:"GDPR, SOC2, ISO27001; meets NHS standards"},
+     {i:"✓",t:"110+ languages; used in 116 countries"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily GP/primary care; ND specialist templates not confirmed"},
+     {i:"!",t:"UK/EU: clinical evidence feature unavailable during live sessions"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"~",welsh:"?",templates:"~",panel:"?",referral:"~"}
+  },
+  {id:"to",name:"TORTUS",tested:false,perUse:null,mpu:44,editable:true,
+   note:"Pilot pricing £44/mo/licence (expired Mar 2025). Enterprise: £200K per 100K audio hours. Current pricing: contact sales.",
+   facts:[
+     {i:"✓",t:"DTAC assured, MHRA Class I, UK GDPR compliant"},
+     {i:"✓",t:"Led 9-site NHS England trial (17,000+ encounters, GOSH 2025)"},
+     {i:"✓",t:"23.5% increase in patient interaction time (GOSH trial)"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily acute/ED/GP setting; ND-specific evidence limited"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"~",panel:"?",referral:"?"}
+  },
+  {id:"ax",name:"Accurx Scribe (Tandem)",tested:false,perUse:null,mpu:null,editable:true,
+   note:"NHS pricing not public. Integrated into Accurx platform (98% of GP practices). Contact sales.",
+   facts:[
+     {i:"✓",t:"MHRA Class I, NHS DTAC compliant"},
+     {i:"✓",t:"EMIS/SystmOne write-back; 97% clinical accuracy (independent audit)"},
+     {i:"~",t:"Primarily GP/primary care — ND specialist fit unclear"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"✗",t:"No ND-specific evidence; no specialist pathway data"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"?",panel:"?",referral:"?"}
+  }
+];
+var DIMS=[
+  {k:"present",    l:"Clinician fully present in session (not typing)"},
+  {k:"transcription",l:"Accurate transcription in ND sessions (echolalia, accents, noise, overlapping speech)"},
+  {k:"backlog",    l:"Near-final report draft shortly after appointment"},
+  {k:"bilingual",  l:"Bilingual and multilingual sessions"},
+  {k:"welsh",      l:"Welsh-only sessions without hallucinations"},
+  {k:"templates",  l:"Customisable neuro-affirming report templates"},
+  {k:"panel",      l:"MDT / panel summary support"},
+  {k:"referral",   l:"Referral document upload and summarisation"}
+];
+
+// Tab switching
+document.querySelectorAll(".ctab").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll(".ctab").forEach(function(x){x.classList.remove("ctab-on");x.setAttribute("aria-selected","false");});
+    b.classList.add("ctab-on");
+    b.setAttribute("aria-selected","true");
+    document.getElementById("tab-savings").style.display=b.dataset.tab==="savings"?"":"none";
+    document.getElementById("tab-compare").style.display=b.dataset.tab==="compare"?"":"none";
+  });
+});
+
+// Savings calculator — editable task volumes
+var tc=document.getElementById("calc-tasks");
+// Header row
+var hdr=document.createElement("div");
+hdr.style.cssText="display:flex;gap:0.6rem;padding-bottom:0.5rem;margin-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.1);";
+hdr.innerHTML='<span style="flex:1;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Task</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:60px;text-align:center;">Per week</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;">Min saved</span>';
+if(tc){tc.appendChild(hdr);}
+// Task rows
+TASKS.forEach(function(t,i){
+  var row=document.createElement("div");
+  row.style.cssText="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);";
+  var chk=document.createElement("input");
+  chk.type="checkbox"; chk.checked=t.on; chk.style.cssText="accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;";
+  chk.setAttribute("aria-label","Include "+t.label);
+  var lbl=document.createElement("span");
+  lbl.style.cssText="flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;cursor:pointer;";
+  lbl.textContent=t.label;
+  lbl.addEventListener("click",function(){chk.checked=!chk.checked;t.on=chk.checked;recS();});
+  var inp=document.createElement("input");
+  inp.type="number"; inp.value=t.tpw; inp.min=0; inp.max=999;
+  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;";
+  inp.setAttribute("aria-label","Tasks per week for "+t.label);
+  var minSpan=document.createElement("span");
+  minSpan.style.cssText="font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;margin-right:22px;";
+  minSpan.textContent="~"+t.min+" min";
+  chk.addEventListener("change",function(){t.on=chk.checked;recS();});
+  inp.addEventListener("input",function(){t.tpw=Math.max(0,parseInt(inp.value)||0);recS();});
+  row.setAttribute("data-task-idx", i);
+  row.setAttribute("data-task-min", t.min);
+  row.appendChild(chk); row.appendChild(lbl); row.appendChild(inp); row.appendChild(minSpan);
+  if(tc){tc.appendChild(row);}
+});
+// addTask defined as global below
+function fN(n){return Math.round(n).toLocaleString("en-GB");}
+function fH(n){return (Math.round(n*10)/10).toLocaleString("en-GB",{maximumFractionDigits:1});}
+function recS(){
+  var rate=parseInt(document.getElementById("calc-rate").value,10);
+  var ab=document.querySelector("[data-smonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.smonths,10):12;
+  var wk=mo*WPM, wH=0, bd=[];
+  // Read live values straight from the DOM checkboxes and inputs
+  var rows=document.getElementById("calc-tasks").querySelectorAll("div[data-task-idx]");
+  rows.forEach(function(row){
+    var chk=row.querySelector("input[type=checkbox]");
+    var inp=row.querySelector("input[type=number]");
+    if(!chk||!chk.checked)return;
+    var tpw=inp?Math.max(0,parseInt(inp.value)||0):0;
+    var taskMin=parseFloat(row.dataset.taskMin)||1;
+    var taskLabel=row.querySelector("span")?row.querySelector("span").textContent:"Task";
+    var h=(tpw*taskMin/60);
+    if(h>0){wH+=h; bd.push({l:taskLabel,h:h,min:taskMin});}
+  });
+  var tH=wH*wk, tV=tH*rate, wte=tH/1650;
+  document.getElementById("calc-hours").textContent=fH(tH);
+  document.getElementById("calc-value").textContent="£"+fN(tV);
+  document.getElementById("calc-children").textContent=fN(tH/6)+"–"+fN(tH/3.5);
+  document.getElementById("calc-wte").textContent=wte.toFixed(1)+" WTE equivalent over "+mo+(mo===1?" month":" months");
+  // Update maths panel
+  var taskLines=bd.map(function(item){
+    return "("+Math.round(item.h*60/item.min)+" tasks/wk × "+item.min+" min ÷ 60) = "+fH(item.h)+" hrs/wk  ["+item.l+"]";
+  }).join("\n");
+  var mTasks=document.getElementById("calc-maths-tasks");
+  if(mTasks)mTasks.textContent=taskLines;
+  var mHours=document.getElementById("calc-maths-hours");
+  if(mHours)mHours.textContent=fH(wH)+" hrs/wk × ("+mo+" months × 4.345 wks/month) = "+fH(wH)+" × "+fH(wk)+" = "+fH(tH)+" total hours";
+  var mValue=document.getElementById("calc-maths-value");
+  if(mValue)mValue.textContent=fH(tH)+" hrs × £"+rate+"/hr = £"+fN(tV);
+  var mWte=document.getElementById("calc-maths-wte");
+  if(mWte)mWte.textContent=fH(tH)+" hrs ÷ 1,650 = "+wte.toFixed(2)+" WTE";
+  var mChild=document.getElementById("calc-maths-children");
+  if(mChild)mChild.textContent=fH(tH)+" ÷ 6 = "+fN(tH/6)+" (lower)   |   "+fH(tH)+" ÷ 3.5 = "+fN(tH/3.5)+" (upper)";
+
+  var bdEl=document.getElementById("calc-breakdown"); bdEl.innerHTML="";
+  bd.sort(function(a,b){return b.h-a.h;}).forEach(function(t){
+    var r=document.createElement("div");r.className="cbreak-row";
+    r.innerHTML='<span class="cbreak-lbl">'+t.l+'</span><span class="cbreak-val">'+fH(t.h)+" hrs/wk</span>";
+    if(bdEl){bdEl.appendChild(r);}
+  });
+  var tot=document.createElement("div");tot.className="cbreak-row";
+  tot.innerHTML='<span style="color:rgba(255,255,255,0.7);font-weight:500;">Total per week</span><span style="color:#6dd0d0;font-weight:600;">'+fH(wH)+" hrs/wk</span>";
+  if(bdEl){bdEl.appendChild(tot);}
+}
+document.getElementById("calc-rate").addEventListener("input",function(){document.getElementById("calc-rate-val").textContent=this.value;recS();});
+document.querySelectorAll("[data-smonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-smonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active"); recS();
+  });
+});
+
+// Tool comparison
+var cc=document.getElementById("tool-cards");
+TOOLS.forEach(function(tool){
+  var card=document.createElement("div");
+  card.className="tool-card"+(tool.tested?" tool-card-tested":"");
+  card.id="card-"+tool.id;
+  var inputHtml=tool.editable?'<div class="tool-input-row"><span>£</span><input type="number" id="inp-'+tool.id+'" value="'+(tool.mpu||"")+'" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.35);">/user/month</span></div>':"";
+  var fHtml=tool.facts.map(function(f){
+    var c=f.i==="✓"?"#6dd0d0":f.i==="✗"?"#9e3a47":f.i==="!"?"#c07825":"rgba(255,255,255,0.35)";
+    return '<div class="tool-fact"><span style="color:'+c+';flex-shrink:0;">'+f.i+"</span><span>"+f.t+"</span></div>";
+  }).join("");
+  card.innerHTML='<div class="tool-name">'+tool.name+'</div><span class="tool-tag '+(tool.tested?"tool-tag-tested":"tool-tag-other")+'">'+(tool.tested?"Tested in CTM pilot":"Not tested in ND service")+'</span><div class="tool-cost-big" id="tcost-'+tool.id+'">—</div><div class="tool-cost-sub">estimated cost over period</div>'+inputHtml+'<div style="font-size:0.73rem;color:rgba(255,255,255,0.28);margin-bottom:0.8rem;line-height:1.4;">'+tool.note+"</div>"+fHtml;
+  if(cc){cc.appendChild(card);}
+  if(tool.editable){
+    var inp=card.querySelector("input[type=number]");
+    if(inp)inp.addEventListener("input",function(){tool.mpu=parseFloat(this.value)||null;recC();});
+  }
+});
+
+// Needs table
+var th=document.getElementById("ncmp-head");
+var hr=document.createElement("tr");
+hr.innerHTML='<th scope="col" class="ncmp-th" style="min-width:240px;">User need (from ND pathway research)</th>';
+TOOLS.forEach(function(t){hr.innerHTML+='<th scope="col" class="ncmp-th" style="text-align:center;">'+t.name+"</th>";});
+if(th){th.appendChild(hr);}
+var tb=document.getElementById("ncmp-body");
+DIMS.forEach(function(d){
+  var tr=document.createElement("tr");tr.className="ncmp-tr";
+  var td=document.createElement("td");td.className="ncmp-td";
+  td.innerHTML='<div class="ncmp-need">'+d.l+"</div>";tr.appendChild(td);
+  TOOLS.forEach(function(tool){
+    var v=tool.needs[d.k]||"?";
+    var c=v==="✓"?"c-yes":v==="~"?"c-maybe":v==="✗"?"c-no":"c-unk";
+    var ntd=document.createElement("td");ntd.className="ncmp-td";
+    ntd.innerHTML='<span class="ncmp-conf '+c+'">'+v+"</span>";tr.appendChild(ntd);
+  });
+  if(tb){tb.appendChild(tr);}
+});
+
+function recC(){
+  var clin=parseInt(document.getElementById("cmp-clin").value,10);
+  var tpw=parseInt(document.getElementById("cmp-tasks").value,10);
+  var ab=document.querySelector("[data-cmonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.cmonths,10):12;
+  var wk=mo*WPM;
+  TOOLS.forEach(function(tool){
+    var cost=null;
+    if(tool.perUse!=null) cost=tool.perUse*tpw*clin*wk;
+    else if(tool.mpu!=null) cost=tool.mpu*clin*mo;
+    var el=document.getElementById("tcost-"+tool.id);
+    if(el){el.textContent=cost!=null?"£"+fN(cost):"—";el.style.color=cost!=null?"#6dd0d0":"rgba(255,255,255,0.25)";}
+  });
+}
+document.getElementById("cmp-clin").addEventListener("input",function(){document.getElementById("cmp-clin-val").textContent=this.value;recC();});
+document.getElementById("cmp-tasks").addEventListener("input",function(){document.getElementById("cmp-tasks-val").textContent=this.value;recC();});
+document.querySelectorAll("[data-cmonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-cmonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active");recC();
+  });
+});
+
+recS(); recC();
+
 const personas = [
   { name:"Anxious Waiting Family", icon:"👨‍👩‍👧", who:"Family waiting long periods with little clarity or support", reality:"Diagnosis-led pathway; poor communication; long waits", needs:"Clear timelines; early support; reassurance", behaviour:"Repeated contact; distress; loss of trust", risk:"Complaints; disengagement; escalation", quote:'"They\'re desperate… they need to talk."' },
   { name:"Data Detective Clinician", icon:"🔍", who:"Clinician manually hunting for missing or scattered information", reality:"Information spread across WelshPAS, CarePartner, emails, OneDrive, paper", needs:"One-view access to information; automated retrieval", behaviour:"Spends hours searching, chasing and copying", risk:"Delays; rework; clinician time lost to admin", quote:'"I\'ve got to pull all those pieces of jigsaw together from lots of different places."' },
@@ -874,11 +1426,8 @@ if(lg) landscape.forEach(([a,w,why]) => { const el = document.createElement('div
 // Scroll reveal
 const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
 
-<script>
-(function(){
-  var links = document.querySelectorAll('.nav-links a[href^="#"]');
+var links = document.querySelectorAll('.nav-links a[href^="#"]');
   var sections = Array.from(links).map(function(l){ return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
   function onScroll(){
     var y = window.scrollY + 100;
@@ -890,7 +1439,6 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
-})();
 </script>
 </body>
 </html>
