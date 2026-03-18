@@ -58,7 +58,7 @@ body {
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
 .cover-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(3.9rem, 6.75vw, 5.7rem);
+  font-size: clamp(3.12rem, 5.4vw, 4.56rem);
   font-weight: 900; line-height: 1.05;
   letter-spacing: -.02em; margin-bottom: 1.5rem;
 }
@@ -535,13 +535,16 @@ body {
     <p style="font-size:1.05rem;font-weight:600;color:var(--teal2);line-height:1.5;margin-bottom:1rem;max-width:800px;">
         6 clinicians across two ND teams used an AI scribe for six weeks. They got significant time back, reported better clinical quality, and said the role felt sustainable again.
       </p>
+    <p class="cover-sub">
+        Clinicians in Hywel Dda were managing unsustainable caseloads and running services on workarounds. This is early pilot data — from a structured diary study — on what changed when they got the right support.
+      </p>
     <div id="player-cant" style="margin-bottom:1.2rem;">
         <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:.6rem .9rem;display:flex;align-items:center;gap:.8rem;">
           <button onclick="toggleAudio(this)" data-src="I_can_not_do_the_work.mp3" aria-label="Play" style="width:32px;height:32px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
             <svg viewBox="0 0 16 16" width="12" height="12"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
           </button>
           <div style="flex:1;min-width:0;">
-            <div style="font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Hear what happens if we take this away</div>
+            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: what happens when Magic Notes is removed</div>
             <div class="ap-bar-player-cant" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'I_can_not_do_the_work.mp3')">
               <div class="ap-fill-player-cant" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
             </div>
@@ -550,12 +553,11 @@ body {
           <audio src="I_can_not_do_the_work.mp3" style="display:none;" class="ap-audio-player-cant"></audio>
         </div>
       </div>
-    <p class="cover-sub">
-        Clinicians in Hywel Dda were managing unsustainable caseloads and running services on workarounds. This is early pilot data — from a structured diary study — on what changed when they got the right support.
-      </p>
 
 
-    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:2rem;padding-top:2rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
+    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:2rem;padding-top:2rem;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:1.5rem;">Pilot highlights.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
       <div style="border-left:3px solid var(--teal2);padding-left:1.2rem;">
         <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal2);margin-bottom:.4rem;">ADHD pathway</div>
         <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">64%</div>
@@ -570,6 +572,7 @@ body {
         <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fbbf24;margin-bottom:.4rem;">Clinician feedback</div>
         <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">4.9/5</div>
         <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">ease of use · 81–100% rated quality improved</div>
+      </div>
       </div>
     </div>
 
@@ -619,7 +622,7 @@ body {
             <svg viewBox="0 0 16 16" width="12" height="12"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
           </button>
           <div style="flex:1;min-width:0;">
-            <div style="font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Hear the failing system</div>
+            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: clinicians describing the system they were working in</div>
             <div class="ap-bar-player-crapsys" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Crap_System.mp3')">
               <div class="ap-fill-player-crapsys" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
             </div>
@@ -643,7 +646,7 @@ body {
           <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
         </button>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Hear the safeguarding story</div>
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: safeguarding action enabled within the hour</div>
           <div class="ap-bar-player-safe" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Safeguarding.mp3')">
             <div class="ap-fill-player-safe" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
           </div>
@@ -683,7 +686,7 @@ body {
           <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
         </button>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Hear the capacity story</div>
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: seeing three patients instead of two</div>
           <div class="ap-bar-player-cap" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Needing_time_off.mp3')">
             <div class="ap-fill-player-cap" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
           </div>
@@ -722,7 +725,7 @@ body {
           <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
         </button>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Hear the sustainability story</div>
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: making the role feel sustainable again</div>
           <div class="ap-bar-player-sus" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'In_the_moment.mp3')">
             <div class="ap-fill-player-sus" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
           </div>
@@ -1061,7 +1064,7 @@ body {
           </div>
           <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.08);">
             <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Tasks per week across your whole team</p><p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;line-height:1.5;">Edit the numbers to match your service. CTM pilot defaults shown — change any figure or add your own tasks.</p>
-            <div id="calc-tasks" style="display:flex;flex-direction:column;gap:0;"><div style="display: flex; gap: 0.6rem; padding-bottom: 0.5rem; margin-bottom: 0.3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);"><span style="flex:1;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Task</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:60px;text-align:center;">Per week</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;">Min saved</span></div><div data-task-idx="0" data-task-min="30" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);"><input type="checkbox" aria-label="Include New patient assessment (in-person)" style="accent-color: rgb(109, 208, 208); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0;"><span style="flex: 1 1 0%; font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; cursor: pointer;">New patient assessment (in-person)</span><input type="number" min="0" max="999" aria-label="Tasks per week for New patient assessment (in-person)" style="width: 60px; padding: 0.3rem 0.4rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: rgb(255, 255, 255); font-size: 0.85rem; text-align: center; font-family: &quot;DM Sans&quot;, sans-serif;"><span style="font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; width: 54px; text-align: right; margin-right: 22px;">~30 min</span></div><div data-task-idx="1" data-task-min="124.5" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);"><input type="checkbox" aria-label="Include Assessment write-up" style="accent-color: rgb(109, 208, 208); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0;"><span style="flex: 1 1 0%; font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; cursor: pointer;">Assessment write-up</span><input type="number" min="0" max="999" aria-label="Tasks per week for Assessment write-up" style="width: 60px; padding: 0.3rem 0.4rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: rgb(255, 255, 255); font-size: 0.85rem; text-align: center; font-family: &quot;DM Sans&quot;, sans-serif;"><span style="font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; width: 54px; text-align: right; margin-right: 22px;">~124.5 min</span></div><div data-task-idx="2" data-task-min="41" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);"><input type="checkbox" aria-label="Include Patient summary" style="accent-color: rgb(109, 208, 208); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0;"><span style="flex: 1 1 0%; font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; cursor: pointer;">Patient summary</span><input type="number" min="0" max="999" aria-label="Tasks per week for Patient summary" style="width: 60px; padding: 0.3rem 0.4rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: rgb(255, 255, 255); font-size: 0.85rem; text-align: center; font-family: &quot;DM Sans&quot;, sans-serif;"><span style="font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; width: 54px; text-align: right; margin-right: 22px;">~41 min</span></div><div data-task-idx="3" data-task-min="27.5" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);"><input type="checkbox" aria-label="Include ADHD medication review" style="accent-color: rgb(109, 208, 208); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0;"><span style="flex: 1 1 0%; font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; cursor: pointer;">ADHD medication review</span><input type="number" min="0" max="999" aria-label="Tasks per week for ADHD medication review" style="width: 60px; padding: 0.3rem 0.4rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: rgb(255, 255, 255); font-size: 0.85rem; text-align: center; font-family: &quot;DM Sans&quot;, sans-serif;"><span style="font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; width: 54px; text-align: right; margin-right: 22px;">~27.5 min</span></div><div data-task-idx="4" data-task-min="28" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);"><input type="checkbox" aria-label="Include Letters &amp; admin" style="accent-color: rgb(109, 208, 208); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0;"><span style="flex: 1 1 0%; font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; cursor: pointer;">Letters &amp; admin</span><input type="number" min="0" max="999" aria-label="Tasks per week for Letters &amp; admin" style="width: 60px; padding: 0.3rem 0.4rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: rgb(255, 255, 255); font-size: 0.85rem; text-align: center; font-family: &quot;DM Sans&quot;, sans-serif;"><span style="font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; width: 54px; text-align: right; margin-right: 22px;">~28 min</span></div><div data-task-idx="5" data-task-min="20" style="display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);"><input type="checkbox" aria-label="Include Meetings &amp; coordination" style="accent-color: rgb(109, 208, 208); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0;"><span style="flex: 1 1 0%; font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); line-height: 1.3; cursor: pointer;">Meetings &amp; coordination</span><input type="number" min="0" max="999" aria-label="Tasks per week for Meetings &amp; coordination" style="width: 60px; padding: 0.3rem 0.4rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: rgb(255, 255, 255); font-size: 0.85rem; text-align: center; font-family: &quot;DM Sans&quot;, sans-serif;"><span style="font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; width: 54px; text-align: right; margin-right: 22px;">~20 min</span></div></div>
+            <div id="calc-tasks" style="display:flex;flex-direction:column;gap:0;"></div>
 
             <div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.08);">
               <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Add a task</p>
