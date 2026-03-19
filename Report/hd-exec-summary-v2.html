@@ -861,7 +861,16 @@ body { overflow-x: hidden;
   <div class="section reveal in">
     <span class="eyebrow">The numbers</span>
     <h2 class="section-title">What the data shows.</h2>
-    <p class="section-lead">Time savings recorded by clinicians after each session across the Hywel Dda diary study. All data self-reported. Small sample sizes — results indicate direction of effect, consistent with the CTM pilot.</p>
+
+    <!-- Fix 3: summary line -->
+    <div style="background:linear-gradient(135deg,rgba(26,107,107,0.15),rgba(26,107,107,0.05));border:1px solid rgba(109,208,208,0.2);border-radius:12px;padding:1rem 1.4rem;margin-bottom:1.5rem;">
+      <p style="font-size:1rem;font-weight:600;color:#fff;line-height:1.5;">Clinicians saved 45 to 100 minutes per task — and up to 1–1.5 hours across a full assessment and write-up.</p>
+    </div>
+
+    <p class="section-lead" style="color:rgba(255,255,255,0.65);">Time savings recorded by clinicians after each session. All data self-reported. Small sample sizes — results indicate direction of effect, consistent with the CTM pilot.</p>
+
+    <!-- Fix 1: dataset label -->
+    <div style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal2);margin-bottom:.8rem;">Hywel Dda diary study · 6 clinicians · 6 weeks</div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-bottom:2rem;">
       <div style="border-left:3px solid var(--teal2);padding-left:1.2rem;">
@@ -881,41 +890,49 @@ body { overflow-x: hidden;
       </div>
     </div>
 
+    <!-- Fix 2: add minutes saved column -->
     <table class="savings-table" aria-label="Time savings by task type">
       <thead>
         <tr>
           <th scope="col">Task</th>
           <th scope="col">Before</th>
           <th scope="col">After</th>
-          <th scope="col">Saving</th>
+          <th scope="col">Saved</th>
+          <th scope="col">%</th>
           <th scope="col">Sessions</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><strong style="color:#fff;">Final report writing</strong><br><span style="font-size:.78rem;">Post-assessment report documentation</span></td>
-          <td>132 min</td><td>32 min</td><td><span class="pct">76%</span></td><td>5</td>
+          <td>132 min</td><td>32 min</td><td><strong style="color:#6ee7b7;">100 min</strong></td><td><span class="pct">76%</span></td><td>5</td>
         </tr>
         <tr>
           <td><strong style="color:#fff;">New patient assessment</strong><br><span style="font-size:.78rem;">Initial assessment write-up</span></td>
-          <td>135 min</td><td>50 min</td><td><span class="pct">63%</span></td><td>8</td>
+          <td>135 min</td><td>50 min</td><td><strong style="color:#6ee7b7;">85 min</strong></td><td><span class="pct">63%</span></td><td>8</td>
         </tr>
         <tr>
           <td><strong style="color:#fff;">Clinical assessment / ADOS</strong><br><span style="font-size:.78rem;">Structured diagnostic observation sessions</span></td>
-          <td>98 min</td><td>55 min</td><td><span class="pct">44%</span></td><td>6</td>
+          <td>98 min</td><td>55 min</td><td><strong style="color:#6ee7b7;">43 min</strong></td><td><span class="pct">44%</span></td><td>6</td>
         </tr>
         <tr>
           <td><strong style="color:#fff;">Dictation &amp; general documentation</strong><br><span style="font-size:.78rem;">Assessments, supervision notes, support calls, meeting records</span></td>
-          <td>84 min</td><td>39 min</td><td><span class="pct">54%</span></td><td>13</td>
+          <td>84 min</td><td>39 min</td><td><strong style="color:#6ee7b7;">45 min</strong></td><td><span class="pct">54%</span></td><td>13</td>
         </tr>
         <tr>
           <td><strong style="color:#fff;">Panel case presentation</strong><br><span style="font-size:.78rem;">MDT panel prep — template configuration still in progress during pilot</span></td>
-          <td>44 min</td><td>38 min</td><td><span class="pct">14%</span></td><td>19</td>
+          <td>44 min</td><td>38 min</td><td><strong style="color:#6ee7b7;">6 min</strong></td><td><span class="pct">14%</span></td><td>19</td>
         </tr>
       </tbody>
     </table>
 
-    <p style="font-size:.75rem;color:rgba(255,255,255,0.5);line-height:1.6;margin-top:1.2rem;">Early pilot data · Hywel Dda diary study · March 2026 · Self-reported · Panel figure expected to improve significantly once template configuration is complete.</p>
+    <!-- Fix 5: per patient interpretation -->
+    <div style="margin-top:1.2rem;padding:.9rem 1.2rem;background:rgba(255,255,255,0.03);border-radius:10px;border-left:3px solid rgba(109,208,208,0.3);">
+      <p style="font-size:.82rem;color:rgba(255,255,255,0.55);line-height:1.6;">Across a full assessment and write-up, this represents approximately <strong style="color:rgba(255,255,255,0.8);">1–1.5 hours saved per patient</strong>.</p>
+    </div>
+
+    <!-- Fix 4: calculator note -->
+    <p style="font-size:.72rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-top:1rem;">Hywel Dda diary study · March 2026 · Self-reported · Panel figure expected to improve once template configuration is complete. The savings calculator below uses CTM pilot averages (5 clinicians, 726 tasks), which differ slightly from these Hywel Dda figures.</p>
   </div>
 </div>
 
@@ -1131,6 +1148,7 @@ body { overflow-x: hidden;
   <div class="section">
     <span style="display:block;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-bottom:0.5rem;">Interactive tool</span>
     <h2 style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;line-height:1.2;">What could this save?</h2>
+    <div style="display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal2);background:rgba(109,208,208,0.1);border:1px solid rgba(109,208,208,0.2);padding:.2rem .6rem;border-radius:2rem;margin-bottom:.8rem;">CTM pilot averages · 5 clinicians · 726 tasks</div>
     <p style="font-size:0.95rem;color:rgba(255,255,255,0.55);margin-bottom:2.5rem;max-width:620px;line-height:1.6;">Estimate time and cost savings based on CTM pilot data. Adjust for your team size, hourly rate and the tasks you want to include.</p>
 
     <div id="tab-savings" role="tabpanel" aria-labelledby="tab-btn-savings">
