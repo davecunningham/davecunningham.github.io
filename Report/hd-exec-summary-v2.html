@@ -495,11 +495,11 @@ body { overflow-x: hidden;
 <!-- ══ STICKY NAV ══ -->
 <nav id="sticky-nav" aria-label="Page sections" style="position: fixed; top: 0px; left: 0px; right: 0px; z-index: 100; background: rgba(14, 26, 26, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.07); transform: translateY(-100%); transition: transform 0.3s;">
   <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;">
-    <a href="#nav-case" class="snav-link">The case</a>
-    <a href="#nav-voices" class="snav-link">Listen</a>
-    <a href="#nav-data" class="snav-link">The data</a>
+    <a href="#nav-case" class="snav-link">Problem</a>
+    <a href="#nav-voices" class="snav-link">Clinician stories</a>
+    <a href="#nav-data" class="snav-link">Evidence</a>
     <a href="#nav-needs" class="snav-link">User needs</a>
-    <a href="#nav-next" class="snav-link">What next</a>
+    <a href="#nav-next" class="snav-link">Next steps</a>
   </div>
 </nav>
 <style>
@@ -553,9 +553,9 @@ body { overflow-x: hidden;
         Hywel Dda University Health Board · March 2026
       </div>
 
-    <h1 class="cover-title">A service <em>on the edge</em><br>— and what helped.</h1>
-    <p style="font-size:1.05rem;font-weight:600;color:var(--teal2);line-height:1.5;margin-bottom:1rem;max-width:800px;">
-        6 clinicians across two ND teams used an AI scribe for six weeks. They got significant time back, reported better clinical quality, and said the role felt sustainable again.
+    <h1 class="cover-title">A service <em>on the edge.</em><br>What changed.</h1>
+    <p style="font-size:1.05rem;font-weight:600;color:var(--teal2);line-height:1.5;margin-bottom:.5rem;max-width:800px;">
+        6 clinicians across two ND teams used an AI scribe (Magic Notes) for six weeks. They got significant time back, reported better clinical quality, and said the role felt sustainable again.
       </p>
     <p class="cover-sub">
         Clinicians in Hywel Dda were managing unsustainable caseloads and running services on workarounds. This is early pilot data — from a structured diary study — on what changed when they got the right support.
@@ -566,7 +566,7 @@ body { overflow-x: hidden;
             <svg viewBox="0 0 16 16" width="12" height="12"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
           </button>
           <div style="flex:1;min-width:0;">
-            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: what happens when Magic Notes is removed</div>
+            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Impact of removing Magic Notes</div>
             <div class="ap-bar-player-cant" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'I_can_not_do_the_work.mp3')">
               <div class="ap-fill-player-cant" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
             </div>
@@ -599,6 +599,33 @@ body { overflow-x: hidden;
     </div>
 
 
+  </div>
+</div>
+
+<!-- ══ WHAT IS MAGICNOTES ══ -->
+<div style="background:#0e1a1a;border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="section" style="padding-top:2.5rem;padding-bottom:2.5rem;">
+    <span class="eyebrow">What is Magic Notes</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;line-height:1.2;color:#fff;margin-bottom:.8rem;">An AI scribe that records, transcribes and drafts — so clinicians don't have to.</h2>
+        <p style="font-size:.9rem;line-height:1.7;color:rgba(255,255,255,0.55);">Magic Notes records a clinical session, then immediately generates a structured draft report. The clinician reviews and edits before finalising — nothing is sent without sign-off.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.75rem;">
+        <div style="display:flex;gap:.75rem;align-items:flex-start;">
+          <span style="color:var(--teal2);font-size:.9rem;flex-shrink:0;margin-top:.15rem;">✓</span>
+          <p style="font-size:.85rem;line-height:1.6;color:rgba(255,255,255,0.55);margin:0;">Summarises multiple documents at once — including scanned and handwritten referrals.</p>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start;">
+          <span style="color:var(--teal2);font-size:.9rem;flex-shrink:0;margin-top:.15rem;">✓</span>
+          <p style="font-size:.85rem;line-height:1.6;color:rgba(255,255,255,0.55);margin:0;">Uses customisable templates — clinicians design these with the Magic Notes team to match their service, whether that means neurodiversity-affirming language, strengths-based framing, or verbatim quotes.</p>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start;">
+          <span style="color:var(--teal2);font-size:.9rem;flex-shrink:0;margin-top:.15rem;">✓</span>
+          <p style="font-size:.85rem;line-height:1.6;color:rgba(255,255,255,0.55);margin:0;">Clinician review and sign-off is always required before any document is finalised or shared.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -672,7 +699,7 @@ body { overflow-x: hidden;
             <svg viewBox="0 0 16 16" width="12" height="12"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
           </button>
           <div style="flex:1;min-width:0;">
-            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: clinicians describing the system they were working in</div>
+            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">From sceptical to confident</div>
             <div class="ap-bar-player-crapsys" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Crap_System.mp3')">
               <div class="ap-fill-player-crapsys" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
             </div>
@@ -686,22 +713,7 @@ body { overflow-x: hidden;
     <div style="background:linear-gradient(135deg,rgba(20,40,60,0.4),rgba(15,30,45,0.25));border:1px solid rgba(147,197,253,0.12);border-radius:20px;padding:1.8rem;margin-bottom:1.2rem;" class="reveal in">
       <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93c5fd;margin-bottom:.8rem;">From assessment to safeguarding action in under an hour</div>
       <h3 style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.65rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:.8rem;">During an assessment, a clinician uncovered a serious safeguarding concern. Normally, the documentation needed to act would have taken hours or days.</h3>
-      <div id="player-safe" style="margin-bottom:1.3rem;">
-      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
-        <button onclick="toggleAudio(this)" data-src="Safeguarding.mp3" aria-label="Play Hear the safeguarding story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
-          <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
-        </button>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: safeguarding action enabled within the hour</div>
-          <div class="ap-bar-player-safe" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Safeguarding.mp3')">
-            <div class="ap-fill-player-safe" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
-          </div>
-        </div>
-        <div class="ap-time-player-safe" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
-        <audio src="Safeguarding.mp3" style="display:none;" class="ap-audio-player-safe"></audio>
-      </div>
-    </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem;">
         <div style="border-left:2px solid rgba(147,197,253,0.25);padding-left:1.2rem;">
           <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#93c5fd;margin-bottom:.55rem;">What was uncovered</div>
           <p style="font-size:.86rem;line-height:1.65;color:rgba(255,255,255,0.55);">A vulnerable young adult in unsafe housing conditions. The right action was clear. But producing the written record to formally trigger safeguarding normally takes hours — sometimes days, depending on the backlog. In that gap, a person remains unprotected.</p>
@@ -715,6 +727,21 @@ body { overflow-x: hidden;
           </blockquote>
         </div>
       </div>
+      <div id="player-safe" style="margin-bottom:0;">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
+        <button onclick="toggleAudio(this)" data-src="Safeguarding.mp3" aria-label="Play Hear the safeguarding story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+          <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+        </button>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Safeguarding response within one hour</div>
+          <div class="ap-bar-player-safe" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Safeguarding.mp3')">
+            <div class="ap-fill-player-safe" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+          </div>
+        </div>
+        <div class="ap-time-player-safe" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+        <audio src="Safeguarding.mp3" style="display:none;" class="ap-audio-player-safe"></audio>
+      </div>
+    </div>
 
     </div>
 
@@ -726,13 +753,14 @@ body { overflow-x: hidden;
       <div style="background:linear-gradient(135deg,rgba(20,40,60,0.4),rgba(15,30,45,0.25));border:1px solid rgba(147,197,253,0.12);border-radius:20px;padding:1.8rem;" class="reveal in">
         <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93c5fd;margin-bottom:.8rem;">Unlocking clinical capacity</div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.6rem;">Seeing three patients instead of two — without staying late.</h3>
-        <div id="player-cap" style="margin-bottom:1.3rem;">
+        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);margin-bottom:1rem;">The time savings from using MagicNotes freed up enough capacity that one clinician could see an additional patient in the same day — without working into the evening or cutting assessment time short.</p>
+        <div id="player-cap" style="margin-bottom:0;">
       <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
         <button onclick="toggleAudio(this)" data-src="Needing_time_off.mp3" aria-label="Play Hear the capacity story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
           <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
         </button>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: seeing three patients instead of two</div>
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Documentation time reduced</div>
           <div class="ap-bar-player-cap" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Needing_time_off.mp3')">
             <div class="ap-fill-player-cap" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
           </div>
@@ -741,14 +769,13 @@ body { overflow-x: hidden;
         <audio src="Needing_time_off.mp3" style="display:none;" class="ap-audio-player-cap"></audio>
       </div>
     </div>
-        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">The time savings from using MagicNotes freed up enough capacity that one clinician could see an additional patient in the same day — without working into the evening or cutting assessment time short.</p>
       </div>
 
       <!-- Story: 250-report backlog — NO AUDIO -->
       <div style="background:linear-gradient(135deg,rgba(20,40,60,0.4),rgba(15,30,45,0.25));border:1px solid rgba(147,197,253,0.12);border-radius:20px;padding:1.8rem;" class="reveal reveal-d1 in">
         <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93c5fd;margin-bottom:.8rem;">Managing a backlog without increasing risk</div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.9rem;">A 250-report backlog — manageable for the first time.</h3>
-        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">One clinician was carrying a backlog of 250 outstanding reports alongside a full caseload. With MagicNotes drafting reports during or immediately after sessions, the backlog stopped growing — and started to come down — without adding extra hours or compromising quality.</p>
+        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">One clinician was carrying a backlog of 250 outstanding reports alongside a full caseload. Magic Notes summarised multiple documents at once — including scanned documents with handwriting that was barely legible — meaning the backlog started to come down without adding extra hours or compromising quality.</p>
       </div>
 
       <!-- Assessment quality -->
@@ -756,30 +783,29 @@ body { overflow-x: hidden;
         <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6ee7b7;margin-bottom:.8rem;">When clinicians can focus on the child, assessments improve</div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.9rem;">Autism assessments depend on what you notice. Writing notes means missing things.</h3>
         <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);margin-bottom:1rem;">Autism assessments rely on subtle behaviours, facial expressions and interaction that are easy to miss when attention is split between observing and documenting. With MagicNotes capturing the session, clinicians could focus fully on the child — improving both observation and rapport.</p>
-
+        <div id="player-cross" style="margin-bottom:0;">
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
+            <button onclick="toggleAudio(this)" data-src="cross_teen.mp3" aria-label="Play" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+              <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+            </button>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Supporting hard-to-engage patients</div>
+              <div class="ap-bar-player-cross" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'cross_teen.mp3')">
+                <div class="ap-fill-player-cross" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+              </div>
+            </div>
+            <div class="ap-time-player-cross" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+            <audio src="cross_teen.mp3" style="display:none;" class="ap-audio-player-cross"></audio>
+          </div>
+        </div>
       </div>
 
       <!-- Cognitive load — full width -->
       <div style="grid-column:1/-1;background:linear-gradient(135deg,rgba(40,30,15,0.4),rgba(30,22,10,0.25));border:1px solid rgba(251,191,36,0.12);border-radius:20px;padding:1.8rem;" class="reveal in">
         <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fbbf24;margin-bottom:.8rem;">Reducing cognitive load makes the role more sustainable</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem;">
           <div>
             <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.6rem;">Documentation was one of the most mentally exhausting parts of the job.</h3>
-            <div id="player-sus" style="margin-bottom:1.3rem;">
-      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
-        <button onclick="toggleAudio(this)" data-src="In_the_moment.mp3" aria-label="Play Hear the sustainability story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
-          <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
-        </button>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: making the role feel sustainable again</div>
-          <div class="ap-bar-player-sus" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'In_the_moment.mp3')">
-            <div class="ap-fill-player-sus" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
-          </div>
-        </div>
-        <div class="ap-time-player-sus" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
-        <audio src="In_the_moment.mp3" style="display:none;" class="ap-audio-player-sus"></audio>
-      </div>
-    </div>
             <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">Trying to remember everything after a complex assessment created significant stress and cognitive load. Clinicians described carrying the session in their heads until they had time to write — hours or days later, with back-to-back appointments in between.</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:.8rem;">
@@ -788,9 +814,23 @@ body { overflow-x: hidden;
               <p style="font-family:'Playfair Display',serif;font-size:.9rem;color:rgba(255,255,255,0.75);line-height:1.5;">"Using the tool made the role feel sustainable again. I could see myself staying in the job for another ten years."</p>
               <cite style="display:block;margin-top:.35rem;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-style:normal;">Clinician A, ADHD Clinical Nurse Specialist</cite>
             </blockquote>
-
           </div>
         </div>
+        <div id="player-sus" style="margin-bottom:0;">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
+        <button onclick="toggleAudio(this)" data-src="In_the_moment.mp3" aria-label="Play Hear the sustainability story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+          <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+        </button>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Making the role sustainable again</div>
+          <div class="ap-bar-player-sus" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'In_the_moment.mp3')">
+            <div class="ap-fill-player-sus" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+          </div>
+        </div>
+        <div class="ap-time-player-sus" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+        <audio src="In_the_moment.mp3" style="display:none;" class="ap-audio-player-sus"></audio>
+      </div>
+    </div>
       </div>
 
     </div>
@@ -1064,15 +1104,13 @@ body { overflow-x: hidden;
       </div>
     </div>
 
-    <div style="margin-top:2.5rem;padding:1.6rem 2rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;">
-      <p style="font-size:.82rem;line-height:1.7;color:rgba(255,255,255,0.55);">
-        <strong style="color:#fff;">The impact is real — the challenge now is making it possible for teams to use tools like this.</strong><br>
-        The pilots have shown what is possible. The next step is moving from individual adoption to structural support — ensuring clinicians across Welsh ND services can access tools that demonstrably reduce their burden, improve their documentation, and make their roles sustainable.
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.2rem;">
-        <a href="combined.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;color:var(--teal2);text-decoration:none;padding:.45rem .9rem;border:1px solid rgba(109,208,208,0.3);border-radius:2rem;transition:background .15s;" onmouseover="this.style.background='rgba(109,208,208,0.08)'" onmouseout="this.style.background='transparent'">Read the combined report →</a>
-
+    <!-- Security & governance -->
+    <div style="margin-top:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.6rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;line-height:1.2;color:#fff;margin-bottom:.5rem;">Security &amp; governance</h2>
+        <p style="font-size:.82rem;color:rgba(255,255,255,0.55);line-height:1.5;">Full details on data handling, security and governance are available at the Magic Notes trust centre.</p>
       </div>
+      <a href="https://trust.beam.org/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;color:var(--teal2);text-decoration:none;padding:.45rem .9rem;border:1px solid rgba(109,208,208,0.3);border-radius:2rem;white-space:nowrap;transition:background .15s;" onmouseover="this.style.background='rgba(109,208,208,0.08)'" onmouseout="this.style.background='transparent'">View trust centre →</a>
     </div>
   </div>
 </div>
