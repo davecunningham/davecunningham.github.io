@@ -1,0 +1,1637 @@
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hywel Dda — AI Scribe Pilot: Clinician Voices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:     #0f1a1a;
+  --ink2:    #1e2e2e;
+  --teal:    #1a6b6b;
+  --teal2:   #6dd0d0;
+  --teal3:   #c8f0f0;
+  --amber:   #c07825;
+  --rose:    #8c2d3a;
+  --white:   #ffffff;
+  --dust:    #f4f1ed;
+  --mid:     #4a5e5e;
+  --border:  rgba(255,255,255,0.1);
+  --purple:  #7c3aed;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body { overflow-x: hidden;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── LAYOUT ── */
+.page { padding-top: 0; }
+
+/* ── COVER ── */
+.cover { position:relative; overflow:hidden; }
+.cover-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26,107,107,0.22) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 40% at 10% 80%, rgba(124,58,237,0.12) 0%, transparent 50%);
+}
+.cover-grid {
+  position: absolute; inset: 0; opacity: .03;
+  background-image: linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.cover-kicker {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: 1.8rem;
+}
+.cover-kicker-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal2); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.12rem, 5.4vw, 4.56rem);
+  font-weight: 900; line-height: 1.05;
+  letter-spacing: -.02em; margin-bottom: 1.5rem;
+}
+.cover-title em { font-style: italic; color: var(--teal2); }
+.cover-sub { font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.6); max-width: 800px; margin-bottom: 2.5rem; }
+.cover-meta { display: flex; flex-wrap: wrap; gap: 1rem; }
+.meta-pill {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .72rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+  padding: .35rem .85rem; border-radius: 2rem;
+  border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5);
+}
+.meta-pill.active { border-color: var(--teal2); color: var(--teal2); }
+.cover-right { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.hero-stat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px; padding: 1.5rem 1.4rem;
+  position: relative; overflow: hidden;
+  transition: transform .2s, border-color .2s;
+}
+.hero-stat:hover { transform: translateY(-2px); border-color: rgba(109,208,208,0.3); }
+.hero-stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.hero-stat.c-teal::before { background: var(--teal2); }
+.hero-stat.c-amber::before { background: #f5c075; }
+.hero-stat.c-purple::before { background: #c4b5fd; }
+.hero-stat.c-green::before { background: #6ee7b7; }
+.hero-stat-num { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: .3rem; }
+.hero-stat.c-teal .hero-stat-num { color: var(--teal2); }
+.hero-stat.c-amber .hero-stat-num { color: #f5c075; }
+.hero-stat.c-purple .hero-stat-num { color: #c4b5fd; }
+.hero-stat.c-green .hero-stat-num { color: #6ee7b7; }
+.hero-stat-label { font-size: .75rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+.cover-bottom {
+  position: relative; z-index: 1;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 1.2rem 60px;
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+}
+.cover-date { font-size: .72rem; color: rgba(255,255,255,0.5); }
+
+/* ── SECTIONS ── */
+.section { max-width: 1100px; margin: 0 auto; padding: 80px 60px; }
+.band-dark  { background: var(--ink); color: var(--white); }
+.band-ink2  { background: var(--ink2); color: var(--white); }
+.band-teal  { background: #0b2e2e; }
+.band-dust  { background: #f4f1ed; color: var(--ink); }
+
+.eyebrow { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--teal2); margin-bottom: .7rem; }
+.band-dust .eyebrow { color: var(--teal); }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; color: #fff; }
+.band-dust .section-title { color: var(--ink); }
+.section-lead { font-size: 1rem; line-height: 1.75; color: inherit; max-width: 640px; margin-bottom: 2.5rem; }
+.band-dark .section-lead,
+.band-ink .section-lead,
+.band-ink2 .section-lead { color: rgba(255,255,255,0.65); }
+
+.band-dust .section-lead { color: var(--mid); }
+
+/* ── VOICE CARDS ── */
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.band-dust .section-title { color: var(--ink); }
+.band-dust .section-lead { color: var(--mid); }
+
+.voice-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.voice-card.featured {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(26,107,107,0.12), rgba(26,107,107,0.04));
+  border-color: rgba(109,208,208,0.2);
+}
+.voice-card-head {
+  padding: 1.4rem 1.6rem 0;
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+}
+.voice-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, #1a6b6b, #2a9090);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700; color: #fff;
+  flex-shrink: 0;
+}
+.voice-avatar.purple { background: linear-gradient(135deg, #4c1d95, #7c3aed); }
+.voice-avatar.amber  { background: linear-gradient(135deg, #92400e, #c07825); }
+.voice-avatar.green  { background: linear-gradient(135deg, #064e3b, #059669); }
+.voice-name { font-weight: 600; font-size: .9rem; }
+.voice-role { font-size: .72rem; color: rgba(255,255,255,0.5); margin-top: .1rem; }
+.voice-body { padding: 1.2rem 1.6rem; flex: 1; }
+.voice-quotes { display: flex; flex-direction: column; gap: .8rem; }
+.voice-quote {
+  position: relative;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(109,208,208,0.3);
+}
+.voice-card.featured .voice-quote { border-left-color: rgba(109,208,208,0.5); }
+.voice-quote p {
+  font-size: .88rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+  }
+.voice-card.featured .voice-quote p { font-size: .95rem; color: rgba(255,255,255,0.9); }
+.voice-quote-context {
+  font-size: .68rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: .3rem;
+}
+
+/* ── AUDIO PLAYER ── */
+.voice-audio {
+  padding: 1rem 1.6rem 1.4rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: .4rem;
+}
+.audio-label {
+  font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-bottom: .5rem;
+}
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.audio-play-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--teal);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background .15s, transform .1s;
+}
+.audio-play-btn:hover { background: #1f8080; transform: scale(1.05); }
+.audio-play-btn svg { width: 14px; height: 14px; fill: #fff; }
+.audio-progress-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.audio-progress-bar {
+  width: 100%; height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+.audio-progress-fill {
+  height: 100%;
+  background: var(--teal2);
+  border-radius: 2px;
+  width: 0%;
+  transition: width .1s linear;
+}
+.audio-time {
+  font-size: .65rem;
+  color: rgba(255,255,255,0.5);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── DATA SECTION ── */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+.data-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 1.4rem;
+}
+.data-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 700; line-height: 1;
+  color: var(--teal2); margin-bottom: .3rem;
+}
+.data-num.purple { color: #c4b5fd; }
+.data-num.amber { color: #f5c075; }
+.data-label { font-size: .78rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+.data-sub { font-size: .68rem; color: rgba(255,255,255,0.5); margin-top: .2rem; }
+
+.savings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+}
+.savings-table th {
+  text-align: left;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  padding: .6rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.savings-table td {
+  padding: .75rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.7);
+}
+.savings-table tr:last-child td { border-bottom: none; }
+.savings-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+.pct { font-weight: 600; color: #6ee7b7; }
+
+/* ── INSIGHT CARDS ── */
+.band-dust .insight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+.insight-card { background: white; border-radius: 14px; padding: 1.5rem; border-top: 3px solid var(--teal); }
+.insight-num { font-family: 'Playfair Display', serif; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: .5rem; }
+.insight-head { font-weight: 600; font-size: .92rem; color: var(--ink); margin-bottom: .5rem; }
+.insight-body { font-size: .82rem; line-height: 1.6; color: var(--mid); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+.reveal-d3 { transition-delay: .3s; }
+
+/* ── STORY CARDS ── */
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+.story-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+.story-card.span2 { grid-column: 1 / -1; background: linear-gradient(135deg, rgba(26,107,107,0.1), rgba(26,107,107,0.03)); border-color: rgba(109,208,208,0.15); }
+.story-icon { font-size: 1.6rem; }
+.story-head { font-weight: 700; font-size: .95rem; color: #fff; line-height: 1.3; }
+.story-body { font-size: .83rem; line-height: 1.65; color: rgba(255,255,255,0.55); }
+.story-tag { display: inline-block; font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 3px; background: rgba(109,208,208,0.12); color: var(--teal2); margin-bottom: .2rem; }
+
+/* ── ADOPTION TIMELINE ── */
+.adoption-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.adoption-step {
+  background: rgba(255,255,255,0.03);
+  padding: 1.6rem;
+}
+.adoption-num {
+  font-family: 'Playfair Display', serif;
+  font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: .6rem;
+}
+.adoption-head { font-weight: 600; font-size: .88rem; color: #fff; margin-bottom: .45rem; }
+.adoption-body { font-size: .78rem; line-height: 1.6; color: rgba(255,255,255,0.5); }
+
+/* ── WHAT NEXT ── */
+.what-next-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+.what-next-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.what-next-check {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(110,231,183,0.15); border: 1px solid rgba(110,231,183,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: .85rem; color: #6ee7b7;
+}
+.what-next-text { font-size: .85rem; line-height: 1.55; color: rgba(255,255,255,0.7); }
+.what-next-text strong { display: block; color: #fff; font-weight: 600; margin-bottom: .2rem; }
+.standout-quote {
+  background: linear-gradient(135deg, rgba(26,107,107,0.15), rgba(26,107,107,0.05));
+  border: 1px solid rgba(109,208,208,0.2);
+  border-radius: 16px;
+  padding: 2rem 2.4rem;
+  margin: 2.5rem 0;
+  position: relative;
+}
+.standout-quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem; line-height: .8;
+  color: var(--teal2); opacity: .2;
+  position: absolute; top: 1rem; left: 1.6rem;
+}
+.standout-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-style: italic; line-height: 1.5;
+  color: rgba(255,255,255,0.9);
+  padding-top: 1.5rem;
+}
+.standout-quote cite {
+  display: block; margin-top: .8rem;
+  font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--teal2); font-style: normal;
+}
+
+/* ── FOOTER ── */
+.exec-footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 60px;
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+.footer-brand { font-family: 'Playfair Display', serif; font-size: .9rem; color: rgba(255,255,255,0.5); }
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a { font-size: .72rem; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: .05em; text-transform: uppercase; transition: color .15s; }
+.footer-links a:hover { color: var(--teal2); }
+
+@media (max-width: 860px) {
+  .cover-bottom { padding: 1rem 28px; }
+  .section { padding: 56px 28px; }
+  .cover-right,
+  .voice-grid,
+  .data-grid,
+  .band-dust .insight-grid,
+  .adoption-steps,
+  .story-grid,
+  .what-next-grid { grid-template-columns: 1fr; }
+  .voice-card.featured,
+  .story-card.span2 { grid-column: 1; }
+  .exec-footer { padding: 1.5rem 28px; }
+
+  /* Force all inline multi-column grids to single column */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reset any spanning grid items */
+  [style*="grid-column:1/-1"],
+  [style*="grid-column: 1 / -1"] {
+    grid-column: 1 !important;
+  }
+
+  /* Context stat boxes stack vertically */
+  .context-stat { width: 100%; border-radius: 12px !important; border: 1px solid rgba(255,255,255,0.07) !important; }
+  .context-arrow { width: 100%; text-align: center; padding: .25rem 0; }
+}
+
+<style>
+.ctab { padding:0.6rem 1.2rem; background:transparent; border:none; border-bottom:2px solid transparent; color:rgba(255,255,255,0.5); font-size:0.82rem; font-weight:500; cursor:pointer; transition:all 0.15s; margin-bottom:-1px; }
+.ctab:hover { color:rgba(255,255,255,0.7); }
+.ctab.ctab-on { color:#6dd0d0; border-bottom-color:#6dd0d0; }
+.pcalc-btn { padding:0.32rem 0.75rem; border-radius:2rem; border:1px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.55); font-size:0.78rem; font-weight:500; cursor:pointer; transition:all 0.15s; }
+.pcalc-btn:hover { border-color:#6dd0d0; color:#6dd0d0; }
+.pcalc-btn.pcalc-active { background:#6dd0d0; color:#1e2c2c; border-color:#6dd0d0; font-weight:600; }
+.ctask-row { display:flex; align-items:center; justify-content:space-between; font-size:0.8rem; cursor:pointer; }
+.ctask-label { color:rgba(255,255,255,0.6); display:flex; align-items:center; gap:0.45rem; }
+.ctask-min { color:rgba(255,255,255,0.5); font-size:0.74rem; white-space:nowrap; }
+.cbreak-row { display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; padding:0.28rem 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+.cbreak-row:last-child { border-bottom:none; padding-top:0.4rem; margin-top:0.1rem; border-top:1px solid rgba(255,255,255,0.1); }
+.cbreak-lbl { color:rgba(255,255,255,0.5); }
+.cbreak-val { color:rgba(255,255,255,0.75); font-weight:500; }
+.tool-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:1.3rem; }
+.tool-card-tested { border-color:rgba(109,208,
+
+
+  </div>
+</div>
+
+<style>
+.ctab{padding:0.6rem 1.2rem;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,0.62);font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
+.ctab:hover{color:rgba(255,255,255,0.7);}
+.ctab.ctab-on{color:#6dd0d0;border-bottom-color:#6dd0d0;}
+.pcalc-btn{padding:0.32rem 0.75rem;border-radius:2rem;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.55);font-size:0.78rem;font-weight:500;cursor:pointer;transition:all 0.15s;}
+.pcalc-btn:hover{border-color:#6dd0d0;color:#6dd0d0;}
+.pcalc-btn.pcalc-active{background:#6dd0d0;color:#1e2c2c;border-color:#6dd0d0;font-weight:600;}
+.ctask-row{display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;cursor:pointer;}
+.ctask-label{color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:0.45rem;}
+.ctask-min{color:rgba(255,255,255,0.5);font-size:0.74rem;white-space:nowrap;}
+.cbreak-row{display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.cbreak-row:last-child{border-bottom:none;padding-top:0.4rem;margin-top:0.1rem;border-top:1px solid rgba(255,255,255,0.1);}
+.cbreak-lbl{color:rgba(255,255,255,0.62);}
+.cbreak-val{color:rgba(255,255,255,0.75);font-weight:500;}
+.tool-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.3rem;}
+.tool-card-tested{border-color:rgba(109,208,208,0.4);background:rgba(26,107,107,0.18);}
+.tool-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.25rem;}
+.tool-tag{display:inline-block;font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:0.15rem 0.55rem;border-radius:2rem;margin-bottom:0.9rem;}
+.tool-tag-tested{background:rgba(109,208,208,0.2);color:#6dd0d0;}
+.tool-tag-other{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.62);}
+.tool-cost-big{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;line-height:1;margin-bottom:0.2rem;}
+.tool-cost-sub{font-size:0.74rem;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;}
+.tool-input-row{display:flex;align-items:center;gap:0.4rem;margin-bottom:0.75rem;}
+.tool-input-row span{font-size:0.85rem;color:rgba(255,255,255,0.5);}
+.tool-input-row input{width:74px;padding:0.32rem 0.55rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:var(--white);font-size:0.88rem;text-align:right;}
+.tool-input-row input:focus{outline:none;border-color:#6dd0d0;}
+.tool-fact{font-size:0.77rem;color:rgba(255,255,255,0.62);line-height:1.4;margin-bottom:0.32rem;display:flex;gap:0.4rem;}
+.ncmp-th{padding:0.65rem 1rem;font-size:0.68rem;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.62);text-align:left;border-bottom:1px solid rgba(255,255,255,0.08);white-space:nowrap;background:rgba(255,255,255,0.03);}
+.ncmp-td{padding:0.6rem 1rem;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle;}
+.ncmp-tr:last-child .ncmp-td{border-bottom:none;}
+.ncmp-tr:hover .ncmp-td{background:rgba(255,255,255,0.03);}
+.ncmp-need{font-size:0.8rem;color:rgba(255,255,255,0.62);line-height:1.35;max-width:270px;}
+.ncmp-conf{font-size:0.95rem;display:block;text-align:center;}
+.c-yes{color:#6dd0d0;} .c-maybe{color:#cc8020;} .c-unk{color:rgba(255,255,255,0.5);} .c-no{color:#9e3a47;}
+</style>
+
+</head>
+<body>
+<!-- ══ STICKY NAV ══ -->
+<nav id="sticky-nav" aria-label="Page sections" style="position: fixed; top: 0px; left: 0px; right: 0px; z-index: 100; background: rgba(14, 26, 26, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.07); transform: translateY(-100%); transition: transform 0.3s;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;">
+    <a href="#nav-case" class="snav-link">The case</a>
+    <a href="#nav-voices" class="snav-link">Listen</a>
+    <a href="#nav-data" class="snav-link">The data</a>
+    <a href="#nav-needs" class="snav-link">User needs</a>
+    <a href="#nav-next" class="snav-link">What next</a>
+  </div>
+</nav>
+<style>
+.snav-link { display:inline-block; padding:.75rem 1rem; font-size:.72rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,0.5); text-decoration:none; white-space:nowrap; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; }
+.snav-link:hover { color:#fff; }
+.snav-link.active { color:#6dd0d0; border-bottom-color:#6dd0d0; }
+</style>
+<script>
+(function(){
+  var nav = document.getElementById('sticky-nav');
+  var shown = false;
+  var clickLock = false;
+
+  function setActive(id) {
+    nav.querySelectorAll('.snav-link').forEach(function(l){
+      l.classList.toggle('active', l.getAttribute('href')==='#'+id);
+    });
+  }
+
+  // Highlight on click immediately, suppress scroll override briefly
+  nav.querySelectorAll('.snav-link').forEach(function(l){
+    l.addEventListener('click', function(){
+      var id = l.getAttribute('href').replace('#','');
+      setActive(id);
+      clickLock = true;
+      setTimeout(function(){ clickLock = false; }, 1000);
+    });
+  });
+
+  // Highlight on scroll
+  window.addEventListener('scroll', function(){
+    var past = window.scrollY > 400;
+    if(past !== shown){ nav.style.transform = past ? 'translateY(0)' : 'translateY(-100%)'; shown = past; }
+    if(clickLock) return;
+    var ids = ['nav-case','nav-voices','nav-data','nav-needs','nav-next'];
+    var active = '';
+    ids.forEach(function(id){ var el=document.getElementById(id); if(el && el.getBoundingClientRect().top <= 120) active=id; });
+    setActive(active);
+  }, {passive:true});
+})();
+</script>
+<div class="page" id="main-content">
+
+<!-- ══ COVER ══ -->
+<div class="band-ink" style="position:relative;overflow:hidden;" aria-label="Executive summary cover">
+  <div class="cover-bg" aria-hidden="true"></div>
+  <div class="cover-grid" aria-hidden="true"></div>
+  <div class="section" style="position:relative;z-index:1;">
+    <div class="cover-kicker">
+        <span class="cover-kicker-dot" aria-hidden="true"></span>
+        Hywel Dda University Health Board · March 2026
+      </div>
+
+    <h1 class="cover-title">A service <em>on the edge</em><br>— and what helped.</h1>
+    <p style="font-size:1.05rem;font-weight:600;color:var(--teal2);line-height:1.5;margin-bottom:1rem;max-width:800px;">
+        6 clinicians across two ND teams used an AI scribe for six weeks. They got significant time back, reported better clinical quality, and said the role felt sustainable again.
+      </p>
+    <p class="cover-sub">
+        Clinicians in Hywel Dda were managing unsustainable caseloads and running services on workarounds. This is early pilot data — from a structured diary study — on what changed when they got the right support.
+      </p>
+    <div id="player-cant" style="margin-bottom:1.2rem;">
+        <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:.6rem .9rem;display:flex;align-items:center;gap:.8rem;">
+          <button onclick="toggleAudio(this)" data-src="I_can_not_do_the_work.mp3" aria-label="Play" style="width:32px;height:32px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+            <svg viewBox="0 0 16 16" width="12" height="12"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+          </button>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: what happens when Magic Notes is removed</div>
+            <div class="ap-bar-player-cant" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'I_can_not_do_the_work.mp3')">
+              <div class="ap-fill-player-cant" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+            </div>
+          </div>
+          <div class="ap-time-player-cant" style="font-size:.65rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+          <audio src="I_can_not_do_the_work.mp3" style="display:none;" class="ap-audio-player-cant"></audio>
+        </div>
+      </div>
+
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:2rem;padding-top:2rem;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:1.5rem;">Pilot highlights.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;">
+      <div style="border-left:3px solid var(--teal2);padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal2);margin-bottom:.4rem;">ADHD pathway</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">64%</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">time reduction · 80 min saved per patient</div>
+      </div>
+      <div style="border-left:3px solid #a78bfa;padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:.4rem;">Autism pathway</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">30–35%</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">time reduction · 80–95 min saved per patient</div>
+      </div>
+      <div style="border-left:3px solid #fbbf24;padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fbbf24;margin-bottom:.4rem;">Clinician feedback</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">4.9/5</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">ease of use · 81–100% rated quality improved</div>
+      </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- ══ CLINICAL RISK CALLOUT ══ -->
+<a id="nav-case"></a>
+
+<div class="band-ink2">
+  <div class="section reveal in">
+    <span class="eyebrow">The context</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:1.5rem;">This system<br>cannot catch up.</h2>
+    <p style="font-size:1.15rem;font-weight:500;line-height:1.5;color:rgba(255,255,255,0.85);max-width:640px;margin-bottom:.75rem;">More children are being referred than seen. Every year, the gap widens.</p>
+    <p style="font-size:.88rem;line-height:1.6;color:rgba(255,255,255,0.45);max-width:600px;margin-bottom:2.5rem;">Welsh Government modelling predicts that if nothing changes, the number of children waiting will continue to rise. The 2027 figure is a projection based on current referral and capacity trends.</p>
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:3rem;flex-wrap:wrap;">
+      <div class="context-stat" style="text-align:center;padding:2rem 2.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px 0 0 16px;">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1;">4,100</div>
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:.5rem;">2021</div>
+      </div>
+      <div class="context-arrow" style="font-size:1.5rem;color:rgba(255,255,255,0.15);padding:0 .5rem;">→</div>
+      <div class="context-stat" style="text-align:center;padding:2rem 2.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07);border-left:none;border-right:none;">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#cc8020;line-height:1;">20,770</div>
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:.5rem;">2024</div>
+      </div>
+      <div class="context-arrow" style="font-size:1.5rem;color:rgba(255,255,255,0.15);padding:0 .5rem;">→</div>
+      <div class="context-stat" style="text-align:center;padding:2rem 2.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(248,113,113,0.2);border-radius:0 16px 16px 0;">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#f87171;line-height:1;">61,000</div>
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:.5rem;">2027 (projected)</div>
+      </div>
+    </div>
+    <p style="font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:700;line-height:1.3;color:#fff;max-width:640px;border-left:3px solid rgba(255,255,255,0.15);padding-left:1.5rem;margin:0;">An 8-year-old referred today could be starting secondary school before they are seen.</p>
+  </div>
+</div>
+
+<div style="background:#0e1a1a;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
+  <div class="section" style="padding-top:3rem;padding-bottom:3rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+      <div>
+        <span class="eyebrow">The case for acting</span>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;line-height:1.1;color:#fff;margin:.8rem 0 1.2rem;">Early evidence suggests it is a clinical risk <em style="color:var(--teal2);">not</em> having this tool.</h2>
+        <p style="font-size:.9rem;line-height:1.7;color:rgba(255,255,255,0.5);">This is not a productivity argument. The pilot data suggests that without this tool, safeguarding action is delayed, diagnostic detail is lost, and clinicians are making decisions from incomplete, memory-reconstructed notes. That is a patient safety question.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.3rem 1.5rem;">
+          <p style="font-family:'Playfair Display',serif;font-size:.95rem;line-height:1.55;color:rgba(255,255,255,0.8);">"If you take away Magic Notes, there is no way I'll be able to do this."</p>
+          <cite style="display:block;margin-top:.5rem;font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-style:normal;">ADHD Clinical Nurse Specialist</cite>
+
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.3rem 1.5rem;">
+          <p style="font-family:'Playfair Display',serif;font-size:.95rem;line-height:1.55;color:rgba(255,255,255,0.8);">"I don't get put off starting draining tasks at the end of the day anymore because I know MagicNotes will do the work for me."</p>
+          <cite style="display:block;margin-top:.5rem;font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-style:normal;">ADHD Clinical Nurse Specialist</cite>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.3rem 1.5rem;">
+          <p style="font-family:'Playfair Display',serif;font-size:.95rem;line-height:1.55;color:rgba(255,255,255,0.8);">"Using the tool made the role feel sustainable again. I could see myself staying in the job for another ten years."</p>
+          <cite style="display:block;margin-top:.5rem;font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-style:normal;">Clinician, Autism team</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VOICES ══ -->
+<a id="nav-voices"></a>
+<a id="nav-stories"></a>
+<div class="band-dark">
+  <div class="section">
+    <span class="eyebrow">The clinicians</span>
+    <h2 class="section-title">Real people. A system that was failing them.<br><em>Listen to what changed.</em></h2>
+    <p class="section-lead">These recordings are short — From 20 seconds to 2.5 minutes each. The stories below are what the data looks like in practice. If you read nothing else, listen to these.</p>
+        <div id="player-crapsys" style="margin-bottom:1.5rem;">
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.6rem .9rem;display:flex;align-items:center;gap:.8rem;">
+          <button onclick="toggleAudio(this)" data-src="Crap_System.mp3" aria-label="Play" style="width:32px;height:32px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+            <svg viewBox="0 0 16 16" width="12" height="12"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+          </button>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: clinicians describing the system they were working in</div>
+            <div class="ap-bar-player-crapsys" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Crap_System.mp3')">
+              <div class="ap-fill-player-crapsys" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+            </div>
+          </div>
+          <div class="ap-time-player-crapsys" style="font-size:.65rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+          <audio src="Crap_System.mp3" style="display:none;" class="ap-audio-player-crapsys"></audio>
+        </div>
+      </div>
+
+    <!-- ── FEATURED: SAFEGUARDING ── -->
+    <div style="background:linear-gradient(135deg,rgba(20,40,60,0.4),rgba(15,30,45,0.25));border:1px solid rgba(147,197,253,0.12);border-radius:20px;padding:1.8rem;margin-bottom:1.2rem;" class="reveal in">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93c5fd;margin-bottom:.8rem;">From assessment to safeguarding action in under an hour</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.65rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:.8rem;">During an assessment, a clinician uncovered a serious safeguarding concern. Normally, the documentation needed to act would have taken hours or days.</h3>
+      <div id="player-safe" style="margin-bottom:1.3rem;">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
+        <button onclick="toggleAudio(this)" data-src="Safeguarding.mp3" aria-label="Play Hear the safeguarding story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+          <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+        </button>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: safeguarding action enabled within the hour</div>
+          <div class="ap-bar-player-safe" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Safeguarding.mp3')">
+            <div class="ap-fill-player-safe" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+          </div>
+        </div>
+        <div class="ap-time-player-safe" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+        <audio src="Safeguarding.mp3" style="display:none;" class="ap-audio-player-safe"></audio>
+      </div>
+    </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+        <div style="border-left:2px solid rgba(147,197,253,0.25);padding-left:1.2rem;">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#93c5fd;margin-bottom:.55rem;">What was uncovered</div>
+          <p style="font-size:.86rem;line-height:1.65;color:rgba(255,255,255,0.55);">A vulnerable young adult in unsafe housing conditions. The right action was clear. But producing the written record to formally trigger safeguarding normally takes hours — sometimes days, depending on the backlog. In that gap, a person remains unprotected.</p>
+        </div>
+        <div style="border-left:2px solid rgba(110,231,183,0.35);padding-left:1.2rem;">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(110,231,183,0.5);margin-bottom:.55rem;">What MagicNotes made possible</div>
+          <p style="font-size:.86rem;line-height:1.65;color:rgba(255,255,255,0.55);">MagicNotes generated a detailed report immediately after the session. Services were able to act within the hour. The clinician explained this outcome was only possible because the tool was running.</p>
+          <blockquote style="border-left:2px solid rgba(110,231,183,0.25);padding-left:.9rem;margin:1rem 0 0;">
+            <p style="font-family:'Playfair Display',serif;font-size:.88rem;color:rgba(255,255,255,0.7);line-height:1.5;">"Magic Notes allowed that to happen — I wouldn't have been able to send anything without it."</p>
+            <cite style="display:block;margin-top:.35rem;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-style:normal;">Clinician B, Specialist Practitioner ASD</cite>
+          </blockquote>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── FEATURED: THREE STORIES ── -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2rem;">
+
+      <!-- Capacity -->
+      <!-- Story: 3 patients instead of 2 — HAS AUDIO Clinician D -->
+      <div style="background:linear-gradient(135deg,rgba(20,40,60,0.4),rgba(15,30,45,0.25));border:1px solid rgba(147,197,253,0.12);border-radius:20px;padding:1.8rem;" class="reveal in">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93c5fd;margin-bottom:.8rem;">Unlocking clinical capacity</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.6rem;">Seeing three patients instead of two — without staying late.</h3>
+        <div id="player-cap" style="margin-bottom:1.3rem;">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
+        <button onclick="toggleAudio(this)" data-src="Needing_time_off.mp3" aria-label="Play Hear the capacity story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+          <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+        </button>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: seeing three patients instead of two</div>
+          <div class="ap-bar-player-cap" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'Needing_time_off.mp3')">
+            <div class="ap-fill-player-cap" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+          </div>
+        </div>
+        <div class="ap-time-player-cap" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+        <audio src="Needing_time_off.mp3" style="display:none;" class="ap-audio-player-cap"></audio>
+      </div>
+    </div>
+        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">The time savings from using MagicNotes freed up enough capacity that one clinician could see an additional patient in the same day — without working into the evening or cutting assessment time short.</p>
+      </div>
+
+      <!-- Story: 250-report backlog — NO AUDIO -->
+      <div style="background:linear-gradient(135deg,rgba(20,40,60,0.4),rgba(15,30,45,0.25));border:1px solid rgba(147,197,253,0.12);border-radius:20px;padding:1.8rem;" class="reveal reveal-d1 in">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#93c5fd;margin-bottom:.8rem;">Managing a backlog without increasing risk</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.9rem;">A 250-report backlog — manageable for the first time.</h3>
+        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">One clinician was carrying a backlog of 250 outstanding reports alongside a full caseload. With MagicNotes drafting reports during or immediately after sessions, the backlog stopped growing — and started to come down — without adding extra hours or compromising quality.</p>
+      </div>
+
+      <!-- Assessment quality -->
+      <div style="background:linear-gradient(135deg,rgba(20,50,40,0.4),rgba(15,35,28,0.25));border:1px solid rgba(110,231,183,0.12);border-radius:20px;padding:1.8rem;" class="reveal reveal-d1 in">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6ee7b7;margin-bottom:.8rem;">When clinicians can focus on the child, assessments improve</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.9rem;">Autism assessments depend on what you notice. Writing notes means missing things.</h3>
+        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);margin-bottom:1rem;">Autism assessments rely on subtle behaviours, facial expressions and interaction that are easy to miss when attention is split between observing and documenting. With MagicNotes capturing the session, clinicians could focus fully on the child — improving both observation and rapport.</p>
+
+      </div>
+
+      <!-- Cognitive load — full width -->
+      <div style="grid-column:1/-1;background:linear-gradient(135deg,rgba(40,30,15,0.4),rgba(30,22,10,0.25));border:1px solid rgba(251,191,36,0.12);border-radius:20px;padding:1.8rem;" class="reveal in">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fbbf24;margin-bottom:.8rem;">Reducing cognitive load makes the role more sustainable</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+          <div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:.6rem;">Documentation was one of the most mentally exhausting parts of the job.</h3>
+            <div id="player-sus" style="margin-bottom:1.3rem;">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:.7rem 1rem;display:flex;align-items:center;gap:.9rem;">
+        <button onclick="toggleAudio(this)" data-src="In_the_moment.mp3" aria-label="Play Hear the sustainability story" style="width:36px;height:36px;border-radius:50%;background:#6dd0d0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;" onmouseover="this.style.background='#8de0e0'" onmouseout="this.style.background='#6dd0d0'">
+          <svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"></polygon></svg>
+        </button>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:.8rem;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,0.5);margin-bottom:.3rem;">Play audio: making the role feel sustainable again</div>
+          <div class="ap-bar-player-sus" style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;cursor:pointer;position:relative;" onclick="seekAudio2(this, event, 'In_the_moment.mp3')">
+            <div class="ap-fill-player-sus" style="height:100%;width:0%;background:#6dd0d0;border-radius:2px;pointer-events:none;"></div>
+          </div>
+        </div>
+        <div class="ap-time-player-sus" style="font-size:.68rem;color:rgba(255,255,255,0.5);white-space:nowrap;font-variant-numeric:tabular-nums;">0:00</div>
+        <audio src="In_the_moment.mp3" style="display:none;" class="ap-audio-player-sus"></audio>
+      </div>
+    </div>
+            <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">Trying to remember everything after a complex assessment created significant stress and cognitive load. Clinicians described carrying the session in their heads until they had time to write — hours or days later, with back-to-back appointments in between.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.8rem;">
+            <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,0.5);">With MagicNotes capturing the session, clinicians felt less pressure to remember and write everything later — allowing them to stay present with patients and leave work without the weight of unfinished documentation.</p>
+            <blockquote style="border-left:2px solid rgba(251,191,36,0.3);padding-left:.9rem;margin:0;">
+              <p style="font-family:'Playfair Display',serif;font-size:.9rem;color:rgba(255,255,255,0.75);line-height:1.5;">"Using the tool made the role feel sustainable again. I could see myself staying in the job for another ten years."</p>
+              <cite style="display:block;margin-top:.35rem;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-style:normal;">Clinician A, ADHD Clinical Nurse Specialist</cite>
+            </blockquote>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ── KILLER QUOTE ── -->
+    <div style="padding:2.5rem 0 1rem;">
+      <blockquote style="max-width:680px;margin:0 auto;text-align:center;">
+        <p style="font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:700;line-height:1.35;color:#fff;">"If you take away Magic Notes, there is no way I'll be able to do this."</p>
+        <cite style="display:block;margin-top:1rem;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-style:normal;">ADHD Clinical Nurse Specialist · Hywel Dda</cite>
+      </blockquote>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DATA ══ -->
+<a id="nav-data"></a>
+<div class="band-ink2">
+  <div class="section reveal in">
+    <span class="eyebrow">The numbers</span>
+    <h2 class="section-title">What the data shows.</h2>
+    <p class="section-lead">Time savings recorded by clinicians after each session across the Hywel Dda diary study. All data self-reported. Small sample sizes — results indicate direction of effect, consistent with the CTM pilot.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-bottom:2rem;">
+      <div style="border-left:3px solid var(--teal2);padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal2);margin-bottom:.4rem;">ADHD pathway</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">64%</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">time reduction · 80 min saved per patient</div>
+      </div>
+      <div style="border-left:3px solid #a78bfa;padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:.4rem;">Autism pathway</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">30–35%</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">time reduction · 80–95 min saved per patient</div>
+      </div>
+      <div style="border-left:3px solid #fbbf24;padding-left:1.2rem;">
+        <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fbbf24;margin-bottom:.4rem;">Clinician feedback</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1;margin-bottom:.2rem;">4.9/5</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,0.6);">ease of use · 81–100% rated quality improved</div>
+      </div>
+    </div>
+
+    <table class="savings-table" aria-label="Time savings by task type">
+      <thead>
+        <tr>
+          <th scope="col">Task</th>
+          <th scope="col">Before</th>
+          <th scope="col">After</th>
+          <th scope="col">Saving</th>
+          <th scope="col">Sessions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#fff;">Final report writing</strong><br><span style="font-size:.78rem;">Post-assessment report documentation</span></td>
+          <td>132 min</td><td>32 min</td><td><span class="pct">76%</span></td><td>5</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">New patient assessment</strong><br><span style="font-size:.78rem;">Initial assessment write-up</span></td>
+          <td>135 min</td><td>50 min</td><td><span class="pct">63%</span></td><td>8</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">Clinical assessment / ADOS</strong><br><span style="font-size:.78rem;">Structured diagnostic observation sessions</span></td>
+          <td>98 min</td><td>55 min</td><td><span class="pct">44%</span></td><td>6</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">Dictation &amp; general documentation</strong><br><span style="font-size:.78rem;">Assessments, supervision notes, support calls, meeting records</span></td>
+          <td>84 min</td><td>39 min</td><td><span class="pct">54%</span></td><td>13</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff;">Panel case presentation</strong><br><span style="font-size:.78rem;">MDT panel prep — template configuration still in progress during pilot</span></td>
+          <td>44 min</td><td>38 min</td><td><span class="pct">14%</span></td><td>19</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:.75rem;color:rgba(255,255,255,0.5);line-height:1.6;margin-top:1.2rem;">Early pilot data · Hywel Dda diary study · March 2026 · Self-reported · Panel figure expected to improve significantly once template configuration is complete.</p>
+  </div>
+</div>
+
+<!-- ══ WHAT THIS MEANS ══ -->
+<div class="band-dust">
+  <div class="section reveal in">
+    <span class="eyebrow">Interpretation</span>
+    <h2 class="section-title">What this means for Hywel Dda.</h2>
+    <p class="section-lead">The pilot data — and the voices behind it — point to three clear conclusions.</p>
+
+    <div class="insight-grid">
+      <div class="insight-card reveal reveal-d1 in">
+        <div class="insight-num">Finding 01</div>
+        <div class="insight-head">Magic Notes is already essential for some clinicians</div>
+        <div class="insight-body">One clinician's statement — "if you take away Magic Notes, there is no way I'll be able to do this" — is not hyperbole. For clinicians managing high ADHD caseloads, the tool has become structural. Removing it would not return the service to a previous state; it would reduce capacity.</div>
+      </div>
+      <div class="insight-card reveal reveal-d2 in">
+        <div class="insight-num">Finding 02</div>
+        <div class="insight-head">The clinical quality impact is as significant as the time saving</div>
+        <div class="insight-body">Clinicians consistently describe richer reports, captured detail they would otherwise have missed, and more presence in sessions. The 100% quality improvement rating from the ADHD team reflects this. Time saved and quality gained are not in tension — they reinforce each other.</div>
+      </div>
+      <div class="insight-card reveal reveal-d3 in">
+        <div class="insight-num">Finding 03</div>
+        <div class="insight-head">Adoption requires active support — access alone is not enough</div>
+        <div class="insight-body">The Hywel Dda teams had CTM evidence and peer support, and it still took time and effort to get the tool working well for their specific pathways. Services considering adoption should plan for a supported learning period, iterative template work, and protected time — not expect instant productivity gains.</div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+
+<!-- ══ USER NEEDS ══ -->
+<a id="nav-needs"></a>
+<div class="band-dust">
+  <div class="section reveal in">
+    <span class="eyebrow">User needs</span>
+    <h2 class="section-title">What clinicians actually need — and where AI scribe is essential.</h2>
+    <p class="section-lead">From the Welsh ND pathway research. Needs marked as essential are those where AI scribe is not merely useful — it is the most direct, high-confidence way to meet the need.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem;">
+
+      <div style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e0dbd4;">
+        <div style="background:var(--teal);padding:1rem 1.4rem;display:flex;align-items:center;gap:.6rem;">
+          <span style="font-size:1rem;">🎯</span>
+          <div>
+            <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Essential needs</div>
+            <div style="font-size:.9rem;font-weight:700;color:#fff;">AI scribe directly meets this</div>
+          </div>
+        </div>
+        <div style="padding:.4rem 0;">
+          <div style="padding:.75rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.82rem;line-height:1.5;color:#1e2e2e;display:flex;gap:.7rem;align-items:flex-start;">
+            <span style="color:var(--teal);font-size:.9rem;flex-shrink:0;margin-top:.1rem;">✓</span>
+            <span><strong>Focus on the child, not the keyboard.</strong> Clinicians can observe and interact fully during assessment rather than splitting attention between the child and notes.</span>
+          </div>
+          <div style="padding:.75rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.82rem;line-height:1.5;color:#1e2e2e;display:flex;gap:.7rem;align-items:flex-start;">
+            <span style="color:var(--teal);font-size:.9rem;flex-shrink:0;margin-top:.1rem;">✓</span>
+            <span><strong>Near-final draft report shortly after the appointment.</strong> The most time-consuming part of a clinician's day — report writing — is handled by the tool, not carried home.</span>
+          </div>
+          <div style="padding:.75rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.82rem;line-height:1.5;color:#1e2e2e;display:flex;gap:.7rem;align-items:flex-start;">
+            <span style="color:var(--teal);font-size:.9rem;flex-shrink:0;margin-top:.1rem;">✓</span>
+            <span><strong>Handle multiple speakers, accents and noisy environments.</strong> ND assessment rooms are rarely quiet. The tool must be reliable in real clinical conditions, not just ideal ones.</span>
+          </div>
+          <div style="padding:.75rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.82rem;line-height:1.5;color:#1e2e2e;display:flex;gap:.7rem;align-items:flex-start;">
+            <span style="color:var(--teal);font-size:.9rem;flex-shrink:0;margin-top:.1rem;">✓</span>
+            <span><strong>Summarise information from multiple sources.</strong> Schools, parents, previous services — clinicians need one coherent view, not five documents open at once.</span>
+          </div>
+          <div style="padding:.75rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.82rem;line-height:1.5;color:#1e2e2e;display:flex;gap:.7rem;align-items:flex-start;">
+            <span style="color:var(--teal);font-size:.9rem;flex-shrink:0;margin-top:.1rem;">✓</span>
+            <span><strong>Maintain clinical tone and professionalism in reports.</strong> Clinicians need to be confident signing what the tool produces — not feel they are correcting it.</span>
+          </div>
+          <div style="padding:.75rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.82rem;line-height:1.5;color:#1e2e2e;display:flex;gap:.7rem;align-items:flex-start;">
+            <span style="color:var(--teal);font-size:.9rem;flex-shrink:0;margin-top:.1rem;">✓</span>
+            <span><strong>Capture non-verbal observations and clinical impressions.</strong> The tool must allow clinicians to add their own notes quickly after the family leaves — not just transcribe conversation.</span>
+          </div>
+          <div style="padding:.75rem 1.4rem;font-size:.82rem;line-height:1.5;color:#1e2e2e;display:flex;gap:.7rem;align-items:flex-start;">
+            <span style="color:var(--teal);font-size:.9rem;flex-shrink:0;margin-top:.1rem;">✓</span>
+            <span><strong>Customisable templates that align with local practice.</strong> A generic output is not good enough. Templates must iterate easily to match what each service actually produces.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1.2rem;">
+
+        <div style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e0dbd4;">
+          <div style="background:#4a5e5e;padding:1rem 1.4rem;display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:1rem;">🔬</span>
+            <div>
+              <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Still to test at scale</div>
+              <div style="font-size:.9rem;font-weight:700;color:#fff;">Promising but not yet confirmed</div>
+            </div>
+          </div>
+          <div style="padding:.4rem 0;">
+            <div style="padding:.65rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.8rem;line-height:1.5;color:#3a4e4e;display:flex;gap:.7rem;align-items:flex-start;">
+              <span style="color:#4a5e5e;font-size:.9rem;flex-shrink:0;margin-top:.05rem;">◎</span>
+              <span>Clear summary of evidence linked to diagnostic criteria for panel decisions</span>
+            </div>
+            <div style="padding:.65rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.8rem;line-height:1.5;color:#3a4e4e;display:flex;gap:.7rem;align-items:flex-start;">
+              <span style="color:#4a5e5e;font-size:.9rem;flex-shrink:0;margin-top:.05rem;">◎</span>
+              <span>Risk and safeguarding information surfaced before the session starts</span>
+            </div>
+            <div style="padding:.65rem 1.4rem;border-bottom:1px solid #f0ede8;font-size:.8rem;line-height:1.5;color:#3a4e4e;display:flex;gap:.7rem;align-items:flex-start;">
+              <span style="color:#4a5e5e;font-size:.9rem;flex-shrink:0;margin-top:.05rem;">◎</span>
+              <span>Clear recommendations and signposting so families understand next steps</span>
+            </div>
+            <div style="padding:.65rem 1.4rem;font-size:.8rem;line-height:1.5;color:#3a4e4e;display:flex;gap:.7rem;align-items:flex-start;">
+              <span style="color:#4a5e5e;font-size:.9rem;flex-shrink:0;margin-top:.05rem;">◎</span>
+              <span>Tailoring outputs for different audiences — family, GP, school, CAMHS — without rewriting</span>
+            </div>
+          </div>
+        </div>
+
+        
+    </div>
+
+    <p style="font-size:.78rem;color:var(--mid);line-height:1.6;">Needs sourced from the <a href="research.html" style="color:var(--teal);text-decoration:none;font-weight:500;">Welsh ND pathway research</a>, based on interviews and observations across multiple health boards. Status reflects evidence from the CTM and Hywel Dda pilots.</p>
+  </div>
+</div>
+
+
+<!-- ══ WHAT THIS DOES NOT DO ══ -->
+<div class="band-dark">
+  <div class="section reveal in">
+    <span class="eyebrow">Scope and limitations</span>
+    <h2 class="section-title" style="color:#fff;">What this tool does — and does not — do.</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:.5rem;">
+      <div style="background:rgba(110,231,183,0.05);border:1px solid rgba(110,231,183,0.15);border-radius:14px;padding:1.4rem;">
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6ee7b7;margin-bottom:.8rem;">What it does</div>
+        <div style="display:flex;flex-direction:column;gap:.55rem;">
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#6ee7b7;flex-shrink:0;">✓</span>Records the clinical session with patient consent</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#6ee7b7;flex-shrink:0;">✓</span>Produces a structured draft report or summary</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#6ee7b7;flex-shrink:0;">✓</span>Frees the clinician to observe, interact and think</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#6ee7b7;flex-shrink:0;">✓</span>Captures verbatim quotes and detail that would otherwise be lost</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#6ee7b7;flex-shrink:0;">✓</span>Summarises information from uploaded documents</div>
+        </div>
+      </div>
+      <div style="background:rgba(248,113,113,0.05);border:1px solid rgba(248,113,113,0.15);border-radius:14px;padding:1.4rem;">
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f87171;margin-bottom:.8rem;">What it does not do</div>
+        <div style="display:flex;flex-direction:column;gap:.55rem;">
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#f87171;flex-shrink:0;">✗</span>Make or recommend diagnoses</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#f87171;flex-shrink:0;">✗</span>Make autonomous clinical decisions of any kind</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#f87171;flex-shrink:0;">✗</span>Replace clinical judgement or professional responsibility</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#f87171;flex-shrink:0;">✗</span>Produce a final document — clinician sign-off is always required</div>
+          <div style="font-size:.82rem;line-height:1.5;color:rgba(255,255,255,0.7);display:flex;gap:.6rem;"><span style="color:#f87171;flex-shrink:0;">✗</span>Guarantee accuracy — output must be reviewed before use</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ WHAT NEXT ══ -->
+<a id="nav-next"></a>
+<div class="band-ink2">
+  <div class="section reveal in">
+    <span class="eyebrow">What next</span>
+    <h2 class="section-title" style="color:#fff;">The question is no longer just whether the tool works.</h2>
+    <p class="section-lead" style="color:rgba(255,255,255,0.65);">The evidence from Hywel Dda — taken alongside the CTM pilot — is clear. The question now is whether we are comfortable continuing without it.</p>
+
+    <div class="standout-quote">
+      <div class="standout-quote-mark" aria-hidden="true">"</div>
+      <p>Early evidence suggests there may be a clinical risk in <em>not</em> having this tool.</p>
+      <p style="margin-top:1rem;font-size:1rem;font-style:normal;color:rgba(255,255,255,0.65);line-height:1.6;font-family:'DM Sans',sans-serif;">"We are drowning in complex paperwork which is ridiculously consuming, which is why we need something like this." — Hywel Dda clinical team</p>
+    </div>
+
+    <div class="what-next-grid">
+      <div class="what-next-card reveal reveal-d1 in">
+        <div class="what-next-check">✓</div>
+        <div class="what-next-text">
+          <strong>Ready to use out of the box</strong>
+          No complex setup, no long implementation timeline. Clinicians can begin using it from day one with existing devices.
+        </div>
+      </div>
+      <div class="what-next-card reveal reveal-d1 in">
+        <div class="what-next-check">✓</div>
+        <div class="what-next-text">
+          <strong>Minimal integration required</strong>
+          Magic Notes operates independently of NHS infrastructure. There is no configuration required from IT services, and no system integration needed to begin using it.
+        </div>
+      </div>
+      <div class="what-next-card reveal reveal-d2 in">
+        <div class="what-next-check">✓</div>
+        <div class="what-next-text">
+          <strong>No training programme required</strong>
+          Clinicians learned through use. A short peer-led onboarding session is sufficient — no formal training investment needed.
+        </div>
+      </div>
+      <div class="what-next-card reveal reveal-d2 in">
+        <div class="what-next-check">✓</div>
+        <div class="what-next-text">
+          <strong>The evidence base is already here</strong>
+          CTM pilot, Hywel Dda diary study, combined report, user needs research, pathway analysis and clinician testimony are all available and published.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;padding:1.6rem 2rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;">
+      <p style="font-size:.82rem;line-height:1.7;color:rgba(255,255,255,0.55);">
+        <strong style="color:#fff;">The impact is real — the challenge now is making it possible for teams to use tools like this.</strong><br>
+        The pilots have shown what is possible. The next step is moving from individual adoption to structural support — ensuring clinicians across Welsh ND services can access tools that demonstrably reduce their burden, improve their documentation, and make their roles sustainable.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.2rem;">
+        <a href="combined.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;color:var(--teal2);text-decoration:none;padding:.45rem .9rem;border:1px solid rgba(109,208,208,0.3);border-radius:2rem;transition:background .15s;" onmouseover="this.style.background='rgba(109,208,208,0.08)'" onmouseout="this.style.background='transparent'">Read the combined report →</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ══ CALCULATOR ══ -->
+
+<div style="background:var(--ink);" id="calculator">
+  <div class="section">
+    <span style="display:block;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-bottom:0.5rem;">Interactive tool</span>
+    <h2 style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;line-height:1.2;">What could this save?</h2>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.55);margin-bottom:2.5rem;max-width:620px;line-height:1.6;">Estimate time and cost savings based on CTM pilot data. Adjust for your team size, hourly rate and the tasks you want to include.</p>
+
+    <div id="tab-savings" role="tabpanel" aria-labelledby="tab-btn-savings">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;">
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:1.8rem;">
+          <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-bottom:1.2rem;">Your team</p>
+          <div style="margin-bottom:1.4rem;">
+            <label style="display:block;font-size:0.85rem;color:rgba(255,255,255,0.7);margin-bottom:0.5rem;">Time period</label>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;" id="savings-period-btns">
+              <button class="pcalc-btn" data-smonths="6">6 months</button>
+              <button class="pcalc-btn pcalc-active" data-smonths="12">1 year</button>
+              <button class="pcalc-btn" data-smonths="24">2 years</button>
+              <button class="pcalc-btn" data-smonths="36">3 years</button>
+              <button class="pcalc-btn" data-smonths="60">5 years</button>
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-size:0.85rem;color:rgba(255,255,255,0.7);margin-bottom:0.5rem;">Average hourly rate <span style="font-size:0.75rem;opacity:0.5;">(fully-loaded cost)</span></label>
+            <div style="display:flex;align-items:center;gap:0.8rem;">
+              <input type="range" id="calc-rate" aria-label="Average hourly rate in pounds" min="25" max="120" value="50" step="5" style="flex:1;accent-color:#6dd0d0;cursor:pointer;">
+              <span style="display:flex;align-items:center;gap:0.15rem;"><span style="font-size:0.9rem;color:rgba(255,255,255,0.62);">£</span><span id="calc-rate-val" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;min-width:2.5rem;">50</span></span>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.08);">
+            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Tasks per week across your whole team</p><p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;line-height:1.5;">Edit the numbers to match your service. CTM pilot defaults shown — change any figure or add your own tasks.</p>
+            <div id="calc-tasks" style="display:flex;flex-direction:column;gap:0;"></div>
+
+            <div style="margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.08);">
+              <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.6rem;">Add a task</p>
+              <div style="display:flex;gap:0.5rem;align-items:flex-start;flex-wrap:wrap;">
+                <input type="text" id="new-task-name" placeholder="Task name" aria-label="New task name" style="flex:1;min-width:120px;padding:0.35rem 0.6rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;font-family:'DM Sans',sans-serif;" onkeydown="if(event.key==='Enter')addTask();">
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <input type="number" id="new-task-tpw" placeholder="0" min="0" max="999" aria-label="Tasks per week" style="width:60px;padding:0.35rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;text-align:center;font-family:'DM Sans',sans-serif;" onkeydown="if(event.key==='Enter')addTask();">
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);text-align:center;">per week</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <input type="number" id="new-task-min" placeholder="0" min="0" max="600" aria-label="Minutes saved per task" style="width:60px;padding:0.35rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.82rem;text-align:center;font-family:'DM Sans',sans-serif;" onkeydown="if(event.key==='Enter')addTask();">
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);text-align:center;">min saved</span>
+                </div>
+                <button onclick="addTask()" aria-label="Add task" style="padding:0.35rem 0.9rem;background:#6dd0d0;border:none;border-radius:6px;color:#1e2c2c;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;align-self:flex-start;">
+                  + Add
+                </button>
+              </div>
+              <p id="new-task-err" style="font-size:0.72rem;color:#e06060;margin-top:0.4rem;display:none;">Please enter a task name, tasks per week, and minutes saved.</p>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div style="background:linear-gradient(135deg,#1a6b6b,#2a9090);border-radius:14px;padding:1.8rem;">
+            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;">Estimated time saving</p>
+            <div style="display:flex;align-items:baseline;gap:0.4rem;margin-bottom:0.2rem;">
+              <span id="calc-hours" style="font-family:'Fraunces',serif;font-size:3.2rem;font-weight:700;color:var(--white);line-height:1;">4,849</span>
+              <span style="font-size:1rem;color:rgba(255,255,255,0.55);">hours</span>
+            </div>
+            <p id="calc-wte" style="font-size:0.85rem;color:rgba(255,255,255,0.55);margin-bottom:1.4rem;">2.9 WTE equivalent over 12 months</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.15);">
+              <div><div id="calc-value" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;">£242,451</div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">value of time saved</div></div>
+              <div><div id="calc-children" style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:#6dd0d0;">808–1,385</div><div style="font-size:0.74rem;color:rgba(255,255,255,0.62);margin-top:0.15rem;">more children could be assessed</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.5);margin-top:0.2rem;">based on 3.5–6 hrs per full assessment</div></div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.2rem;">
+            <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.7rem;">Weekly breakdown</p>
+            <div id="calc-breakdown"><div class="cbreak-row"><span class="cbreak-lbl">Assessment write-up</span><span class="cbreak-val">41.5 hrs/wk</span></div><div class="cbreak-row"><span class="cbreak-lbl">Letters &amp; admin</span><span class="cbreak-val">18.7 hrs/wk</span></div><div class="cbreak-row"><span class="cbreak-lbl">Patient summary</span><span class="cbreak-val">13.7 hrs/wk</span></div><div class="cbreak-row"><span class="cbreak-lbl">New patient assessment (in-person)</span><span class="cbreak-val">10 hrs/wk</span></div><div class="cbreak-row"><span class="cbreak-lbl">ADHD medication review</span><span class="cbreak-val">9.2 hrs/wk</span></div><div class="cbreak-row"><span style="color:rgba(255,255,255,0.7);font-weight:500;">Total per week</span><span style="color:#6dd0d0;font-weight:600;">93 hrs/wk</span></div></div>
+          </div>
+          <div style="background:rgba(192,120,37,0.1);border:1px solid rgba(192,120,37,0.2);border-radius:10px;padding:1.2rem;">
+            <p style="font-size:0.8rem;color:rgba(255,255,255,0.62);line-height:1.6;"><span style="color:#e09020;font-weight:500;">About these estimates. </span>Based on average task times from a 6-week pilot with 5 clinicians in CTM (Oct–Nov 2025). Results varied by clinician, case complexity and task type. The £50/hr default is the fully-loaded cost assumption from the pilot report. “Children assessed” assumes 3.5–6 hrs per full assessment. Indicative only.</p>
+          </div>
+
+          <!-- SHOW THE MATHS -->
+          <div style="margin-top:0.8rem;">
+            <button onclick="var p=document.getElementById('calc-maths');var open=p.style.display!=='none';p.style.display=open?'none':'block';this.textContent=open?'Show the maths ↓':'Hide the maths ↑';" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:0.78rem;font-weight:500;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;letter-spacing:0.03em;">
+              Show the maths ↓
+            </button>
+            <div id="calc-maths" style="display:none;margin-top:0.8rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.2rem;font-size:0.8rem;line-height:1.7;color:rgba(255,255,255,0.55);">
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.6rem;font-size:0.82rem;">Step 1 — Hours saved per task, per week</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">hours/week = (tasks per week × minutes saved) ÷ 60</p>
+              <p style="margin-bottom:0.8rem;">You enter how many times each task type happens across your whole team per week. This is multiplied by the average minutes Magic Notes saves per task (from the CTM pilot), then divided by 60 to convert to hours. It doesn't matter which clinician does which task — you're entering the team total.</p>
+              <p id="calc-maths-tasks" style="font-family:monospace;font-size:0.75rem;color:rgba(255,255,255,0.5);white-space:pre-line;margin-bottom:0.8rem;">(20 tasks/wk × 30 min ÷ 60) = 10 hrs/wk  [New patient assessment (in-person)]
+(20 tasks/wk × 124.5 min ÷ 60) = 41.5 hrs/wk  [Assessment write-up]
+(20 tasks/wk × 41 min ÷ 60) = 13.7 hrs/wk  [Patient summary]
+(20 tasks/wk × 27.5 min ÷ 60) = 9.2 hrs/wk  [ADHD medication review]
+(40 tasks/wk × 28 min ÷ 60) = 18.7 hrs/wk  [Letters &amp; admin]</p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 2 — Total hours over the period</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">total hours = hours/week × (months × 4.345)</p>
+              <p id="calc-maths-hours" style="margin-bottom:0.8rem;">93 hrs/wk × (12 months × 4.345 wks/month) = 93 × 52.1 = 4,849 total hours</p>
+              <p style="margin-bottom:0.8rem;">4.345 is the average number of weeks in a month (52 ÷ 12).</p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 3 — £ value of time saved</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">£ value = total hours × hourly rate</p>
+              <p id="calc-maths-value" style="margin-bottom:0.8rem;">4,849 hrs × £50/hr = £242,451</p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 4 — WTE equivalent</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">WTE = total hours ÷ 1,650</p>
+              <p id="calc-maths-wte" style="margin-bottom:0.8rem;">4,849 hrs ÷ 1,650 = 2.94 WTE</p>
+              <p style="margin-bottom:0.8rem;">1,650 is a standard NHS full-time equivalent annual hours figure (37.5 hrs/wk × 44 working weeks).</p>
+
+              <p style="color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:0.4rem;font-size:0.82rem;">Step 5 — Children who could be assessed</p>
+              <p style="font-family:monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">children = total hours ÷ 6  →  lower estimate (complex cases)
+children = total hours ÷ 3.5  →  upper estimate (straightforward cases)</p>
+              <p style="margin-bottom:0.4rem;">A full ND assessment typically takes between 3.5 and 6 hours of clinical time, depending on complexity. These are the bounds used to give a range rather than a single figure. This is a rough indicator — not a capacity plan.</p>
+              <p id="calc-maths-children" style="margin-bottom:0;">4,849 ÷ 6 = 808 (lower)   |   4,849 ÷ 3.5 = 1,385 (upper)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-compare" style="display:none;">
+
+      <!-- Sticky inputs bar -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;">
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Clinicians:</label>
+          <input type="range" id="cmp-clin" min="1" max="50" value="5" style="width:100px;accent-color:#6dd0d0;cursor:pointer;">
+          <span id="cmp-clin-val" style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#6dd0d0;min-width:1.5rem;">5</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Tasks/clinician/week:</label>
+          <input type="range" id="cmp-tasks" min="5" max="60" value="21" style="width:100px;accent-color:#6dd0d0;cursor:pointer;">
+          <span id="cmp-tasks-val" style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#6dd0d0;min-width:1.5rem;">21</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);white-space:nowrap;">Over:</label>
+          <div style="display:flex;gap:0.4rem;">
+            <button class="pcalc-btn" data-cmpmonths="1">1mo</button>
+            <button class="pcalc-btn" data-cmpmonths="3">3mo</button>
+            <button class="pcalc-btn pcalc-active" data-cmpmonths="12">1yr</button>
+            <button class="pcalc-btn" data-cmpmonths="24">2yr</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem;" id="tool-cards"><div class="tool-card tool-card-tested" id="card-mn"><div class="tool-name">Magic Notes</div><span class="tool-tag tool-tag-tested">Tested in CTM pilot</span><div class="tool-cost-big" id="tcost-mn" style="color: rgb(109, 208, 208);">£27,374</div><div class="tool-cost-sub">estimated cost over period</div><div style="font-size:0.73rem;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;line-height:1.4;">£5 per use. Pilot data from CTM: 5 clinicians, 6 weeks, 726 tasks.</div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>Tested in CTM ND service — 6 weeks, 5 clinicians, 726 tasks</span></div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>GDPR compliant. 7-day auto-deletion (30–60 days recommended)</span></div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>110+ languages; bilingual sessions tested in pilot</span></div><div class="tool-fact"><span style="color:#9e3a47;flex-shrink:0;">✗</span><span>Welsh-only sessions: hallucinations observed — not safe for Welsh-medium use yet</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">?</span><span>NHS Wales / WHC IG status: verify against WHC 2025/026</span></div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>Neuro-affirming report templates; customisable</span></div></div><div class="tool-card" id="card-hh"><div class="tool-name">Heidi Health</div><span class="tool-tag tool-tag-other">Not tested in ND service</span><div class="tool-cost-big" id="tcost-hh" style="color: rgb(109, 208, 208);">£4,740</div><div class="tool-cost-sub">estimated cost over period</div><div class="tool-input-row"><span>£</span><input type="number" id="inp-hh" value="79" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.5);">/user/month</span></div><div style="font-size:0.73rem;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;line-height:1.4;">Free tier (limited). Paid plan ~$99/month per clinician (UK £ price: contact sales). Enterprise via sales.</div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>GDPR, SOC2, ISO27001; meets NHS standards</span></div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>110+ languages; used in 116 countries</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">?</span><span>Welsh-language support: not confirmed</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">?</span><span>NHS Wales / WHC IG status: not verified</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">~</span><span>Primarily GP/primary care; ND specialist templates not confirmed</span></div><div class="tool-fact"><span style="color:#c07825;flex-shrink:0;">!</span><span>UK/EU: clinical evidence feature unavailable during live sessions</span></div></div><div class="tool-card" id="card-to"><div class="tool-name">TORTUS</div><span class="tool-tag tool-tag-other">Not tested in ND service</span><div class="tool-cost-big" id="tcost-to" style="color: rgb(109, 208, 208);">£2,640</div><div class="tool-cost-sub">estimated cost over period</div><div class="tool-input-row"><span>£</span><input type="number" id="inp-to" value="44" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.5);">/user/month</span></div><div style="font-size:0.73rem;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;line-height:1.4;">Pilot pricing £44/mo/licence (expired Mar 2025). Enterprise: £200K per 100K audio hours. Current pricing: contact sales.</div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>DTAC assured, MHRA Class I, UK GDPR compliant</span></div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>Led 9-site NHS England trial (17,000+ encounters, GOSH 2025)</span></div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>23.5% increase in patient interaction time (GOSH trial)</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">?</span><span>Welsh-language support: not confirmed</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">?</span><span>NHS Wales / WHC IG status: not verified</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">~</span><span>Primarily acute/ED/GP setting; ND-specific evidence limited</span></div></div><div class="tool-card" id="card-ax"><div class="tool-name">Accurx Scribe (Tandem)</div><span class="tool-tag tool-tag-other">Not tested in ND service</span><div class="tool-cost-big" id="tcost-ax" style="color: rgba(255, 255, 255, 0.25);">—</div><div class="tool-cost-sub">estimated cost over period</div><div class="tool-input-row"><span>£</span><input type="number" id="inp-ax" value="" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.5);">/user/month</span></div><div style="font-size:0.73rem;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;line-height:1.4;">NHS pricing not public. Integrated into Accurx platform (98% of GP practices). Contact sales.</div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>MHRA Class I, NHS DTAC compliant</span></div><div class="tool-fact"><span style="color:#6dd0d0;flex-shrink:0;">✓</span><span>EMIS/SystmOne write-back; 97% clinical accuracy (independent audit)</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">~</span><span>Primarily GP/primary care — ND specialist fit unclear</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">?</span><span>Welsh-language support: not confirmed</span></div><div class="tool-fact"><span style="color:rgba(255,255,255,0.35);flex-shrink:0;">?</span><span>NHS Wales / WHC IG status: not verified</span></div><div class="tool-fact"><span style="color:#9e3a47;flex-shrink:0;">✗</span><span>No ND-specific evidence; no specialist pathway data</span></div></div></div>
+
+      <!-- Needs comparison table -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+        <div style="padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);">How each tool maps to the ND service user needs from this research</p>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.82rem;" id="needs-cmp-tbl">
+            <thead id="ncmp-head"><tr><th scope="col" class="ncmp-th" style="min-width:240px;">User need (from ND pathway research)</th><th scope="col" class="ncmp-th" style="text-align:center;">Magic Notes</th><th scope="col" class="ncmp-th" style="text-align:center;">Heidi Health</th><th scope="col" class="ncmp-th" style="text-align:center;">TORTUS</th><th scope="col" class="ncmp-th" style="text-align:center;">Accurx Scribe (Tandem)</th></tr></thead>
+            <tbody id="ncmp-body"><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">Clinician fully present in session (not typing)</div></td><td class="ncmp-td"><span class="ncmp-conf c-yes">✓</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td></tr><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">Accurate transcription in ND sessions (echolalia, accents, noise, overlapping speech)</div></td><td class="ncmp-td"><span class="ncmp-conf c-yes">✓</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td></tr><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">Near-final report draft shortly after appointment</div></td><td class="ncmp-td"><span class="ncmp-conf c-yes">✓</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td></tr><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">Bilingual and multilingual sessions</div></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td></tr><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">Welsh-only sessions without hallucinations</div></td><td class="ncmp-td"><span class="ncmp-conf c-no">✗</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td></tr><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">Customisable neuro-affirming report templates</div></td><td class="ncmp-td"><span class="ncmp-conf c-yes">✓</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td></tr><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">MDT / panel summary support</div></td><td class="ncmp-td"><span class="ncmp-conf c-yes">✓</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td></tr><tr class="ncmp-tr"><td class="ncmp-td"><div class="ncmp-need">Referral document upload and summarisation</div></td><td class="ncmp-td"><span class="ncmp-conf c-yes">✓</span></td><td class="ncmp-td"><span class="ncmp-conf c-maybe">~</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td><td class="ncmp-td"><span class="ncmp-conf c-unk">?</span></td></tr></tbody>
+          </table>
+        </div>
+        <div style="padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.08);">
+          <p style="font-size:0.76rem;color:rgba(255,255,255,0.5);line-height:1.55;">
+            \u2713 Confirmed by evidence &nbsp;\u00b7&nbsp; ~ Plausible based on product description &nbsp;\u00b7&nbsp; ? Not verified &nbsp;\u00b7&nbsp; \u2717 Known gap &nbsp;\u00b7&nbsp; \u2014 Not applicable<br>
+            Only Magic Notes has been tested against these specific needs in a Welsh ND service. All other assessments are based on publicly available product information and should be verified through your own evaluation.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="exec-footer">
+    <div class="footer-brand">ND Services in Wales · Hywel Dda Pilot · March 2026</div>
+    <nav class="footer-links" aria-label="Report links">
+      <a href="hub.html">All reports</a>
+
+      <a href="combined.html">Combined findings</a>
+    </nav>
+  </div>
+</footer>
+
+</div><!-- /page -->
+
+<script>
+// ── AUDIO PLAYER ─────────────────────────────────────────
+var currentAudio = null;
+var currentBtn = null;
+
+function toggleAudio(btn) {
+  var src = btn.dataset.src;
+
+  // Find the player-* container by walking up from the button
+  var playerDiv = btn.parentElement;
+  while (playerDiv && !/^player-/.test(playerDiv.id)) {
+    playerDiv = playerDiv.parentElement;
+  }
+  if (!playerDiv) { console.warn('No player div found'); return; }
+
+  var id = playerDiv.id;
+  var audio = document.querySelector('.ap-audio-' + id);
+  var fill  = document.querySelector('.ap-fill-' + id);
+  var time  = document.querySelector('.ap-time-' + id);
+
+  if (!audio) { console.warn('No audio element for', id); return; }
+
+  if (!audio.getAttribute('src')) {
+    audio.setAttribute('src', src);
+    audio.load();
+  }
+
+  if (currentAudio && currentAudio !== audio) {
+    currentAudio.pause();
+    updateBtn2(currentBtn, false);
+    currentBtn = null;
+  }
+
+  if (audio.paused) {
+    audio.play().catch(function(e){ console.warn('Audio play failed:', e); });
+    updateBtn2(btn, true);
+    currentAudio = audio;
+    currentBtn = btn;
+
+    audio.ontimeupdate = function() {
+      if (!audio.duration) return;
+      if (fill) fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+      if (time) time.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+    };
+    audio.onended = function() {
+      updateBtn2(btn, false);
+      if (fill) fill.style.width = '0%';
+      if (time) time.textContent = '0:00';
+      currentAudio = null; currentBtn = null;
+    };
+  } else {
+    audio.pause();
+    updateBtn2(btn, false);
+    currentAudio = null; currentBtn = null;
+  }
+}
+
+function updateBtn2(btn, playing) {
+  if (!btn) return;
+  btn.innerHTML = playing
+    ? '<svg viewBox="0 0 16 16" width="14" height="14"><rect x="3" y="2" width="3.5" height="12" rx="1" fill="#1e2c2c"/><rect x="9.5" y="2" width="3.5" height="12" rx="1" fill="#1e2c2c"/></svg>'
+    : '<svg viewBox="0 0 16 16" width="14" height="14"><polygon points="4,2 14,8 4,14" fill="#1e2c2c"/></svg>';
+}
+
+function seekAudio2(bar, e, src) {
+  var playerDiv = bar.parentElement;
+  while (playerDiv && !/^player-/.test(playerDiv.id)) {
+    playerDiv = playerDiv.parentElement;
+  }
+  if (!playerDiv) return;
+  var audio = document.querySelector('.ap-audio-' + playerDiv.id);
+  if (!audio || !audio.duration) return;
+  var rect = bar.getBoundingClientRect();
+  audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+}
+
+function formatTime(s) {
+  if (isNaN(s)) return '--:--';
+  var m = Math.floor(s / 60);
+  return m + ':' + ('0' + Math.floor(s % 60)).slice(-2);
+}
+
+
+// ── SCROLL REVEAL ─────────────────────────────────────────
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+// ── SAVINGS CALCULATOR ──
+function addTask(){
+  var name=document.getElementById('new-task-name').value.trim();
+  var tpw=parseInt(document.getElementById('new-task-tpw').value)||0;
+  var min=parseFloat(document.getElementById('new-task-min').value)||0;
+  var err=document.getElementById('new-task-err');
+  if(!name||tpw<=0||min<=0){err.style.display='block';return;}
+  err.style.display='none';
+  // TASKS is in shared script scope — accessible directly
+  var t={label:name,tpw:tpw,min:min,on:true};
+  TASKS.push(t);
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);';
+  var chk=document.createElement('input');
+  chk.type='checkbox';chk.checked=true;
+  chk.style.cssText='accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;';
+  chk.setAttribute('aria-label','Include '+name);
+  var lbl=document.createElement('span');
+  lbl.style.cssText='flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;';
+  lbl.textContent=name;
+  var inp=document.createElement('input');
+  inp.type='number';inp.value=tpw;inp.min=0;inp.max=999;
+  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;flex-shrink:0;";
+  inp.setAttribute('aria-label','Tasks per week for '+name);
+  var minSpan=document.createElement('span');
+  minSpan.style.cssText='font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;';
+  minSpan.textContent='~'+min+' min';
+  var del=document.createElement('button');
+  del.type='button';
+  del.textContent='×';
+  del.setAttribute('aria-label','Remove '+name);
+  del.style.cssText='background:none;border:none;color:rgba(255,255,255,0.5);font-size:1rem;cursor:pointer;padding:0;width:18px;text-align:center;line-height:1;flex-shrink:0;';
+  del.addEventListener('click',function(){row.remove();recS();});
+  chk.addEventListener('change',function(){recS();});
+  inp.addEventListener('input',function(){recS();});
+  row.setAttribute('data-task-idx',TASKS.length-1);
+  row.setAttribute('data-task-min',min);
+  row.appendChild(chk);row.appendChild(lbl);row.appendChild(inp);row.appendChild(minSpan);row.appendChild(del);
+  var ct=document.getElementById('calc-tasks'); if(ct){ct.appendChild(row);}
+  document.getElementById('new-task-name').value='';
+  document.getElementById('new-task-tpw').value='';
+  document.getElementById('new-task-min').value='';
+  document.getElementById('new-task-name').focus();
+  recS();
+}
+
+var TASKS=[
+  {label:"New patient assessment (in-person)",tpw:20,min:30,on:true},
+  {label:"Assessment write-up",tpw:20,min:124.5,on:true},
+  {label:"Patient summary",tpw:20,min:41,on:true},
+  {label:"ADHD medication review",tpw:20,min:27.5,on:true},
+  {label:"Letters & admin",tpw:40,min:28,on:true},
+  {label:"Meetings & coordination",tpw:1,min:20,on:false}
+];
+
+var PC=5, WPM=4.345;
+var TOOLS=[
+  {id:"mn",name:"Magic Notes",tested:true,perUse:5,mpu:null,editable:false,
+   note:"£5 per use. Pilot data from CTM: 5 clinicians, 6 weeks, 726 tasks.",
+   facts:[
+     {i:"✓",t:"Tested in CTM ND service — 6 weeks, 5 clinicians, 726 tasks"},
+     {i:"✓",t:"GDPR compliant. 7-day auto-deletion (30–60 days recommended)"},
+     {i:"✓",t:"110+ languages; bilingual sessions tested in pilot"},
+     {i:"✗",t:"Welsh-only sessions: hallucinations observed — not safe for Welsh-medium use yet"},
+     {i:"?",t:"NHS Wales / WHC IG status: verify against WHC 2025/026"},
+     {i:"✓",t:"Neuro-affirming report templates; customisable"}
+   ],
+   needs:{present:"✓",transcription:"✓",backlog:"✓",bilingual:"~",welsh:"✗",templates:"✓",panel:"✓",referral:"✓"}
+  },
+  {id:"hh",name:"Heidi Health",tested:false,perUse:null,mpu:79,editable:true,
+   note:"Free tier (limited). Paid plan ~$99/month per clinician (UK £ price: contact sales). Enterprise via sales.",
+   facts:[
+     {i:"✓",t:"GDPR, SOC2, ISO27001; meets NHS standards"},
+     {i:"✓",t:"110+ languages; used in 116 countries"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily GP/primary care; ND specialist templates not confirmed"},
+     {i:"!",t:"UK/EU: clinical evidence feature unavailable during live sessions"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"~",welsh:"?",templates:"~",panel:"?",referral:"~"}
+  },
+  {id:"to",name:"TORTUS",tested:false,perUse:null,mpu:44,editable:true,
+   note:"Pilot pricing £44/mo/licence (expired Mar 2025). Enterprise: £200K per 100K audio hours. Current pricing: contact sales.",
+   facts:[
+     {i:"✓",t:"DTAC assured, MHRA Class I, UK GDPR compliant"},
+     {i:"✓",t:"Led 9-site NHS England trial (17,000+ encounters, GOSH 2025)"},
+     {i:"✓",t:"23.5% increase in patient interaction time (GOSH trial)"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"~",t:"Primarily acute/ED/GP setting; ND-specific evidence limited"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"~",panel:"?",referral:"?"}
+  },
+  {id:"ax",name:"Accurx Scribe (Tandem)",tested:false,perUse:null,mpu:null,editable:true,
+   note:"NHS pricing not public. Integrated into Accurx platform (98% of GP practices). Contact sales.",
+   facts:[
+     {i:"✓",t:"MHRA Class I, NHS DTAC compliant"},
+     {i:"✓",t:"EMIS/SystmOne write-back; 97% clinical accuracy (independent audit)"},
+     {i:"~",t:"Primarily GP/primary care — ND specialist fit unclear"},
+     {i:"?",t:"Welsh-language support: not confirmed"},
+     {i:"?",t:"NHS Wales / WHC IG status: not verified"},
+     {i:"✗",t:"No ND-specific evidence; no specialist pathway data"}
+   ],
+   needs:{present:"~",transcription:"~",backlog:"~",bilingual:"?",welsh:"?",templates:"?",panel:"?",referral:"?"}
+  }
+];
+var DIMS=[
+  {k:"present",    l:"Clinician fully present in session (not typing)"},
+  {k:"transcription",l:"Accurate transcription in ND sessions (echolalia, accents, noise, overlapping speech)"},
+  {k:"backlog",    l:"Near-final report draft shortly after appointment"},
+  {k:"bilingual",  l:"Bilingual and multilingual sessions"},
+  {k:"welsh",      l:"Welsh-only sessions without hallucinations"},
+  {k:"templates",  l:"Customisable neuro-affirming report templates"},
+  {k:"panel",      l:"MDT / panel summary support"},
+  {k:"referral",   l:"Referral document upload and summarisation"}
+];
+
+// Tab switching
+document.querySelectorAll(".ctab").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll(".ctab").forEach(function(x){x.classList.remove("ctab-on");x.setAttribute("aria-selected","false");});
+    b.classList.add("ctab-on");
+    b.setAttribute("aria-selected","true");
+    document.getElementById("tab-savings").style.display=b.dataset.tab==="savings"?"":"none";
+    document.getElementById("tab-compare").style.display=b.dataset.tab==="compare"?"":"none";
+  });
+});
+
+// Savings calculator — editable task volumes
+var tc=document.getElementById("calc-tasks");
+// Header row
+var hdr=document.createElement("div");
+hdr.style.cssText="display:flex;gap:0.6rem;padding-bottom:0.5rem;margin-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.1);";
+hdr.innerHTML='<span style="flex:1;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Task</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:60px;text-align:center;">Per week</span><span style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;">Min saved</span>';
+if(tc){tc.appendChild(hdr);}
+// Task rows
+TASKS.forEach(function(t,i){
+  var row=document.createElement("div");
+  row.style.cssText="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);";
+  var chk=document.createElement("input");
+  chk.type="checkbox"; chk.checked=t.on; chk.style.cssText="accent-color:#6dd0d0;width:13px;height:13px;cursor:pointer;flex-shrink:0;";
+  chk.setAttribute("aria-label","Include "+t.label);
+  var lbl=document.createElement("span");
+  lbl.style.cssText="flex:1;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.3;cursor:pointer;";
+  lbl.textContent=t.label;
+  lbl.addEventListener("click",function(){chk.checked=!chk.checked;t.on=chk.checked;recS();});
+  var inp=document.createElement("input");
+  inp.type="number"; inp.value=t.tpw; inp.min=0; inp.max=999;
+  inp.style.cssText="width:60px;padding:0.3rem 0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.85rem;text-align:center;font-family:'DM Sans',sans-serif;";
+  inp.setAttribute("aria-label","Tasks per week for "+t.label);
+  var minSpan=document.createElement("span");
+  minSpan.style.cssText="font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;width:54px;text-align:right;margin-right:22px;";
+  minSpan.textContent="~"+t.min+" min";
+  chk.addEventListener("change",function(){t.on=chk.checked;recS();});
+  inp.addEventListener("input",function(){t.tpw=Math.max(0,parseInt(inp.value)||0);recS();});
+  row.setAttribute("data-task-idx", i);
+  row.setAttribute("data-task-min", t.min);
+  row.appendChild(chk); row.appendChild(lbl); row.appendChild(inp); row.appendChild(minSpan);
+  if(tc){tc.appendChild(row);}
+});
+// addTask defined as global below
+function fN(n){return Math.round(n).toLocaleString("en-GB");}
+function fH(n){return (Math.round(n*10)/10).toLocaleString("en-GB",{maximumFractionDigits:1});}
+function recS(){
+  var rate=parseInt(document.getElementById("calc-rate").value,10);
+  var ab=document.querySelector("[data-smonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.smonths,10):12;
+  var wk=mo*WPM, wH=0, bd=[];
+  // Read live values straight from the DOM checkboxes and inputs
+  var rows=document.getElementById("calc-tasks").querySelectorAll("div[data-task-idx]");
+  rows.forEach(function(row){
+    var chk=row.querySelector("input[type=checkbox]");
+    var inp=row.querySelector("input[type=number]");
+    if(!chk||!chk.checked)return;
+    var tpw=inp?Math.max(0,parseInt(inp.value)||0):0;
+    var taskMin=parseFloat(row.dataset.taskMin)||1;
+    var taskLabel=row.querySelector("span")?row.querySelector("span").textContent:"Task";
+    var h=(tpw*taskMin/60);
+    if(h>0){wH+=h; bd.push({l:taskLabel,h:h,min:taskMin});}
+  });
+  var tH=wH*wk, tV=tH*rate, wte=tH/1650;
+  document.getElementById("calc-hours").textContent=fH(tH);
+  document.getElementById("calc-value").textContent="£"+fN(tV);
+  document.getElementById("calc-children").textContent=fN(tH/6)+"–"+fN(tH/3.5);
+  document.getElementById("calc-wte").textContent=wte.toFixed(1)+" WTE equivalent over "+mo+(mo===1?" month":" months");
+  // Update maths panel
+  var taskLines=bd.map(function(item){
+    return "("+Math.round(item.h*60/item.min)+" tasks/wk × "+item.min+" min ÷ 60) = "+fH(item.h)+" hrs/wk  ["+item.l+"]";
+  }).join("\n");
+  var mTasks=document.getElementById("calc-maths-tasks");
+  if(mTasks)mTasks.textContent=taskLines;
+  var mHours=document.getElementById("calc-maths-hours");
+  if(mHours)mHours.textContent=fH(wH)+" hrs/wk × ("+mo+" months × 4.345 wks/month) = "+fH(wH)+" × "+fH(wk)+" = "+fH(tH)+" total hours";
+  var mValue=document.getElementById("calc-maths-value");
+  if(mValue)mValue.textContent=fH(tH)+" hrs × £"+rate+"/hr = £"+fN(tV);
+  var mWte=document.getElementById("calc-maths-wte");
+  if(mWte)mWte.textContent=fH(tH)+" hrs ÷ 1,650 = "+wte.toFixed(2)+" WTE";
+  var mChild=document.getElementById("calc-maths-children");
+  if(mChild)mChild.textContent=fH(tH)+" ÷ 6 = "+fN(tH/6)+" (lower)   |   "+fH(tH)+" ÷ 3.5 = "+fN(tH/3.5)+" (upper)";
+
+  var bdEl=document.getElementById("calc-breakdown"); bdEl.innerHTML="";
+  bd.sort(function(a,b){return b.h-a.h;}).forEach(function(t){
+    var r=document.createElement("div");r.className="cbreak-row";
+    r.innerHTML='<span class="cbreak-lbl">'+t.l+'</span><span class="cbreak-val">'+fH(t.h)+" hrs/wk</span>";
+    if(bdEl){bdEl.appendChild(r);}
+  });
+  var tot=document.createElement("div");tot.className="cbreak-row";
+  tot.innerHTML='<span style="color:rgba(255,255,255,0.7);font-weight:500;">Total per week</span><span style="color:#6dd0d0;font-weight:600;">'+fH(wH)+" hrs/wk</span>";
+  if(bdEl){bdEl.appendChild(tot);}
+}
+document.getElementById("calc-rate").addEventListener("input",function(){document.getElementById("calc-rate-val").textContent=this.value;recS();});
+document.querySelectorAll("[data-smonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-smonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active"); recS();
+  });
+});
+
+// Tool comparison
+var cc=document.getElementById("tool-cards");
+TOOLS.forEach(function(tool){
+  var card=document.createElement("div");
+  card.className="tool-card"+(tool.tested?" tool-card-tested":"");
+  card.id="card-"+tool.id;
+  var inputHtml=tool.editable?'<div class="tool-input-row"><span>£</span><input type="number" id="inp-'+tool.id+'" value="'+(tool.mpu||"")+'" placeholder="enter" min="0" max="999"><span style="font-size:0.78rem;color:rgba(255,255,255,0.5);">/user/month</span></div>':"";
+  var fHtml=tool.facts.map(function(f){
+    var c=f.i==="✓"?"#6dd0d0":f.i==="✗"?"#9e3a47":f.i==="!"?"#c07825":"rgba(255,255,255,0.35)";
+    return '<div class="tool-fact"><span style="color:'+c+';flex-shrink:0;">'+f.i+"</span><span>"+f.t+"</span></div>";
+  }).join("");
+  card.innerHTML='<div class="tool-name">'+tool.name+'</div><span class="tool-tag '+(tool.tested?"tool-tag-tested":"tool-tag-other")+'">'+(tool.tested?"Tested in CTM pilot":"Not tested in ND service")+'</span><div class="tool-cost-big" id="tcost-'+tool.id+'">—</div><div class="tool-cost-sub">estimated cost over period</div>'+inputHtml+'<div style="font-size:0.73rem;color:rgba(255,255,255,0.5);margin-bottom:0.8rem;line-height:1.4;">'+tool.note+"</div>"+fHtml;
+  if(cc){cc.appendChild(card);}
+  if(tool.editable){
+    var inp=card.querySelector("input[type=number]");
+    if(inp)inp.addEventListener("input",function(){tool.mpu=parseFloat(this.value)||null;recC();});
+  }
+});
+
+// Needs table
+var th=document.getElementById("ncmp-head");
+var hr=document.createElement("tr");
+hr.innerHTML='<th scope="col" class="ncmp-th" style="min-width:240px;">User need (from ND pathway research)</th>';
+TOOLS.forEach(function(t){hr.innerHTML+='<th scope="col" class="ncmp-th" style="text-align:center;">'+t.name+"</th>";});
+if(th){th.appendChild(hr);}
+var tb=document.getElementById("ncmp-body");
+DIMS.forEach(function(d){
+  var tr=document.createElement("tr");tr.className="ncmp-tr";
+  var td=document.createElement("td");td.className="ncmp-td";
+  td.innerHTML='<div class="ncmp-need">'+d.l+"</div>";tr.appendChild(td);
+  TOOLS.forEach(function(tool){
+    var v=tool.needs[d.k]||"?";
+    var c=v==="✓"?"c-yes":v==="~"?"c-maybe":v==="✗"?"c-no":"c-unk";
+    var ntd=document.createElement("td");ntd.className="ncmp-td";
+    ntd.innerHTML='<span class="ncmp-conf '+c+'">'+v+"</span>";tr.appendChild(ntd);
+  });
+  if(tb){tb.appendChild(tr);}
+});
+
+function recC(){
+  var clin=parseInt(document.getElementById("cmp-clin").value,10);
+  var tpw=parseInt(document.getElementById("cmp-tasks").value,10);
+  var ab=document.querySelector("[data-cmonths].pcalc-active");
+  var mo=ab?parseInt(ab.dataset.cmonths,10):12;
+  var wk=mo*WPM;
+  TOOLS.forEach(function(tool){
+    var cost=null;
+    if(tool.perUse!=null) cost=tool.perUse*tpw*clin*wk;
+    else if(tool.mpu!=null) cost=tool.mpu*clin*mo;
+    var el=document.getElementById("tcost-"+tool.id);
+    if(el){el.textContent=cost!=null?"£"+fN(cost):"—";el.style.color=cost!=null?"#6dd0d0":"rgba(255,255,255,0.25)";}
+  });
+}
+document.getElementById("cmp-clin").addEventListener("input",function(){document.getElementById("cmp-clin-val").textContent=this.value;recC();});
+document.getElementById("cmp-tasks").addEventListener("input",function(){document.getElementById("cmp-tasks-val").textContent=this.value;recC();});
+document.querySelectorAll("[data-cmonths]").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("[data-cmonths]").forEach(function(x){x.classList.remove("pcalc-active");});
+    b.classList.add("pcalc-active");recC();
+  });
+});
+
+recS(); recC();
+</script>
+
+
+
+</body></html>
